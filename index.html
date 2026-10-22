@@ -39,7 +39,7 @@ body{display:grid;place-items:center;background:#0b0d14;color:#fff}
 .status .signals{display:flex;gap:6px;align-items:center}
 .status svg{height:13px;width:auto}
 
-main{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));row-gap:24px;column-gap:0;padding:80px 0 0;margin:0;align-content:start;width:100%}
+main{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));row-gap:24px;column-gap:0;padding:80px 0 0;margin:0;align-content:start;width:100%;flex:1 1 auto;min-height:0}
 a{color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;font-weight:500;text-shadow:0 1px 4px #10285e80;min-width:0}
 .icon{position:relative;width:60px;height:60px;border-radius:15px;display:grid;place-items:center;overflow:hidden;
   background:linear-gradient(150deg,#ffffffee,#ffffffb8);
@@ -52,7 +52,7 @@ svg{width:100%;height:100%;display:block}
 .search svg{width:14px;height:14px}
 
 /* 독: 좌우 여백 0 */
-.dock{position:relative;z-index:1;margin:0;width:100%;height:92px;flex-shrink:0;border-radius:36px 36px 0 0;border-left:0;border-right:0;border-bottom:0;
+.dock{position:relative;z-index:1;margin:auto 0 0;width:100%;height:92px;flex-shrink:0;border-radius:36px 36px 0 0;border-left:0;border-right:0;border-bottom:0;
   display:flex;align-items:center;justify-content:space-evenly;padding:0 8px 6px}
 .dock .icon{width:60px;height:60px;border-radius:15px}
 .dock a{gap:0;text-shadow:none;transform:translateY(0)}
