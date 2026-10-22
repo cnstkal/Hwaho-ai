@@ -58,7 +58,11 @@ svg{width:100%;height:100%;display:block}
 
 .homebar{position:absolute;z-index:7;left:50%;transform:translateX(-50%);bottom:8px;width:136px;height:5px;border-radius:9px;background:#fff;cursor:pointer;touch-action:manipulation}
 
-iframe{display:none;position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;z-index:5}
+iframe{display:none;position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;z-index:5;opacity:0;transform:translateY(8px) scale(.985);transform-origin:center;will-change:opacity,transform}
+iframe.app-entering{display:block;animation:appEnter .28s cubic-bezier(.2,.8,.2,1) both}
+iframe.app-leaving{display:block;animation:appLeave .18s ease-in both}
+@keyframes appEnter{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes appLeave{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(5px) scale(.99)}}
 /* 하단 홈 인디케이터가 앱 종료/홈 복귀 역할을 대신합니다. */
 
 /* 데스크톱에서만 폰 프레임, 모바일은 꽉 찬 화면 */
@@ -85,15 +89,29 @@ iframe{display:none;position:absolute;inset:0;width:100%;height:100%;border:0;ba
 <a href="yuyu.html"><span class="icon"><svg viewBox="0 0 40 40"><defs><linearGradient id="yuyuBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8a4ff"/><stop offset="1" stop-color="#7560e8"/></linearGradient></defs><rect width="40" height="40" rx="10" fill="url(#yuyuBg)"/><path d="M8 11.5A5.5 5.5 0 0 1 13.5 6h13A5.5 5.5 0 0 1 32 11.5v11a5.5 5.5 0 0 1-5.5 5.5H19l-7 5v-5.6a5.5 5.5 0 0 1-4-5.3z" fill="#fff"/><path d="m20 10 1.7 4.3L26 16l-4.3 1.7L20 22l-1.7-4.3L14 16l4.3-1.7z" fill="#8c79ef"/><circle cx="26.5" cy="23.5" r="2" fill="#b7a8ff"/></svg></span>yuyu</a>
 </main>
 
-<div class="search glass"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>검색</div>
-
 <div class="dock glass"><a href="Phone.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#35c759"/><path d="M12 7c-2 0-4 2-4 4 0 11 10 21 21 21 2 0 4-2 4-4v-4l-7-3-3 4c-4-2-6-4-8-8l4-3-3-7z" fill="white"/></svg></span></a><a href="Kakaotalk.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#fee500"/><path d="M20 8C12.8 8 7 12.5 7 18c0 3.3 2.1 6.2 5.4 7.9l-1.2 5.2 6.1-3.3c.9.1 1.8.2 2.7.2 7.2 0 13-4.5 13-10S27.2 8 20 8z" fill="#342b22"/></svg></span></a><a href="IMessage.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#29c65a"/><path d="M20 6C12 6 6 11.2 6 17.8c0 3.4 1.7 6.4 4.5 8.5l-1 6 6.3-3.2c1.3.4 2.7.6 4.2.6 8 0 14-5.2 14-11.8S28 6 20 6z" fill="white"/></svg></span></a><a href="Photo.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#f8f8fa"/><circle cx="20" cy="20" r="13" fill="#ff8b9b"/><circle cx="20" cy="20" r="6" fill="white"/></svg></span></a></div>
 <div class="homebar" role="button" tabindex="0" aria-label="홈으로 이동"></div><iframe id="app" title="앱"></iframe>
 <script>
 const frame=document.getElementById('app'),homebar=document.querySelector('.homebar');
-function goHome(){frame.src='about:blank';frame.style.display='none';}
+let closeTimer;
+function goHome(){
+  if(frame.style.display==='none') return;
+  frame.classList.remove('app-entering');
+  frame.classList.add('app-leaving');
+  clearTimeout(closeTimer);
+  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';frame.classList.remove('app-leaving','app-entering');},180);
+}
 function tick(){const d=new Date(),h=d.getHours()%12||12,m=String(d.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m}tick();setInterval(tick,10000);
-document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();frame.src=a.getAttribute('href');frame.style.display='block'}));
+document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  clearTimeout(closeTimer);
+  frame.classList.remove('app-leaving','app-entering');
+  frame.style.display='block';
+  frame.src=a.getAttribute('href');
+  void frame.offsetWidth;
+  frame.classList.add('app-entering');
+}));
+frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
 homebar.addEventListener('click',goHome);
 homebar.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goHome()}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')goHome()});
