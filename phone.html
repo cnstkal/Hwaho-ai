@@ -703,6 +703,7 @@ const PhoneApp = (() => {
   const CHO = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ", MAP = { ㄲ: "ㄱ", ㄸ: "ㄷ", ㅃ: "ㅂ", ㅆ: "ㅅ", ㅉ: "ㅈ" };
   function grp(n) { const c = n.charCodeAt(0) - 0xAC00; if (c >= 0 && c < 11172) { let h = CHO[Math.floor(c / 588)]; h = MAP[h] || h; return [CHO.indexOf(h), h]; } const u = n[0].toUpperCase(); return /[A-Z]/.test(u) ? [100 + u.charCodeAt(0), u] : [999, "#"]; }
   let tab = "rec", filt = "all", edit = false, keyNum = "", conQ = "", ovs = [], call = null;
+  // 전화 앱을 단독으로 열면 스토리/잠금화면 없이 기본 전화 탭(최근 통화)부터 표시한다.
 
   /* ---- 페이지 ---- */
   const empty = t => `<div class="tl-empty">${t}</div>`;
