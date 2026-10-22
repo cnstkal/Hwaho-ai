@@ -228,7 +228,7 @@ document.querySelectorAll('[data-rp]').forEach(e=>e.onclick=ev=>{if(ev.target.ta
 document.querySelectorAll('[data-del]').forEach(a=>a.onclick=()=>{if(confirm('댓글 삭제?')){const d=+a.dataset.del;S.cmts=S.cmts.filter(c=>c.id!=d&&c.pr!=d);save();view(id)}});
 if(rp)$('#rc').onclick=()=>{Q.reply=null;view(id)};
 $('#cok').onclick=()=>{const t=$('#ct').value.trim(),n=$('#cn').value.trim()||'ㅇㅇ';if(!t){alert('댓글 내용을 입력하세요.');return}
-S.me=n;S.cmts.push({id:S.cid++,pid:+id,pr:Q.reply,n,fx:n===S.me?1:0,t,d:now().c,mine:1});Q.reply=null;save();view(id);window.scrollTo(0,document.body.scrollHeight)}}
+S.me=n;S.cmts.push({id:S.cid++,pid:+id,pr:Q.reply,n:'ㅇㅇ',ip:randIp(),fx:0,t,d:now().c,mine:1});Q.reply=null;save();view(id);window.scrollTo(0,document.body.scrollHeight)}}
 function write(id){const p=id&&S.posts.find(p=>p.id==id)||{h:'일반',t:'',body:''};Q.pending=p.img?[p.img]:[];
 $('#app').innerHTML=head()+`<div class="wf"><select><option>${GAL}</option></select><select id="wh">${HEADS.map(h=>`<option ${h==p.h?'selected':''}>${h}</option>`).join('')}</select>
 <input type="text" id="wt" placeholder="제목" value="${esc(p.t)}"><textarea id="wb" placeholder="내용을 입력하세요.">${esc(p.body)}</textarea>
@@ -238,11 +238,11 @@ const pv=()=>$('#pv').innerHTML=Q.pending.map(s=>`<img src="${s}">`).join('');pv
 $('#wf').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,600/im.width),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);Q.pending=[c.toDataURL('image/jpeg',.7)];pv()};im.src=r.result};r.readAsDataURL(f)};
 $('#wc').onclick=()=>history.back();
 $('#wo').onclick=()=>{const t=$('#wt').value.trim(),b=$('#wb').value.trim();if(!t||!b){alert('제목과 내용을 입력하세요.');return}
-if(id){Object.assign(p,{t,body:b,h:$('#wh').value,img:Q.pending[0]||''})}else{const d=now();S.posts.push({id:S.nid,t,body:b,h:$('#wh').value,w:S.me,fx:1,d:d.f,dl:d.l,v:0,r:0,ty:Q.pending[0]?'i':'t',img:Q.pending[0]||'',mine:1,ip:''});id=S.nid++}
+if(id){Object.assign(p,{t,body:b,h:$('#wh').value,img:Q.pending[0]||''})}else{const d=now();S.posts.push({id:S.nid,t,body:b,h:$('#wh').value,w:'ㅇㅇ',fx:0,d:d.f,dl:d.l,v:0,r:0,ty:'t',img:'',mine:1,ip:randIp()});id=S.nid++}
 save();Q.head='전체';Q.tab='all';Q.q='';go('#/p/'+id)}}
 function render(){const h=location.hash||'#/',m=h.match(/^#\/(p|w)\/?(\d+)?/);
 $('.fab')&&0;if(!m)list();else if(m[1]==='p')view(m[2]);else write(m[2]);
-$('#bk').disabled=history.length<2;}
+}
 window.onhashchange=()=>{render();window.scrollTo(0,0)};
 render();
 </script></body></html>
