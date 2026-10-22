@@ -33,7 +33,10 @@ body{display:grid;place-items:center;background:#0b0d14;color:#fff}
   box-shadow:inset 0 1px 1px #ffffffb3,inset 0 -1px 2px #ffffff30,0 10px 30px #0a1d5a40}
 
 .status{position:absolute;top:0;left:0;right:0;z-index:10;height:calc(54px + env(safe-area-inset-top,0px));flex-shrink:0;padding:calc(16px + env(safe-area-inset-top,0px)) 30px 0 34px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;background:var(--app-status-bg,transparent);transition:background-color .18s ease}
-.status #clock{font-size:17px;font-weight:600;letter-spacing:-.3px;color:#fff;text-shadow:0 1px 3px #0a1d5a40}
+.status #clock{font-size:17px;font-weight:600;letter-spacing:-.3px;color:var(--status-fg,#111)!important;text-shadow:none}
+.status .signals{color:var(--status-fg,#111)!important}
+.status .signals svg path,.status .signals svg rect{stroke:currentColor}
+.status .signals svg #battery-fill{fill:currentColor}
 .island{overflow:hidden;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:width .38s cubic-bezier(.2,.9,.25,1),height .38s cubic-bezier(.2,.9,.25,1),border-radius .38s cubic-bezier(.2,.9,.25,1);position:absolute;left:50%;top:calc(11px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:120px;height:35px;border-radius:20px;background:#000}
 .status .signals{display:flex;gap:6px;align-items:center}
 .status svg{height:13px;width:auto}
@@ -145,7 +148,7 @@ function syncStatusBar(){
       const nums=fg.split(',').slice(0,3).map(v=>parseFloat(v.trim()));
       if(nums.length===3){
         const luminance=(.2126*nums[0]+.7152*nums[1]+.0722*nums[2])/255;
-        status.style.color=luminance>0.62?'#111':'#fff';
+        status.style.setProperty('--status-fg',luminance>0.62?'#111':'#fff');
         status.querySelectorAll('svg').forEach(svg=>svg.style.color=status.style.color);
       }
     }
