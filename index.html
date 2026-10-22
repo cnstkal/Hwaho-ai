@@ -32,7 +32,7 @@ body{display:grid;place-items:center;background:#0b0d14;color:#fff}
   border:1px solid #ffffff59;
   box-shadow:inset 0 1px 1px #ffffffb3,inset 0 -1px 2px #ffffff30,0 10px 30px #0a1d5a40}
 
-.status{position:absolute;top:0;left:0;right:0;z-index:8;height:54px;flex-shrink:0;padding:16px 30px 0 34px;display:flex;justify-content:space-between;align-items:center;pointer-events:none}
+.status{position:absolute;top:0;left:0;right:0;z-index:8;height:54px;flex-shrink:0;padding:16px 30px 0 34px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;background:var(--app-status-bg,transparent);transition:background-color .18s ease;backdrop-filter:blur(18px) saturate(145%);-webkit-backdrop-filter:blur(18px) saturate(145%)}
 .status #clock{font-size:17px;font-weight:600;letter-spacing:-.3px;mix-blend-mode:difference}
 .status .signals{mix-blend-mode:difference}
 .island{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:120px;height:35px;border-radius:20px;background:#000}
@@ -116,7 +116,7 @@ function goHome(){
   frame.classList.add('app-leaving');
   phone.classList.remove('app-opening');phone.classList.add('app-closing');
   clearTimeout(closeTimer);
-  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';frame.classList.remove('app-leaving','app-entering');phone.classList.remove('app-closing');},240);
+  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');document.querySelector('.status').style.color='';frame.classList.remove('app-leaving','app-entering');phone.classList.remove('app-closing');},240);
 }
 function tick(){const d=new Date(),h=d.getHours()%12||12,m=String(d.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m}tick();setInterval(tick,10000);
 // 브라우저가 배터리 상태 접근을 지원하는 경우 실제 잔량을 표시합니다.
@@ -132,6 +132,30 @@ document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
   void frame.offsetWidth;
   frame.classList.add('app-entering');
 }));
+function syncStatusBar(){
+  const status=document.querySelector('.status');
+  try{
+    const d=frame.contentDocument;
+    if(!d){status.style.setProperty('--app-status-bg','transparent');return;}
+    const transparent=v=>!v||v==='transparent'||v==='rgba(0, 0, 0, 0)';
+    const candidates=[d.querySelector('header'),d.querySelector('nav'),d.querySelector('main'),d.querySelector('[role="main"]'),d.body,d.documentElement].filter(Boolean);
+    let color='';
+    for(const el of candidates){
+      const bg=frame.contentWindow.getComputedStyle(el).backgroundColor;
+      if(!transparent(bg)){color=bg;break;}
+    }
+    status.style.setProperty('--app-status-bg',color||'transparent');
+    const fg=(color.match(/rgba?\(([^)]+)\)/)||[])[1];
+    if(fg){
+      const nums=fg.split(',').slice(0,3).map(v=>parseFloat(v.trim()));
+      if(nums.length===3){
+        const luminance=(.2126*nums[0]+.7152*nums[1]+.0722*nums[2])/255;
+        status.style.color=luminance>0.62?'#111':'#fff';
+        status.querySelectorAll('svg').forEach(svg=>svg.style.color=status.style.color);
+      }
+    }
+  }catch(e){status.style.setProperty('--app-status-bg','transparent');}
+}
 function silenceApp(){
   try{
     const w=frame.contentWindow,d=frame.contentDocument;
@@ -163,7 +187,7 @@ function silenceApp(){
     }
   }catch(e){}
 }
-frame.addEventListener('load',silenceApp);
+frame.addEventListener('load',()=>{silenceApp();syncStatusBar();});
 frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
 homebar.addEventListener('click',goHome);
 homebar.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goHome()}});
