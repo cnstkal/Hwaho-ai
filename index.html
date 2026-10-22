@@ -100,6 +100,8 @@ iframe.app-leaving{display:block;animation:appLeave .24s cubic-bezier(.4,0,1,1) 
 <div class="homebar" role="button" tabindex="0" aria-label="홈으로 이동"></div><iframe id="app" title="앱"></iframe>
 <script>
 const frame=document.getElementById('app'),homebar=document.querySelector('.homebar'),phone=document.getElementById('phone');
+function sizeAppFrame(){frame.style.setProperty('position','absolute','important');frame.style.setProperty('top','0','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom','24px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',(phone.clientHeight-24)+'px','important');}
+sizeAppFrame();window.addEventListener('resize',sizeAppFrame);
 let closeTimer;
 function goHome(){
   if(frame.style.display==='none') return;
@@ -118,6 +120,7 @@ document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
   phone.classList.remove('app-closing','app-opening');phone.classList.add('app-opening');
   frame.classList.remove('app-leaving','app-entering');
   frame.style.display='block';
+  sizeAppFrame();
   frame.src=a.getAttribute('href');
   void frame.offsetWidth;
   frame.classList.add('app-entering');
