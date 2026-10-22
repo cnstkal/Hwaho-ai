@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>메모</title>
+<style>
+:root{--bg:#f2f2f7;--card:#fff;--tx:#000;--sub:#8a8a8e;--ln:#e0e0e4;--y:#d9a921;--bar:rgba(242,242,247,.92);--doc:#fff;box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#000;--card:#1c1c1e;--tx:#fff;--sub:#98989f;--ln:#38383a;--bar:rgba(0,0,0,.9);--doc:#000}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+#app{max-width:520px;margin:0 auto;height:100%;position:relative;overflow:hidden;padding-top:env(safe-area-inset-top,0px)}
+#app.d{background:var(--doc)}body.d{background:var(--doc)}
+#top{height:50px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:.5px solid var(--ln)}
+.c{height:36px;min-width:36px;border-radius:18px;background:var(--card);border:.5px solid var(--ln);box-shadow:0 2px 8px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;color:var(--tx);font-size:16px;padding:0 14px;cursor:pointer;font-family:inherit}
+.c svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#main{position:absolute;top:calc(51px + env(safe-area-inset-top,0px));bottom:0;left:0;right:0;overflow-y:auto;padding:0 14px 100px}
+h1{font-size:27px;margin:10px 0 2px;font-weight:800}
+.cnt{color:var(--sub);font-size:13px;margin-bottom:10px}
+h2{font-size:16px;margin:16px 0 7px;font-weight:700}
+.card{background:var(--card);border-radius:18px;overflow:hidden}
+.fr{display:flex;align-items:center;padding:0 14px;height:44px;cursor:pointer}
+.fr.s{padding-left:34px}
+.fr .n{flex:1;font-size:15px;margin-left:12px;border-bottom:0}
+.fr .k{color:var(--sub);font-size:15px;margin-right:6px}
+.fr svg.i{width:24px;height:21px;stroke:var(--y);fill:none;stroke-width:1.8}
+.fr svg.ch{width:14px;height:14px;stroke:var(--sub);fill:none;stroke-width:2.5}
+.fw{position:relative}.fw+.fw:before{content:"";position:absolute;top:0;left:50px;right:16px;border-top:.5px solid var(--ln)}
+.it{padding:9px 16px;cursor:pointer;position:relative}
+.it+.it:before{content:"";position:absolute;top:0;left:20px;right:20px;border-top:.5px solid var(--ln)}
+.it b{display:block;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.it span{display:block;font-size:13px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
+.it span i{font-style:normal;color:var(--sub);margin-right:10px}
+.it span em{font-style:normal;margin-right:10px;color:var(--tx);opacity:.55}
+#bar{position:absolute;left:0;right:0;bottom:0;padding:8px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:12px;align-items:center;background:var(--bar);backdrop-filter:blur(14px);border-top:.5px solid var(--ln)}
+#bar .c{height:42px;min-width:42px;border-radius:21px}
+.sp{flex:1}
+.sr{flex:1;display:flex;align-items:center;gap:8px;height:42px;border-radius:21px;background:var(--card);border:.5px solid var(--ln);box-shadow:0 2px 8px rgba(0,0,0,.06);padding:0 16px}
+.sr input{flex:1;border:0;background:none;font-size:15px;color:var(--tx);outline:0;min-width:0;font-family:inherit}
+.sr svg{width:18px;height:18px;stroke:var(--tx);fill:none;stroke-width:2;stroke-linecap:round}
+.tools{display:flex;gap:2px;height:42px;border-radius:21px;background:var(--card);border:.5px solid var(--ln);box-shadow:0 2px 8px rgba(0,0,0,.06);padding:0 14px;align-items:center}
+.tools button{border:0;background:none;color:var(--tx);width:40px;height:38px;display:flex;align-items:center;justify-content:center}
+.tools svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ed{padding:20px 20px 0}
+.row{display:flex;align-items:flex-start;gap:8px;min-height:26px}
+.row .t{flex:1;font-size:16px;line-height:1.5;outline:0;white-space:pre-wrap;word-break:break-word;min-height:24px;opacity:.85}
+.row.h .t{font-size:23px;font-weight:700;opacity:1;line-height:1.3;margin-bottom:8px}
+.row.dn .t{text-decoration:line-through;color:var(--sub)}
+.cb{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--sub);margin-top:2px;flex:none;display:flex;align-items:center;justify-content:center}
+.cb.on{background:var(--y);border-color:var(--y)}
+.cb.on:after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.4px 2.4px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.emp{color:var(--sub);text-align:center;margin-top:60px;font-size:17px}
+#toast{position:absolute;left:50%;bottom:100px;transform:translateX(-50%);background:rgba(40,40,42,.92);color:#fff;padding:10px 16px;border-radius:18px;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+</style></head><body>
+<div id="app"><div id="top"></div><div id="main"></div><div id="bar"></div><div id="toast"></div></div>
+<script>
+const K='ios_memo_app_v1',DAY=864e5,NOW=Date.now();
+const FD=[{id:'all',n:'모든 나의 iPhone'},{id:'memo',n:'메모'},{id:'g',n:'글',ch:1},{id:'dot',n:'.',sub:1},{id:'trash',n:'최근 삭제된 항목',t:1}];
+const P=t=>t.split('\n').map(s=>s.startsWith('[ ] ')?{t:s.slice(4),c:false}:s.startsWith('[x] ')?{t:s.slice(4),c:true}:{t:s});
+const N=(f,d,m,t,del)=>({id:Math.random().toString(36).slice(2),f,ts:NOW-d*DAY-m*6e4,L:P(t),del:!!del});
+function seed(){return[
+N('memo',0,40,"오늘 할 일\n[x] 10시 서비스마케팅 수업\n[x] 도서관 책 반납\n[ ] 과제 3 제출 (자정까지)\n[ ] 장보기\n[ ] 엄마한테 전화"),
+N('memo',1,200,"이번 주 일정\n목 10:30 조별 모임 (학관 2층)\n금 오후 2시 치과\n토 저녁 7시 성화 — 아직 답 안 함\n일 하루 쉬기"),
+N('memo',1,500,"장보기\n[ ] 우유\n[ ] 계란\n[ ] 두부\n[ ] 세탁세제\n[ ] 양말"),
+N('memo',2,90,"성화한테 할 말\n전화 말고 만나서 얘기하기.\n순서: 고마웠던 것 → 힘들었던 것 → 이제 그만하자.\n울면서 잡아도 마음은 안 바뀐다고 미리 생각해 두기.\n카페 말고 사람 적은 곳으로."),
+N('memo',3,300,"시험 시간표\n소득세 실무 10시 613호\n법인세신고실무 11시 612호\n고객관계관리 1시 309호\n소비자행동론 2시"),
+N('memo',4,120,"그만해야 할 것들\n- 답장 늦으면 먼저 불안해하기\n- 괜찮다고 해놓고 안 괜찮은 척하기\n- 싸운 뒤에 내가 먼저 연락하기\n- 미안하지 않은 일에 미안하다고 하기\n- 같은 얘기 세 번째 설명하기"),
+N('memo',6,60,"잊지 말기\n택배 금요일까지 수령\n학생증 재발급\n보조배터리 충전\n성화가 빌려간 우산 — 안 받아도 됨"),
+N('memo',9,400,"카페 알바 교대\n수 18-22 (민지랑 교대)\n토 10-16\n시급 정산일 25일"),
+N('memo',13,30,"카뱅 모듀의카드\n오프라인 결제 메가커피, 다이소, 지하철\n월 30만원 이상 사용 시 혜택"),
+N('memo',24,10,"엄마 생일 선물\n[ ] 목도리\n[ ] 케이크 예약\n[ ] 카드 쓰기"),
+N('g',5,15,"마지막으로 하고 싶은 말\n성화야, 네가 나빴다고 쓰려는 게 아니야.\n네가 잘해주려고 애쓴 거 알아. 근데 나는 이제 그 노력을 받을 힘이 없어.\n몇 달 전부터 이미 마음이 멀어지고 있었고, 그걸 말 못 한 것도 내 잘못이야.\n이 글은 보내지 않을 거야. 만나서 직접 말할 거야."),
+N('g',18,100,"책 메모\n'관계에도 마감이 있다'는 문장.\n끝낼 때 필요한 건 확신이 아니라 용기라는 얘기.\n도서관 3층 에세이 칸."),
+N('dot',12,250,"다시 생각해 보기\n8월 — 처음 말하려다 못 함.\n9월 — 같은 일로 또 싸움. 바뀐다고 했는데 2주 갔다.\n10월 — 매일 연락이 오는데 답하는 게 점점 힘들다.\n붙잡히면 또 흔들릴 것 같아서 더 단단하게 마음먹어야 함."),
+N('dot',16,20,"성화 연락 정리\n새벽 2시 \"한 번만 더 얘기하자\"\n아침 \"밥은 먹었어?\"\n점심 \"안 읽어도 되니까 읽으면 연락줘\"\n답장 안 함. 오늘은 일단 그렇게."),
+N('memo',40,0,"예전 일정\n지난 학기 시간표 메모",1),
+N('memo',30,0,"성화 생일 선물 아이디어\n지갑, 향수, 편지",1)]}
+let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!S||!S.n){S={n:seed(),open:true}}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+let V='f',F='all',cur=null,q='',idx=0;
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const IC={back:'<path d="M15 4l-8 8 8 8"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',restore:'<path d="M4 12a8 8 0 1 0 3-6M4 4v5h5"/>',comp:'<path d="M12 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-6M18 3l3 3-9 9-4 1 1-4z"/>',srch:'<circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/>',chk:'<circle cx="6" cy="6.5" r="3"/><path d="M5 6.5l1 1 2-2.5M6 17m-3 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0M13 6h8M13 17h8"/>',clip:'<path d="M20 11l-8.5 8.5a5 5 0 0 1-7-7L13 4a3.3 3.3 0 0 1 5 5l-8.5 8.5a1.7 1.7 0 0 1-2.5-2.5L14 8"/>',mk:'<circle cx="12" cy="12" r="9"/><path d="M8 17l4-10 4 10M9.5 14h5"/>'};
+const ic=k=>`<svg viewBox="0 0 24 24">${IC[k]}</svg>`;
+function scope(f){return S.n.filter(n=>f==='trash'?n.del:!n.del&&(f==='all'||n.f===f||(f==='g'&&n.f==='dot')))}
+function toast(m){const t=$('#toast');t.textContent=m;t.style.opacity=1;setTimeout(()=>t.style.opacity=0,1600)}
+function title(n){return n.L[0].t.trim()||'새로운 메모'}
+function prev(n){const l=n.L.slice(1).find(x=>x.t.trim());return l?l.t.trim():'추가 텍스트 없음'}
+function fd(t){const d=new Date(t),s=x=>new Date(x).setHours(0,0,0,0),k=Math.round((s(NOW)-s(t))/DAY);
+if(k<=0){const h=d.getHours();return(h<12?'오전 ':'오후 ')+(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0')}
+if(k<7)return'일월화수목금토'[d.getDay()]+'요일';return`${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}.`}
+function grp(t){const k=Math.round((new Date(NOW).setHours(0,0,0,0)-new Date(t).setHours(0,0,0,0))/DAY);return k<=0?'오늘':k<=7?'이전 7일':k<=30?'이전 30일':'이전 1년 이내'}
+function go(v,f){V=v;if(f)F=f;q='';render()}
+function render(){
+document.body.classList.toggle('d',V==='d');$('#app').classList.toggle('d',V==='d');
+const T=$('#top'),B=$('#bar');
+if(V==='f'){T.innerHTML='<span></span><span></span>';B.innerHTML=sbar()}
+else if(V==='l'){T.innerHTML=`<button class="c" id="bk">${ic('back')}</button><span></span>`;$('#bk').onclick=()=>go('f');B.innerHTML=sbar()}
+else{const n=cur;T.innerHTML=`<button class="c" id="bk">${ic('back')}</button><button class="c" id="ac">${ic(n.del?'restore':'trash')}</button>`;
+$('#bk').onclick=back;$('#ac').onclick=()=>{if(n.del){n.del=false;toast('복원했어요')}else{n.del=true;n.ts=Date.now();toast('최근 삭제된 항목으로 이동했어요')}save();cur=null;go('l')};
+B.innerHTML=`<div class="tools"><button id="tc">${ic('chk')}</button><button id="ta">${ic('clip')}</button><button id="tm">${ic('mk')}</button></div><span class="sp"></span><button class="c" id="nw">${ic('comp')}</button>`;
+$('#tc').onclick=()=>{const l=n.L[idx||0];if(!idx)return toast('제목 아래 줄에서 사용할 수 있어요');l.c=l.c===undefined?false:undefined;n.ts=Date.now();save();ed(idx)};
+$('#ta').onclick=$('#tm').onclick=()=>toast('이 버전에서는 지원하지 않아요');$('#nw').onclick=()=>{back();newNote()}}
+if(V!=='d'){$('#nw').onclick=newNote;const i=$('#q');i.value=q;i.oninput=()=>{q=i.value;if(V==='f'&&q){V='l';F='all';render();$('#q').focus();$('#q').setSelectionRange(q.length,q.length)}else main()}}
+main()}
+function sbar(){return`<div class="sr">${ic('srch')}<input id="q" placeholder="검색" enterkeyhint="search"></div><button class="c" id="nw">${ic('comp')}</button>`}
+function main(){const M=$('#main');
+if(V==='f'){let h=`<h1>폴더</h1><div class="cnt">나의 iPhone · 이 브라우저에 저장됨</div><div class="card">`;
+FD.forEach(f=>{if(f.sub&&!S.x)return;const c=scope(f.id).length;
+h+=`<div class="fw"><div class="fr ${f.sub?'s':''}" data-f="${f.id}"><svg class="i" viewBox="0 0 30 26">${f.t?'<path d="M8 6h14l-1 17H9zM5 6h20M12 6V3h6v3"/>':'<path d="M2 5q0-2 2-2h8l3 3h11q2 0 2 2v13q0 2-2 2H4q-2 0-2-2zM2 9h26"/>'}</svg><span class="n">${f.n}</span><span class="k">${c}</span>${f.ch?`<svg class="ch" data-x="1" viewBox="0 0 14 14"><path d="${S.x?'M2 4l5 5 5-5':'M5 2l5 5-5 5'}"/></svg>`:'<svg class="ch" viewBox="0 0 14 14"><path d="M5 2l5 5-5 5"/></svg>'}</div></div>`});
+M.innerHTML=h+'</div>';
+M.querySelectorAll('.fr').forEach(e=>e.onclick=ev=>{if(ev.target.closest('[data-x]')){S.x=!S.x;main();return}go('l',e.dataset.f)});return}
+if(V==='l'){let a=scope(F).slice().sort((x,y)=>y.ts-x.ts);const tt=q.trim().toLowerCase();
+if(tt)a=a.filter(n=>n.L.some(l=>l.t.toLowerCase().includes(tt)));
+const nm=FD.find(f=>f.id===F).n;let h=`<h1>${tt?'검색':nm}</h1><div class="cnt">${a.length}개의 메모</div>`;
+if(!a.length)h+='<div class="emp">메모 없음</div>';
+let g='';a.forEach(n=>{const k=F==='trash'?'삭제됨':grp(n.ts);if(k!==g){if(g)h+='</div>';h+=`<h2>${k}</h2><div class="card">`;g=k}
+h+=`<div class="it" data-i="${n.id}"><b>${esc(title(n))}</b><span><i>${fd(n.ts)}</i>${esc(prev(n))}</span></div>`});
+M.innerHTML=h+(g?'</div>':'');M.querySelectorAll('.it').forEach(e=>e.onclick=()=>{cur=S.n.find(n=>n.id===e.dataset.i);idx=0;V='d';render()});return}
+M.innerHTML='<div class="ed" id="ed"></div>';ed(-1)}
+function ed(foc){const E=$('#ed'),n=cur;E.innerHTML='';
+n.L.forEach((l,i)=>{const r=document.createElement('div');r.className='row'+(i?'':' h')+(l.c?' dn':'');
+if(l.c!==undefined&&i){const b=document.createElement('div');b.className='cb'+(l.c?' on':'');b.onclick=()=>{l.c=!l.c;n.ts=Date.now();save();ed(i)};r.appendChild(b)}
+const t=document.createElement('div');t.className='t';t.textContent=l.t;t.contentEditable=!n.del;if(!i)t.dataset.ph=1;
+t.onfocus=()=>idx=i;
+t.oninput=()=>{l.t=t.innerText.replace(/\n/g,'');n.ts=Date.now();save()};
+t.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();const nl=l.c!==undefined&&l.t&&i?{t:'',c:false}:{t:''};if(l.c!==undefined&&!l.t&&i){l.c=undefined;save();return ed(i)}n.L.splice(i+1,0,nl);save();ed(i+1)}
+else if(e.key==='Backspace'&&!l.t&&i>0){e.preventDefault();n.L.splice(i,1);save();ed(i-1)}};
+r.appendChild(t);E.appendChild(r)});
+if(foc>=0&&!n.del){const t=E.children[foc].querySelector('.t');t.focus();const s=getSelection(),g=document.createRange();g.selectNodeContents(t);g.collapse(false);s.removeAllRanges();s.addRange(g)}}
+function back(){if(cur&&!cur.del&&cur.L.every(l=>!l.t.trim())){S.n=S.n.filter(n=>n!==cur)}save();cur=null;go('l')}
+function newNote(){const f=(F==='all'||F==='trash')?'memo':F;const n={id:Math.random().toString(36).slice(2),f,ts:Date.now(),L:[{t:''}],del:false};S.n.push(n);cur=n;idx=0;V='d';render();ed(0)}
+render();
+</script></body></html>
