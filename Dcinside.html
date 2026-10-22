@@ -7,10 +7,10 @@
 html,body{background:#fff;color:#000;font:15px/1.4 -apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;overflow-x:hidden}
 .sv{display:inline-block;width:1em;height:1em;vertical-align:-.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .hd{padding-right:6px!important}.sb{min-width:0;overflow:hidden}.sb .rc{flex:none}
-#app{max-width:480px;margin:0 auto;padding:0 0 96px;min-height:100vh;overflow-x:hidden}
+#app{max-width:480px;margin:0 auto;padding:0 0 24px;min-height:100vh;overflow-x:hidden}
 button,input,select,textarea{font:inherit;color:inherit;border:0;background:none;outline:0}
 .nv{background:#3b4890}
-.fx{position:fixed;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:20;pointer-events:none}
+.fx{display:none!important;position:fixed;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:20;pointer-events:none}
 .cap{pointer-events:auto;background:#000;color:#fff;border-radius:30px;display:flex;align-items:center;justify-content:space-between;margin:0 12px}
 #top{top:8px}#top .cap{height:44px;padding:0 16px;font-size:20px}
 #bot{bottom:8px}#bot .cap{height:48px;padding:0 24px;margin:0 22px}
@@ -118,17 +118,11 @@ button,input,select,textarea{font:inherit;color:inherit;border:0;background:none
 .row2{display:flex;gap:8px}
 </style></head><body>
 <div id="app"></div>
-<div id="bot" class="fx"><div class="cap">
-<button id="bk"><svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8"/></svg></button>
-<button id="fw"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8"/></svg></button>
-<button id="sh"><svg viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M6 11H5v10h14V11h-1"/></svg></button>
-<button id="bkm"><svg viewBox="0 0 24 24"><path d="M12 6C9 4 6 4 3 5v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1zM12 6v14"/></svg></button>
-<button id="tb"><svg viewBox="0 0 24 24"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M5 8H4v12h12v-1"/></svg></button>
-</div></div>
+
 <script>
-const $=s=>document.querySelector(s),K='dc_v1';
-const GAL='최애 부도칸에 가준다면',HEADS=['일반','번역','정보','창작','애니','드라마','무대','리뷰','스포'];
-const IMG="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect width="150" height="150" fill="#f7a8b8"/><path d="M75 75L0 0h40zM75 75L150 20v50zM75 75L100 150H50z" fill="#ffd21f"/><circle cx="75" cy="70" r="30" fill="#f3d7b0"/><text x="75" y="135" font-size="30" font-weight="900" fill="#ffee33" text-anchor="middle">개추</text></svg>');
+const $=s=>document.querySelector(s),K='dc_yuyu_v2';
+const GAL='yuyu ai',HEADS=['일반','번역','정보','창작','애니','드라마','무대','리뷰','스포'];
+const IMG='';
 const sp=(id,t,h,w,fx,d,v,r,cm,ty,ip)=>({id,t,h,w,fx,d,v,r,cm,ty,body:t,ip:ip||''});
 function seed(){const p=[
 sp(16,'오카야마 모모애니축제에서 판다는 굿즈들','일반','○○',2,'10.20',18,0,1,'i'),
@@ -154,6 +148,9 @@ const c=[{id:1,pid:1,pr:null,n:'치요치요',fx:1,t:'그초 저는 그래서 �
 {id:4,pid:1,pr:1,n:'에리피요',fx:1,t:'@치요치요\n'+IMG,d:'08.01 21:06'}];
 return{posts:p,cmts:c,visited:[],votes:{},nid:17,cid:5,me:'최갤러'}}
 let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}if(!S)S=seed();
+const randIp=()=>`${10+Math.floor(Math.random()*240)}.${Math.floor(Math.random()*256)}.${Math.floor(Math.random()*256)}.${Math.floor(Math.random()*256)}`;
+S.posts.forEach(p=>{p.w='ㅇㅇ';p.ip=p.ip||randIp();p.v=Math.min(100,Math.max(0,Number(p.v)||0));p.img='';p.ty='t';});
+S.cmts.forEach(c=>{c.n='ㅇㅇ';c.ip=c.ip||randIp();c.fx=0;});
 if(!S.dm){S.dm=1;let i=100;const T=[['치요치요','여기는 콜라보 진짜 자주 하네','10.18 20:24'],['에리피요','ㄹㅇ 굿즈도 괜찮음','10.18 20:45'],['치요치요','https://youtu.be/yrgOHMuy0U0?si=TlHzFEFdujQQkAzf\n저도 이거 보고 왔음 ㅇㅅㅇ','10.18 21:05'],['에리피요','@치요치요\n'+IMG,'10.18 21:06']];
 [15,16,14,11,10,7,2].forEach((pid,k)=>{if(!S.posts.some(p=>p.id==pid))return;const t=T.slice(0,k%2?3:4),top=i++;
 S.cmts.push({id:top,pid,pr:null,n:T[0][0],fx:1,t:T[0][1],d:t[0][2]});
@@ -167,7 +164,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const fixI=o=>o?'<svg class="fi" viewBox="0 0 16 14"><rect width="13" height="11" rx="2" fill="#9a9ca6"/><path d="M3 8l3-3.2 2 2 2-2.8" stroke="#fff" stroke-width="1.4" fill="none"/><rect x="10.8" y="8.8" width="4" height="4" fill="#f5c518" stroke="#fff" stroke-width=".8"/></svg>':'';
 const fd=p=>{const d=p.d,z=n=>String(n).padStart(2,'0');if(/^\d{4}\.\d\d\.\d\d \d\d:\d\d:\d\d$/.test(d))return d;if(/^\d{4}\./.test(d))return d+':'+z(p.id*7%60);return'2026.'+d+' '+z(8+p.id*5%15)+':'+z(p.id*13%60)+':'+z(p.id*29%60)};
 const G='#a0a3ae',sv=(b,c)=>`<svg class="${c||'ia'}" viewBox="0 0 24 24">${b}</svg>`;
-const LI={i:sv('<circle cx="12" cy="12" r="11" fill="#4a9b6e"/><path d="M5.5 17.5l4-5.5 2.5 3 2-2.5 4.5 5z" fill="#fff"/><circle cx="15.5" cy="8.5" r="1.8" fill="#fff"/>','li'),
+const LI={i:sv('<path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2h-8l-5 4v-4H4a2 2 0 01-2-2V6a2 2 0 012-2z" fill="#c8c8cc"/><circle cx="8" cy="10.5" r="1.3" fill="#fff"/><circle cx="12" cy="10.5" r="1.3" fill="#fff"/><circle cx="16" cy="10.5" r="1.3" fill="#fff"/>','li'),
 n:sv('<path d="M4 4h16a2 2 0 012 2v9a2 2 0 01-2 2h-8l-5 4v-4H4a2 2 0 01-2-2V6a2 2 0 012-2z" fill="#c8c8cc"/><circle cx="8" cy="10.500" r="1.300" fill="#fff"/><circle cx="12" cy="10.500" r="1.300" fill="#fff"/><circle cx="16" cy="10.500" r="1.300" fill="#fff"/>','li'),
 c:sv('<circle cx="12" cy="12" r="11" fill="#5b63a8"/><path d="M12 5.500l1.900 4 4.300.5-3.200 3 .9 4.300L12 15l-3.900 2.300.9-4.300-3.200-3 4.300-.5z" fill="none" stroke="#fff" stroke-width="1.600" stroke-linejoin="round"/>','li')};
 const AI={b:sv(`<circle cx="12" cy="12" r="10" fill="${G}"/><path d="M9.500 7h3.200a2.200 2.200 0 010 4.400H9.500zM9.500 11.400h3.700a2.300 2.300 0 010 4.600H9.500zM9.500 7v9" stroke="#fff" stroke-width="2" fill="none"/>`),
@@ -193,7 +190,7 @@ if(Q.tab==='no')ps=ps.filter(p=>p.notice);
 if(Q.head!=='전체')ps=ps.filter(p=>p.h===Q.head);
 if(Q.q)ps=ps.filter(p=>(p.t+p.body+p.w).toLowerCase().includes(Q.q.toLowerCase()));
 ps=ps.slice(0,Q.n);
-const rows=ps.map(p=>{const ty=p.r>=5?'c':p.img||p.ty==='i'?'':'n',vis=S.visited.includes(p.id);
+const rows=ps.map(p=>{const ty='i',vis=S.visited.includes(p.id);
 return`<div class="row" data-id="${p.id}"><div class="m"><div class="t${vis?' v':''}">${LI[ty||'i']}<span class="x">${esc(p.t)}</span></div>
 <div class="s">${esc(p.h)}<i>|</i>${esc(p.w)}${p.ip?'('+esc(p.ip)+')':''}${fixI(p.fx)}<i>|</i>${p.dl||p.d.slice(0,5)}<i>|</i>조회 ${p.v}<i>|</i>추천 <span class="${p.r>=5?'up':''}">${p.r}</span></div></div><div class="cm">${cnt(p.id)}</div></div>`}).join('');
 $('#app').innerHTML=head()+`<div class="tabs">${[['all','전체'],['rec','개념글'],['no','공지']].map(([k,l])=>`<button data-t="${k}" class="${Q.tab===k?'on':''}">${l}</button>`).join('')}<select id="nn">${[30,50,100].map(n=>`<option ${n==Q.n?'selected':''} value="${n}">${n}개</option>`).join('')}</select></div>
@@ -247,8 +244,5 @@ function render(){const h=location.hash||'#/',m=h.match(/^#\/(p|w)\/?(\d+)?/);
 $('.fab')&&0;if(!m)list();else if(m[1]==='p')view(m[2]);else write(m[2]);
 $('#bk').disabled=history.length<2;}
 window.onhashchange=()=>{render();window.scrollTo(0,0)};
-$('#bk').onclick=()=>history.back();$('#fw').onclick=()=>history.forward();
-$('#sh').onclick=()=>{navigator.share?navigator.share({url:location.href}).catch(()=>{}):alert('공유 불가')};
-$('#bkm').onclick=()=>alert('북마크에 추가됨');$('#tb').onclick=()=>alert('탭 전환');
 render();
 </script></body></html>
