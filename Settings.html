@@ -60,9 +60,9 @@ a,.lk{color:var(--b);cursor:pointer;text-decoration:none}
 <div id="md"><div class="sh" id="sh"></div></div>
 <script>
 const $=s=>document.querySelector(s);
-const S={wifi:true,cur:'SEWU_WiFi',join:null,assist:true,edit:false,bt:true,scan:false,
-nets:[{n:'SEWU_WiFi',k:1,l:1,s:3},{n:'SEWU_T_WiFi',k:1,l:1,s:3},{n:'SEWU_W_WiFi',k:1,l:0,s:3},{n:'DIRECT-7z-EPSON-WF-C8690 Series',l:1,s:3},{n:'DIRECT-ec-HP M283 LaserJet',l:1,s:2},{n:'SEWU_E_WiFi',l:1,s:3},{n:'T Free WiFi Zone',l:0,s:3},{n:'T wifi zone',l:0,s:3}],
-bts:[{n:'AirPods',st:'c',my:1},{n:'Bluetooth Keyboard',st:'d',my:1}],found:false};
+const S={wifi:true,cur:'YUYU',join:null,assist:true,edit:false,bt:true,scan:false,
+nets:[{n:'YUYU',k:1,l:1,s:3}],
+bts:[{n:'AirPods',st:'c',my:1,display:'YUYU의 마음...💗'}],found:true};
 const CH='<svg class="ch" viewBox="0 0 8 14" fill="none" stroke="#c4c4c8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg>';
 const TG=on=>`<div class="tg ro${on?' on':''}"><i></i></div>`;
 const wfi=s=>`<svg width="20" height="17" viewBox="0 0 20 17" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"><path opacity="${s>=3?1:.25}" d="M1.5 5a12 12 0 0 1 17 0"/><path opacity="${s>=2?1:.25}" d="M4.5 8.2a8 8 0 0 1 11 0"/><path d="M7.5 11.2a4 4 0 0 1 5 0"/><circle cx="10" cy="14.2" r="1" fill="#000" stroke="none"/></svg>`;
@@ -101,8 +101,7 @@ let h=`<div class="top">${back}<b>Wi-Fi</b><div class="pill" onclick="S.edit=!S.
 if(S.wifi){
 const kn=known.filter(n=>n!==cur);
 if(kn.length)h+=`<div class="hd">알고 있는 네트워크</div><div class="card">${kn.map(n=>netRow(n,1)).join('')}</div>`;
-h+=`<div class="hd">다른 네트워크 <div class="sp"></div></div><div class="card">${other.filter(n=>n!==cur).map(n=>netRow(n)).join('')}<div class="row ck" style="--sl:60px" onclick="other()"><div class="chk"></div><div class="l">기타…</div></div></div>`}
-h+=`<div class="card"><div class="row" style="padding:12px 16px;--sl:16px"><div class="l">연결 지원<div class="st" style="font-size:17px">440MB</div></div><div class="tg${S.assist?' on':''}" onclick="S.assist=!S.assist;rWf()"><i></i></div></div><div class="row ck" style="--sl:16px" onclick="reset()"><div class="lk l">데이터 사용량 재설정</div></div></div>
+if(other.filter(n=>n!==cur).length)h+=`<div class="hd">다른 네트워크</div><div class="card">${other.filter(n=>n!==cur).map(n=>netRow(n)).join('')}<div class="row ck" style="--sl:60px" onclick="other()"><div class="chk"></div><div class="l">기타…</div></div></div>`}h+=`<div class="card"><div class="row" style="padding:12px 16px;--sl:16px"><div class="l">연결 지원<div class="st" style="font-size:17px">440MB</div></div><div class="tg${S.assist?' on':''}" onclick="S.assist=!S.assist;rWf()"><i></i></div></div><div class="row ck" style="--sl:16px" onclick="reset()"><div class="lk l">데이터 사용량 재설정</div></div></div>
 <div class="ft">더 안정적인 인터넷 연결을 위해 Wi-Fi 외에도 셀룰러 데이터를 사용합니다. <span class="lk">더 알아보기…</span><br><br>iPhone이(가) 연결에 사용된 셀룰러 데이터 사용량을 추적합니다. 전체 셀룰러 데이터 사용량은 ‘셀룰러’ 설정에서 확인할 수 있습니다.<br><br><span id="rs">최근 재설정: 2026. 1. 12. 오후 2:31</span></div></div>`;
 const y=$('#wf').scrollTop;$('#wf').innerHTML=h;$('#wf').scrollTop=y}
 function reset(){const d=new Date();$('#rs').textContent='최근 재설정: '+d.getFullYear()+'. '+(d.getMonth()+1)+'. '+d.getDate()+'. '+(d.getHours()<12?'오전 ':'오후 ')+((d.getHours()%12)||12)+':'+String(d.getMinutes()).padStart(2,'0');}
