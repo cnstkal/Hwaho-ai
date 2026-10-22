@@ -59,11 +59,15 @@ svg{width:100%;height:100%;display:block}
 
 .homebar{position:absolute;z-index:7;left:50%;transform:translateX(-50%);bottom:8px;width:136px;height:5px;border-radius:9px;background:#fff;cursor:pointer;touch-action:manipulation;mix-blend-mode:difference}
 
-iframe{display:none;position:absolute;inset:0 0 24px;width:100%;height:auto;border:0;background:#fff;z-index:5;opacity:0;transform:translateY(8px) scale(.985);transform-origin:center;will-change:opacity,transform}
-iframe.app-entering{display:block;animation:appEnter .28s cubic-bezier(.2,.8,.2,1) both}
-iframe.app-leaving{display:block;animation:appLeave .18s ease-in both}
-@keyframes appEnter{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes appLeave{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(5px) scale(.99)}}
+iframe{display:none;position:absolute;inset:0 0 24px;width:100%;height:auto;border:0;background:#fff;z-index:5;opacity:1;transform:translateY(0) scale(1);transform-origin:center;will-change:opacity,transform}
+iframe.app-entering{display:block;animation:appEnter .42s cubic-bezier(.22,1,.36,1) both}
+iframe.app-leaving{display:block;animation:appLeave .24s cubic-bezier(.4,0,1,1) both}
+@keyframes appEnter{from{opacity:0;transform:translateY(22px) scale(.94);clip-path:inset(5% 4% 0 round 28px)}to{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0 0 0 round 0)}}
+@keyframes appLeave{from{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0 0 0 round 0)}to{opacity:0;transform:translateY(14px) scale(.96);clip-path:inset(3% 3% 0 round 24px)}}
+#phone.app-opening main,#phone.app-opening .dock{animation:homeDim .22s ease-out both}
+#phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .28s cubic-bezier(.22,1,.36,1) both}
+@keyframes homeDim{to{opacity:.72;transform:scale(.985)}}
+@keyframes homeReturn{from{opacity:.72;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
 /* 하단 홈 인디케이터가 앱 종료/홈 복귀 역할을 대신합니다. */
 
 /* 데스크톱에서만 폰 프레임, 모바일은 꽉 찬 화면 */
@@ -93,14 +97,15 @@ iframe.app-leaving{display:block;animation:appLeave .18s ease-in both}
 <div class="dock glass"><a href="Phone.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#35c759"/><path d="M12 7c-2 0-4 2-4 4 0 11 10 21 21 21 2 0 4-2 4-4v-4l-7-3-3 4c-4-2-6-4-8-8l4-3-3-7z" fill="white"/></svg></span></a><a href="Kakaotalk.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#fee500"/><path d="M20 8C12.8 8 7 12.5 7 18c0 3.3 2.1 6.2 5.4 7.9l-1.2 5.2 6.1-3.3c.9.1 1.8.2 2.7.2 7.2 0 13-4.5 13-10S27.2 8 20 8z" fill="#342b22"/></svg></span></a><a href="IMessage.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#29c65a"/><path d="M20 6C12 6 6 11.2 6 17.8c0 3.4 1.7 6.4 4.5 8.5l-1 6 6.3-3.2c1.3.4 2.7.6 4.2.6 8 0 14-5.2 14-11.8S28 6 20 6z" fill="white"/></svg></span></a><a href="Photo.html"><span class="icon"><svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#f8f8fa"/><circle cx="20" cy="20" r="13" fill="#ff8b9b"/><circle cx="20" cy="20" r="6" fill="white"/></svg></span></a></div>
 <div class="homebar" role="button" tabindex="0" aria-label="홈으로 이동"></div><iframe id="app" title="앱"></iframe>
 <script>
-const frame=document.getElementById('app'),homebar=document.querySelector('.homebar');
+const frame=document.getElementById('app'),homebar=document.querySelector('.homebar'),phone=document.getElementById('phone');
 let closeTimer;
 function goHome(){
   if(frame.style.display==='none') return;
   frame.classList.remove('app-entering');
   frame.classList.add('app-leaving');
+  phone.classList.remove('app-opening');phone.classList.add('app-closing');
   clearTimeout(closeTimer);
-  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';frame.classList.remove('app-leaving','app-entering');},180);
+  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';frame.classList.remove('app-leaving','app-entering');phone.classList.remove('app-closing');},240);
 }
 function tick(){const d=new Date(),h=d.getHours()%12||12,m=String(d.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m}tick();setInterval(tick,10000);
 // 브라우저가 배터리 상태 접근을 지원하는 경우 실제 잔량을 표시합니다.
@@ -108,6 +113,7 @@ if(navigator.getBattery){navigator.getBattery().then(battery=>{const fill=docume
 document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   clearTimeout(closeTimer);
+  phone.classList.remove('app-closing','app-opening');phone.classList.add('app-opening');
   frame.classList.remove('app-leaving','app-entering');
   frame.style.display='block';
   frame.src=a.getAttribute('href');
