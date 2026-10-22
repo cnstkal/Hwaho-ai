@@ -65,7 +65,7 @@ nets:[{n:'SEWU_WiFi',k:1,l:1,s:3},{n:'SEWU_T_WiFi',k:1,l:1,s:3},{n:'SEWU_W_WiFi'
 bts:[{n:'AirPods',st:'c',my:1},{n:'Bluetooth Keyboard',st:'d',my:1}],found:false};
 const CH='<svg class="ch" viewBox="0 0 8 14" fill="none" stroke="#c4c4c8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l6 6-6 6"/></svg>';
 const TG=on=>`<div class="tg ro${on?' on':''}"><i></i></div>`;
-const wfi=s=>`<svg width="20" height="15" viewBox="0 0 20 15" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"><path opacity="${s>=3?1:.25}" d="M1.5 5a12 12 0 0 1 17 0"/><path opacity="${s>=2?1:.25}" d="M4.5 8.2a8 8 0 0 1 11 0"/><path d="M7.5 11.2a4 4 0 0 1 5 0"/></svg>`;
+const wfi=s=>`<svg width="20" height="17" viewBox="0 0 20 17" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round"><path opacity="${s>=3?1:.25}" d="M1.5 5a12 12 0 0 1 17 0"/><path opacity="${s>=2?1:.25}" d="M4.5 8.2a8 8 0 0 1 11 0"/><path d="M7.5 11.2a4 4 0 0 1 5 0"/><circle cx="10" cy="14.2" r="1" fill="#000" stroke="none"/></svg>`;
 const lock='<svg width="13" height="17" viewBox="0 0 13 17"><rect x="0" y="6.5" width="13" height="10.5" rx="2.5"/><path d="M3 7V5a3.5 3.5 0 0 1 7 0v2" fill="none" stroke="#000" stroke-width="2"/></svg>';
 const back='<div class="pill" onclick="nav(\'main\')"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2L2 10l8 8"/></svg></div>';
 function nav(id){['main','wf','bt'].forEach(x=>$('#'+x).classList.toggle('hid',x!==id));if(id=='main')rMain();if(id=='wf')rWf();if(id=='bt'){rBt();scanBt()}}
@@ -79,7 +79,7 @@ const w=S.wifi&&S.cur?S.cur:'끔';
 const card=a=>`<div class="card">${a.join('')}</div>`;
 const A=(i,bg,l,s)=>R(i,bg,l,(s?stt(s):'')+CH);
 $('#main').innerHTML=`<div class="pad"><h1>설정</h1>
-<div class="card"><div class="row" style="padding:12px 16px;--sl:112px"><div class="av">소윤</div><div class="l"><b style="font-size:22px">진소윤</b><div class="st" style="font-size:15px">Apple 계정, iCloud+ 등</div></div>${CH}</div>
+<div class="card"><div class="row" style="padding:12px 16px;--sl:112px"><div class="av">박</div><div class="l"><b style="font-size:22px">박성화</b><div class="st" style="font-size:15px">Apple 계정, iCloud+ 등</div></div>${CH}</div>
 <div class="row" style="--sl:16px"><div class="l">저장 공간이 부족합니다.</div><div class="badge">1</div>${CH}</div></div>
 ${card([A(ic('pods'),'#8e8e93','AirPods')])}
 ${card([R(ic('plane'),'#f09a37','에어플레인 모드',TG(0)),R(ic('wifi'),'#3b82f0','Wi-Fi',stt(w)+CH,'wf'),R(ic('bt'),'#3b82f0','Bluetooth',stt(S.bt?'켬':'끔')+CH,'bt'),A(ic('cell'),'#34c759','셀룰러','끔'),`<div class="row" style="opacity:.45"><div class="ic" style="background:#34c759">${ic('link')}</div><div class="l">개인용 핫스팟</div>${stt('끔')+CH}</div>`,A(ic('bat'),'#34c759','배터리'),R(ic('vpn'),'#3b82f0','VPN',TG(0))])}
@@ -125,10 +125,10 @@ modal(`<h3>${n}</h3><div class="card" style="margin:0 0 10px">${r('상태',c?'�
 ${c?`<button class="bt d" onclick="S.cur=null;close_();rWf()">연결 해제</button>`:''}${x.k?`<button class="bt d" onclick="forget('${n}');close_()">이 네트워크 지우기</button>`:''}<button class="bt" onclick="close_()">닫기</button>`)}
 /* Bluetooth */
 let st_;
-function scanBt(){if(S.found||!S.bt)return;S.scan=true;rBt();clearTimeout(st_);st_=setTimeout(()=>{S.scan=false;if(!S.found){S.found=true;S.bts.push({n:'JBL Flip 6',st:'d',my:0},{n:'Galaxy Buds2',st:'d',my:0})}rBt()},2200)}
+function scanBt(){S.scan=false;}
 function rBt(){
 const lab={c:'연결됨',d:'연결 안 됨',p:'연결 중...'};
-const dr=d=>`<div class="row ck" style="--sl:16px" onclick="btp('${d.n}')"><div class="l">${d.n}</div>${d.my?stt(lab[d.st]):d.st=='p'?stt('연결 중...'):''}<div class="ib" onclick="event.stopPropagation();binfo('${d.n}')">i</div></div>`;
+const dr=d=>`<div class="row ck" style="--sl:16px" onclick="btp('${d.n}')"><div class="l">${d.display||d.n}</div>${d.my?stt(lab[d.st]):d.st=='p'?stt('연결 중...'):''}<div class="ib" onclick="event.stopPropagation();binfo('${d.n}')">i</div></div>`;
 const my=S.bts.filter(d=>d.my),ot=S.bts.filter(d=>!d.my);
 const y=$('#bt').scrollTop;
 $('#bt').innerHTML=`<div class="top">${back}</div><div class="pad" style="padding-top:20px">
