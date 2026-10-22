@@ -60,8 +60,8 @@ svg{width:100%;height:100%;display:block}
 .homebar{position:absolute;z-index:7;left:50%;transform:translateX(-50%);bottom:8px;width:136px;height:5px;border-radius:9px;background:#fff;cursor:pointer;touch-action:manipulation;mix-blend-mode:difference}
 
 iframe{display:none;position:absolute;top:54px;left:0;right:0;bottom:0;width:100%;height:calc(100% - 54px);border:0;background:#fff;z-index:5;opacity:1;transform:translateY(0) scale(1);transform-origin:center;will-change:opacity,transform}
-iframe.app-entering{display:block;animation:appEnter .48s cubic-bezier(.2,.85,.25,1) both}
-iframe.app-leaving{display:block;animation:appLeave .34s cubic-bezier(.4,0,.8,.2) both}
+iframe.app-entering{display:block;animation:appEnter .28s cubic-bezier(.2,.85,.25,1) both}
+iframe.app-leaving{display:block;animation:appLeave .20s cubic-bezier(.4,0,.8,.2) both}
 @keyframes appEnter{
   0%{opacity:.7;transform:translateY(38px) scale(.84);clip-path:inset(8% 8% 2% round 34px);filter:brightness(.88)}
   68%{opacity:1;transform:translateY(-3px) scale(1.012);clip-path:inset(0 round 3px);filter:brightness(1.03)}
@@ -116,7 +116,7 @@ function goHome(){
   frame.classList.add('app-leaving');
   phone.classList.remove('app-opening');phone.classList.add('app-closing');
   clearTimeout(closeTimer);
-  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');document.querySelector('.status').style.color='';frame.classList.remove('app-leaving','app-entering');phone.classList.remove('app-closing');},240);
+  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');document.querySelector('.status').style.color='';frame.classList.remove('app-leaving','app-entering');phone.classList.remove('app-closing');},150);
 }
 function tick(){const d=new Date(),h=d.getHours()%12||12,m=String(d.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m}tick();setInterval(tick,10000);
 // 브라우저가 배터리 상태 접근을 지원하는 경우 실제 잔량을 표시합니다.
