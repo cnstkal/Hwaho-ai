@@ -125,6 +125,38 @@ document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
   void frame.offsetWidth;
   frame.classList.add('app-entering');
 }));
+function silenceApp(){
+  try{
+    const w=frame.contentWindow,d=frame.contentDocument;
+    if(!w||!d)return;
+    const mute=()=>{
+      d.querySelectorAll('audio,video').forEach(m=>{try{m.muted=true;m.defaultMuted=true;m.volume=0;m.setAttribute('muted','');}catch(e){}});
+      d.querySelectorAll('audio').forEach(m=>{try{m.pause();}catch(e){}});
+    };
+    mute();
+    if(!w.__hwahoSilenceInstalled){
+      w.__hwahoSilenceInstalled=true;
+      try{
+        const proto=w.HTMLMediaElement&&w.HTMLMediaElement.prototype;
+        if(proto){
+          const play=proto.play;
+          proto.play=function(){this.muted=true;this.defaultMuted=true;this.volume=0;return play.call(this);};
+        }
+      }catch(e){}
+      try{
+        if(w.AudioContext&&w.AudioContext.prototype){
+          const resume=w.AudioContext.prototype.resume;
+          w.AudioContext.prototype.resume=function(){return this.suspend();};
+        }
+        if(w.webkitAudioContext&&w.webkitAudioContext.prototype){
+          w.webkitAudioContext.prototype.resume=function(){return this.suspend();};
+        }
+      }catch(e){}
+      try{new w.MutationObserver(mute).observe(d.documentElement,{childList:true,subtree:true});}catch(e){}
+    }
+  }catch(e){}
+}
+frame.addEventListener('load',silenceApp);
 frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
 homebar.addEventListener('click',goHome);
 homebar.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goHome()}});
