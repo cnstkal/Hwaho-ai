@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>번역</title>
+<style>
+:root{--teal:#55C2D0;--teal-l:#C9EBF0;--bg:#F2F2F7;--ink:#000;--ph:#D9D9DC;--line:#E5E5EA}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,"SF Pro Text","Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+svg{display:block}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+.screen{display:none;flex:1;min-height:0;flex-direction:column}
+.screen.on{display:flex}
+.top{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);flex:none}
+.circ{width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid #D1D1D6;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.pill{height:46px;padding:0 24px;border-radius:23px;background:#fff;border:1px solid #D1D1D6;font-size:20px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+h1{font-size:44px;font-weight:800;margin:6px 18px 12px;letter-spacing:-1px;line-height:1.1}
+.body{flex:1;min-height:0;overflow-y:auto;padding:0 16px 16px}
+.card{background:#fff;border-radius:40px;padding:24px 28px;position:relative}
+.half{min-height:150px;display:flex;flex-direction:column}
+.lang{display:inline-flex;align-items:center;gap:6px;font-size:18px;font-weight:600;align-self:flex-start}
+.lang.t{color:var(--teal)}
+.row{display:flex;align-items:flex-start;gap:10px;flex:1}
+.row textarea,.out{flex:1;border:0;outline:0;resize:none;background:none;font:inherit;font-size:34px;font-weight:700;line-height:1.2;padding:6px 0;min-height:96px;color:#000;word-break:break-word;font-family:inherit}
+.row textarea::placeholder{color:var(--ph)}
+.out{color:var(--teal);white-space:pre-wrap}
+.out.ph{color:var(--teal-l)}
+.out .note{font-size:17px;font-weight:500;color:#8E8E93;display:block}
+.divider{position:relative;height:1px;background:var(--line);margin:8px 0 14px}
+.swap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:var(--bg);display:grid;place-items:center}
+.nav{flex:none;padding:8px 40px calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}
+.tabbar{display:flex;background:#fff;border:1px solid #D1D1D6;border-radius:40px;padding:6px;box-shadow:0 2px 10px rgba(0,0,0,.05);max-width:420px;margin:0 auto}
+.tab{flex:1;height:66px;border-radius:33px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px}
+.tab.on{background:#EFEFF4;color:var(--teal)}
+.tab:not(.on){color:#000}
+.bub{display:flex;align-items:center;gap:10px;margin:0 0 16px;justify-content:flex-end}
+.bub .b{max-width:82%;background:#fff;border-radius:30px 30px 6px 30px;padding:18px 24px}
+.bub .b .s{font-size:30px;font-weight:700;line-height:1.2;word-break:break-word}
+.bub .b hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+.bub .b .t{font-size:30px;font-weight:700;color:var(--teal);line-height:1.2;word-break:break-word}
+.play{flex:none;width:40px;height:40px;border-radius:50%;background:var(--teal);display:grid;place-items:center}
+.play.k{background:#000}
+.chatwrap{flex:1;min-height:0;overflow-y:auto;padding:14px 16px 0}
+.conv{flex:none;padding:6px 16px 10px;position:relative}
+.ic{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.inp{background:#fff;border-radius:30px;padding:14px 20px;width:62%}
+.inp.r{align-self:flex-end;border-bottom-right-radius:6px}
+.inp.l{border-bottom-left-radius:6px}
+.inp textarea{display:block;width:100%;border:0;outline:0;resize:none;background:none;font:inherit;font-size:26px;font-weight:700;height:38px;padding:0;font-family:inherit}
+.inp textarea::placeholder{color:#C4C4C6}
+.mic{width:96px;height:96px;border-radius:50%;background:var(--teal);margin:6px auto 0;display:grid;place-items:center;box-shadow:0 0 0 2px #7ed3dd inset}
+.sheet{position:fixed;inset:0;background:var(--bg);z-index:20;display:none;flex-direction:column;border-radius:40px 40px 0 0;margin-top:max(env(safe-area-inset-top),20px)}
+.sheet.on{display:flex}
+.sheet .top{justify-content:flex-end;border-bottom:1px solid var(--line)}
+.sub{font-size:24px;font-weight:700;margin:0 28px 14px}
+.fav .small{font-size:17px;font-weight:600}
+.fav .big{font-size:36px;font-weight:800;line-height:1.2;word-break:break-word}
+.fav .big.t{color:var(--teal)}
+.fav .line{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.fav hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.tools{display:flex;gap:40px;margin-top:20px;padding-left:4px}
+.card.fav{margin-bottom:16px;border-radius:36px}
+.empty{text-align:center;color:#8E8E93;margin-top:60px;font-size:18px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:30;display:none;align-items:flex-end}
+.modal.on{display:flex}
+.panel{background:#fff;width:100%;border-radius:30px 30px 0 0;max-height:80%;display:flex;flex-direction:column;padding:16px 0 calc(16px + env(safe-area-inset-bottom))}
+.panel .hd{display:flex;justify-content:space-between;align-items:center;padding:0 20px 10px;font-weight:700;font-size:20px}
+.panel input{margin:0 20px 8px;border:0;background:#EFEFF4;border-radius:12px;padding:12px 14px;font-size:17px;outline:0}
+.list{overflow-y:auto}
+.li{display:flex;justify-content:space-between;align-items:center;padding:15px 24px;font-size:19px;border-bottom:1px solid #F0F0F3;width:100%;text-align:left}
+.li.sel{color:var(--teal);font-weight:700}
+.done{color:var(--teal);font-weight:700;font-size:18px}
+.menu{position:fixed;right:16px;top:calc(env(safe-area-inset-top) + 66px);background:#fff;border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,.18);z-index:40;display:none;min-width:200px;overflow:hidden}
+.menu.on{display:block}
+.menu button{display:block;width:100%;text-align:left;padding:15px 20px;font-size:17px;border-bottom:1px solid #F0F0F3}
+.toast{position:fixed;left:50%;bottom:130px;transform:translateX(-50%);background:rgba(30,30,30,.9);color:#fff;padding:10px 18px;border-radius:20px;font-size:15px;z-index:50;opacity:0;transition:opacity .2s;pointer-events:none;max-width:86%;text-align:center}
+.toast.on{opacity:1}
+@media (max-height:640px){h1{font-size:34px}.half{min-height:110px}.row textarea,.out{font-size:28px;min-height:60px}.tab{height:54px}.mic{width:72px;height:72px}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- 번역 -->
+<section class="screen on" id="s-tr">
+  <div class="top">
+    <button class="circ" id="btnFavList" aria-label="즐겨찾기"><svg width="30" height="26" viewBox="0 0 30 26"><path fill="#000" d="M3 2l1 2.2 2.4.3-1.8 1.6.5 2.4L3 7.2 .9 8.5l.5-2.4L-.4 4.500 2 4.2z" transform="translate(1 0)"/><path fill="#000" d="M3 10l1 2.2 2.4.3-1.8 1.6.5 2.4L3 15.200 .9 16.500l.5-2.400L-.4 12.500 2 12.200z" transform="translate(1 0)"/><path fill="#000" d="M3 18l1 2.2 2.4.3-1.8 1.6.5 2.4L3 23.200 .9 24.500l.5-2.400L-.4 20.500 2 20.200z" transform="translate(1 -1)"/><g stroke="#000" stroke-width="2.4" stroke-linecap="round"><path d="M11 5h16M11 13h16M11 21h16"/></g></svg></button>
+    <button class="circ" id="btnMore" aria-label="더보기"><svg width="28" height="8"><g fill="#000"><circle cx="4" cy="4" r="3"/><circle cx="14" cy="4" r="3"/><circle cx="24" cy="4" r="3"/></g></svg></button>
+  </div>
+  <div class="body">
+    <h1>번역</h1>
+    <div class="card" style="padding:26px 30px 30px">
+      <div class="half">
+        <button class="lang" data-pick="src"><span id="srcName"></span><span class="chev"></span></button>
+        <div class="row"><textarea id="srcText" rows="3"></textarea><button id="micSrc" aria-label="음성 입력"></button></div>
+      </div>
+      <div class="divider"><button class="swap" id="btnSwap" aria-label="언어 전환"></button></div>
+      <div class="half">
+        <button class="lang t" data-pick="tgt"><span id="tgtName"></span><span class="chev t"></span></button>
+        <div class="row"><div class="out ph" id="tgtOut"></div><button id="micTgt" aria-label="음성 입력"></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 카메라: 눌러도 아무 동작 없음 (화면 없음) -->
+
+<!-- 대화 -->
+<section class="screen" id="s-cv">
+  <div class="top">
+    <button class="pill" id="btnView">보기</button>
+    <div style="font-size:21px;font-weight:700">대화</div>
+    <button class="circ" id="btnMore2" aria-label="더보기"><svg width="28" height="8"><g fill="#000"><circle cx="4" cy="4" r="3"/><circle cx="14" cy="4" r="3"/><circle cx="24" cy="4" r="3"/></g></svg></button>
+  </div>
+  <div class="chatwrap" id="chat"></div>
+  <div class="conv">
+    <div class="ic">
+      <div class="inp r"><button class="lang" data-pick="src"><span id="cvSrcName"></span><span class="chev"></span></button><textarea id="cvSrc" rows="1"></textarea></div>
+      <div class="inp l"><button class="lang" data-pick="tgt"><span id="cvTgtName"></span><span class="chev"></span></button><textarea id="cvTgt" rows="1"></textarea></div>
+    </div>
+    <button class="mic" id="cvMic" aria-label="마이크"><svg width="34" height="44" viewBox="0 0 34 44" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"><rect x="10" y="2" width="14" height="25" rx="7" fill="#fff"/><path d="M3 20c0 8 6 13 14 13s14-5 14-13M17 33v8M10 41h14"/></svg></button>
+  </div>
+</section>
+
+<div class="nav">
+  <div class="tabbar">
+    <button class="tab on" data-tab="tr"><svg width="42" height="38" viewBox="0 0 42 38"><path d="M4 4h20a3 3 0 013 3v14a3 3 0 01-3 3H13l-6 5v-5H4a3 3 0 01-3-3V7a3 3 0 013-3z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 18l5-11 5 11M10 14h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 14h14a4 4 0 014 4v10a4 4 0 01-4 4h-2v4l-5-4h-7a4 4 0 01-4-4V18a4 4 0 014-4z" fill="currentColor"/><text x="31" y="29" font-size="11" font-weight="800" fill="#fff" text-anchor="middle">文</text></svg>번역</button>
+    <button class="tab" id="camTab" aria-label="카메라"><svg width="42" height="38" viewBox="0 0 42 38"><path d="M4 12a4 4 0 014-4h4l3-4h12l3 4h4a4 4 0 014 4v16a4 4 0 01-4 4H8a4 4 0 01-4-4z" fill="currentColor"/><circle cx="21" cy="20" r="7.500" fill="#fff"/><circle cx="21" cy="20" r="4.500" fill="currentColor"/></svg>카메라</button>
+    <button class="tab" data-tab="cv"><svg width="42" height="38" viewBox="0 0 42 38"><g fill="currentColor"><circle cx="13" cy="11" r="6"/><circle cx="29" cy="9" r="6"/><path d="M1 32c0-7 5-11 12-11s12 4 12 11v2H1z"/><path d="M26 22c8-1 15 3 15 10v2H28c1-4 0-9-2-12z"/></g></svg>대화</button>
+  </div>
+</div>
+</div>
+
+<!-- 즐겨찾기 시트 -->
+<div class="sheet" id="favSheet">
+  <div class="top"><button class="circ" id="favClose" aria-label="닫기"><svg width="26" height="26" viewBox="0 0 26 26" stroke="#000" stroke-width="2.600" stroke-linecap="round"><path d="M3 3l20 20M23 3L3 23"/></svg></button></div>
+  <div class="body" id="favBody" style="padding-top:6px"></div>
+</div>
+
+<!-- 언어 선택 -->
+<div class="modal" id="langModal">
+  <div class="panel">
+    <div class="hd"><span id="langTitle">언어 선택</span><button class="done" id="langDone">완료</button></div>
+    <input id="langSearch" placeholder="검색" autocomplete="off">
+    <div class="list" id="langList"></div>
+  </div>
+</div>
+
+<!-- 더보기 메뉴 -->
+<div class="menu" id="menu">
+  <button id="mClear">입력 지우기</button>
+  <button id="mCopy">번역 결과 복사</button>
+  <button id="mHist">번역 기록 보기</button>
+  <button id="mReset">대화 기록 삭제</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const LANGS=[
+ {c:'ko',n:'한국어',tag:'ko-KR',k:'ko'},
+ {c:'en-US',n:'영어 (미국)',s:'영어',tag:'en-US',k:'en'},
+ {c:'en-GB',n:'영어 (영국)',s:'영어',tag:'en-GB',k:'en'},
+ {c:'zh-CN',n:'중국어 (북경어, 간체)',s:'중국어',tag:'zh-CN',k:'zh'},
+ {c:'zh-TW',n:'중국어 (번체)',s:'중국어',tag:'zh-TW',k:'zhT'},
+ {c:'ja',n:'일본어',tag:'ja-JP',k:'ja'},
+ {c:'fr',n:'프랑스어',tag:'fr-FR',k:'fr'},
+ {c:'es',n:'스페인어',tag:'es-ES',k:'es'}
+];
+const L=c=>LANGS.find(l=>l.c===c);
+const PH={ko:'텍스트 입력','en':'Enter text','zh':'输入文本','zhT':'輸入文字',ja:'テキストを入力',fr:'Saisir du texte',es:'Introducir texto'};
+// 사전 준비된 샘플 번역 데이터 (실제 번역 API 아님)
+const DICT=[
+ {ko:'안녕하세요',en:'Hello.',zh:'你好',zhT:'你好',ja:'こんにちは',fr:'Bonjour.',es:'Hola.'},
+ {ko:'감사합니다',en:'Thank you.',zh:'谢谢',zhT:'謝謝',ja:'ありがとうございます',fr:'Merci.',es:'Gracias.'},
+ {ko:'여기는 어디인가요',en:'Where is this?',zh:'这里是哪里',zhT:'這裡是哪裡',ja:'ここはどこですか',fr:'Où sommes-nous ?',es:'¿Dónde estamos?'},
+ {ko:'노동 공원은 어디로 가야 하나요',en:'How do I get to Labor Park?',zh:'劳动公园要去哪里',zhT:'勞動公園要去哪裡',ja:'労働公園はどこへ行けばいいですか',fr:'Comment aller au parc du Travail ?',es:'¿Cómo llego al Parque del Trabajo?'},
+ {ko:'제 눈을 바라보세요.',en:'Look me in the eyes.',zh:'请看着我的眼睛。',zhT:'請看著我的眼睛。',ja:'私の目を見てください。',fr:'Regardez-moi dans les yeux.',es:'Mírame a los ojos.'},
+ {ko:'화장실은 어디예요',en:'Where is the restroom?',zh:'洗手间在哪里',zhT:'洗手間在哪裡',ja:'トイレはどこですか',fr:'Où sont les toilettes ?',es:'¿Dónde está el baño?'},
+ {ko:'얼마예요',en:'How much is it?',zh:'多少钱',zhT:'多少錢',ja:'いくらですか',fr:'Combien ça coûte ?',es:'¿Cuánto cuesta?'},
+ {ko:'도와주세요',en:'Please help me.',zh:'请帮帮我',zhT:'請幫幫我',ja:'助けてください',fr:'Aidez-moi, s\'il vous plaît.',es:'Ayúdame, por favor.'},
+ {ko:'맛있어요',en:'It is delicious.',zh:'很好吃',zhT:'很好吃',ja:'おいしいです',fr:'C\'est délicieux.',es:'Está delicioso.'},
+ {ko:'공항에 가고 싶어요',en:'I want to go to the airport.',zh:'我想去机场',zhT:'我想去機場',ja:'空港に行きたいです',fr:'Je veux aller à l\'aéroport.',es:'Quiero ir al aeropuerto.'}
+];
+const norm=s=>s.trim().toLowerCase().replace(/[\s.?!。？！,，]+/g,'');
+function translate(text,from,to){
+ const t=norm(text); if(!t) return null;
+ const fk=L(from).k, tk=L(to).k;
+ const hit=DICT.find(d=>norm(d[fk]||'')===t);
+ return hit?hit[tk]:null;
+}
+// state
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+let st=load('tr.state',{src:'ko',tgt:'zh-CN'});
+let favs=load('tr.favs',null);
+if(!favs){favs=[{id:1,src:'en-US',tgt:'ko',st:'Look me in the eyes.',tt:'제 눈을 바라보세요.'}];save('tr.favs',favs)}
+let chat=load('tr.chat',null);
+if(!chat){chat=[
+ {src:'ko',tgt:'zh-CN',st:'여기는 어디인가요',tt:'这里是哪里'},
+ {src:'ko',tgt:'zh-CN',st:'노동 공원은 어디로 가야 하나요',tt:'劳动公园要去哪里'}];save('tr.chat',chat)}
+const saveSt=()=>save('tr.state',st);
+
+// icons
+const chev=c=>`<svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l5-5 5 5M2 12l5 5 5-5"/></svg>`;
+const mic=c=>`<svg width="30" height="42" viewBox="0 0 30 42" fill="none" stroke="${c}" stroke-width="2.600" stroke-linecap="round"><rect x="9" y="2" width="12" height="22" rx="6"/><path d="M3 18c0 7 5 12 12 12s12-5 12-12M15 30v8M8 38h14"/></svg>`;
+const playI=`<svg width="16" height="18" viewBox="0 0 16 18"><path d="M3 2l12 7-12 7z" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>`;
+$('#micSrc').innerHTML=mic('#000'); $('#micTgt').innerHTML=mic('#55C2D0');
+$$('.chev').forEach(e=>e.innerHTML=chev(e.classList.contains('t')?'#9BDDE6':'#8E8E93'));
+$('#btnSwap').innerHTML=`<svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#55C2D0" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v18M3 18l5 5 5-5M22 25V7M17 12l5-5 5 5"/><path d="M13 5h2M15 25h2" stroke-width="0"/></svg>`;
+
+// toast
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
+
+// speech
+function speak(text,lang){
+ if(!('speechSynthesis' in window)){toast('이 브라우저는 음성 재생을 지원하지 않습니다');return}
+ speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=L(lang).tag;speechSynthesis.speak(u);
+}
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function listen(lang,cb){
+ if(!SR){toast('이 브라우저는 음성 인식을 지원하지 않습니다');return}
+ const r=new SR();r.lang=L(lang).tag;r.onresult=e=>cb(e.results[0][0].transcript);r.onerror=()=>toast('음성 인식을 사용할 수 없습니다');
+ try{r.start();toast('듣는 중…')}catch{toast('음성 인식을 시작할 수 없습니다')}
+}
+function copy(t){
+ if(!t){toast('복사할 내용이 없습니다');return}
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('복사되었습니다'),()=>{
+  const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');toast('복사되었습니다')}catch{toast('복사할 수 없습니다')}a.remove()});
+}
+
+// translate screen
+function renderTr(){
+ $('#srcName').textContent=L(st.src).n;$('#tgtName').textContent=L(st.tgt).n;
+ $('#srcText').placeholder=PH[L(st.src).k];
+ const v=$('#srcText').value,o=$('#tgtOut'),r=translate(v,st.src,st.tgt);
+ if(!v.trim()){o.className='out ph';o.textContent=PH[L(st.tgt).k]}
+ else if(r){o.className='out';o.textContent=r;pushHist(v,r)}
+ else{o.className='out';o.innerHTML='<span class="note">샘플 번역 데이터에 없는 문장입니다. 실제 번역 API는 연결되어 있지 않습니다.</span>'}
+ $('#cvSrcName').textContent=L(st.src).n;$('#cvTgtName').textContent=L(st.tgt).n;
+ $('#cvSrc').placeholder=PH[L(st.src).k];$('#cvTgt').placeholder=PH[L(st.tgt).k];
+}
+let hist=load('tr.hist',[]);
+function pushHist(s,t){const h={src:st.src,tgt:st.tgt,st:s.trim(),tt:t};if(hist[0]&&hist[0].st===h.st&&hist[0].src===h.src&&hist[0].tgt===h.tgt)return;hist.unshift(h);hist=hist.slice(0,50);save('tr.hist',hist)}
+$('#srcText').addEventListener('input',renderTr);
+$('#btnSwap').onclick=()=>{[st.src,st.tgt]=[st.tgt,st.src];const o=$('#tgtOut');if(!o.classList.contains('ph')&&!o.querySelector('.note'))$('#srcText').value=o.textContent;saveSt();renderTr();renderChat()};
+$('#micSrc').onclick=()=>listen(st.src,t=>{$('#srcText').value=t;renderTr()});
+$('#micTgt').onclick=()=>listen(st.tgt,t=>{$('#srcText').value='';const back=translate(t,st.tgt,st.src);if(back){$('#srcText').value=back}else toast('샘플 데이터에 없는 문장: '+t);renderTr()});
+
+// chat
+function renderChat(){
+ const c=$('#chat');c.innerHTML='';
+ chat.forEach(m=>{
+  const d=document.createElement('div');d.className='bub';
+  d.innerHTML=`<button class="play" aria-label="재생">${playI}</button><div class="b"><div class="s"></div><hr><div class="t"></div></div>`;
+  d.querySelector('.s').textContent=m.st;d.querySelector('.t').textContent=m.tt;
+  d.querySelector('.play').onclick=()=>speak(m.tt,m.tgt);
+  c.appendChild(d)});
+ c.scrollTop=c.scrollHeight;
+}
+function addChat(text,from,to){
+ const r=translate(text,from,to);
+ if(!r){toast('샘플 번역 데이터에 없는 문장입니다');return false}
+ chat.push({src:from,tgt:to,st:text.trim(),tt:r});save('tr.chat',chat);renderChat();return true;
+}
+function bindChatInput(id,from,to){
+ $(id).addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();const v=e.target.value;if(!v.trim())return;if(addChat(v,from(),to()))e.target.value=''}});
+}
+bindChatInput('#cvSrc',()=>st.src,()=>st.tgt);bindChatInput('#cvTgt',()=>st.tgt,()=>st.src);
+$('#cvMic').onclick=()=>listen(st.src,t=>{if(!addChat(t,st.src,st.tgt))return});
+$('#btnView').onclick=()=>{$('#chat').scrollTop=$('#chat').scrollHeight;toast('최신 대화로 이동')};
+
+// tabs (카메라 탭은 핸들러 없음)
+$$('.tab[data-tab]').forEach(b=>b.onclick=()=>{
+ $$('.tab').forEach(x=>x.classList.toggle('on',x===b));
+ $$('.screen').forEach(s=>s.classList.remove('on'));
+ $('#s-'+b.dataset.tab).classList.add('on');
+ if(b.dataset.tab==='cv')renderChat();
+});
+
+// language picker
+let pickWhich=null,pickSel=null;
+function renderLangs(){
+ const q=$('#langSearch').value.trim().toLowerCase();
+ const l=$('#langList');l.innerHTML='';
+ LANGS.filter(x=>!q||x.n.toLowerCase().includes(q)||x.c.toLowerCase().includes(q)).forEach(x=>{
+  const b=document.createElement('button');b.className='li'+(x.c===pickSel?' sel':'');
+  b.innerHTML=`<span>${x.n}</span>${x.c===pickSel?'<svg width="22" height="18" viewBox="0 0 22 18" fill="none" stroke="#55C2D0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l6 6L20 3"/></svg>':''}`;
+  b.onclick=()=>{pickSel=x.c;renderLangs()};l.appendChild(b)});
+}
+$$('[data-pick]').forEach(b=>b.onclick=()=>{pickWhich=b.dataset.pick;pickSel=st[pickWhich];$('#langTitle').textContent=pickWhich==='src'?'출발 언어':'도착 언어';$('#langSearch').value='';renderLangs();$('#langModal').classList.add('on')});
+$('#langSearch').oninput=renderLangs;
+$('#langDone').onclick=()=>{if(pickSel){st[pickWhich]=pickSel;saveSt();renderTr();renderChat()}$('#langModal').classList.remove('on')};
+$('#langModal').onclick=e=>{if(e.target.id==='langModal')$('#langModal').classList.remove('on')};
+
+// favorites
+function pairTitle(f){const a=L(f.src),b=L(f.tgt);return (b.s||b.n)+' - '+(a.s||a.n)}
+function renderFav(){
+ const b=$('#favBody');b.innerHTML='<h1 style="margin-left:6px">즐겨찾기</h1>';
+ if(!favs.length){b.insertAdjacentHTML('beforeend','<div class="empty">저장된 즐겨찾기가 없습니다</div>');return}
+ favs.forEach(f=>{
+  const sub=document.createElement('div');sub.className='sub';sub.textContent=(L(f.tgt).s||L(f.tgt).n)+' - '+(L(f.src).s||L(f.src).n);b.appendChild(sub);
+  const c=document.createElement('div');c.className='card fav';
+  c.innerHTML=`<div class="small">${L(f.src).n}</div><div class="line"><div class="big"></div><button class="play k" data-a="s">${playI}</button></div><hr>
+  <div class="small" style="color:var(--teal)">${L(f.tgt).n}</div><div class="line"><div class="big t"></div><button class="play" data-a="t">${playI}</button></div>
+  <div class="tools"><button data-a="x" aria-label="전환"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#55C2D0" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12V4h8M4 4l9 9M30 22v8h-8M30 30l-9-9"/></svg></button>
+  <button data-a="f" aria-label="즐겨찾기 해제"><svg width="38" height="36" viewBox="0 0 38 36"><path d="M19 2l5 11 12 1-9 8 3 12-11-7-11 7 3-12-9-8 12-1z" fill="#55C2D0" stroke="#55C2D0" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <button data-a="c" aria-label="복사"><svg width="34" height="40" viewBox="0 0 34 40" fill="none" stroke="#55C2D0" stroke-width="2.600" stroke-linejoin="round"><path d="M4 12v22a3 3 0 003 3h14a3 3 0 003-3V16l-7-7H7a3 3 0 00-3 3z"/><path d="M12 6V4a3 3 0 013-3h10l7 7v18a3 3 0 01-3 3h-2"/></svg></button></div>`;
+  c.querySelectorAll('.big')[0].textContent=f.st;c.querySelectorAll('.big')[1].textContent=f.tt;
+  c.querySelector('[data-a=s]').onclick=()=>speak(f.st,f.src);
+  c.querySelector('[data-a=t]').onclick=()=>speak(f.tt,f.tgt);
+  c.querySelector('[data-a=c]').onclick=()=>copy(f.tt);
+  c.querySelector('[data-a=x]').onclick=()=>{[f.src,f.tgt]=[f.tgt,f.src];[f.st,f.tt]=[f.tt,f.st];save('tr.favs',favs);renderFav()};
+  c.querySelector('[data-a=f]').onclick=()=>{favs=favs.filter(x=>x!==f);save('tr.favs',favs);renderFav();toast('즐겨찾기에서 해제했습니다')};
+  b.appendChild(c)});
+}
+$('#btnFavList').onclick=()=>{renderFav();$('#favSheet').classList.add('on')};
+$('#favClose').onclick=()=>$('#favSheet').classList.remove('on');
+
+// more menu
+function menuToggle(e){e.stopPropagation();$('#menu').classList.toggle('on')}
+$('#btnMore').onclick=menuToggle;$('#btnMore2').onclick=menuToggle;
+document.addEventListener('click',()=>$('#menu').classList.remove('on'));
+$('#mClear').onclick=()=>{$('#srcText').value='';renderTr()};
+$('#mCopy').onclick=()=>{const o=$('#tgtOut');copy(o.classList.contains('ph')||o.querySelector('.note')?'':o.textContent)};
+$('#mHist').onclick=()=>{
+ if(!hist.length){toast('번역 기록이 없습니다');return}
+ const h=hist[0];$('#srcText').value=h.st;st.src=h.src;st.tgt=h.tgt;saveSt();renderTr();toast('최근 기록: '+h.st)};
+$('#mReset').onclick=()=>{chat=[];save('tr.chat',chat);renderChat();toast('대화 기록을 삭제했습니다')};
+// 현재 번역을 즐겨찾기에 추가하려면 번역 결과 길게 누르기 대신 결과 영역 더블탭
+$('#tgtOut').ondblclick=()=>{const v=$('#srcText').value.trim(),r=translate(v,st.src,st.tgt);if(!r)return;
+ const i=favs.findIndex(f=>f.src===st.src&&f.tgt===st.tgt&&f.st===v);
+ if(i>=0){favs.splice(i,1);toast('즐겨찾기에서 해제했습니다')}else{favs.unshift({id:Date.now(),src:st.src,tgt:st.tgt,st:v,tt:r});toast('즐겨찾기에 추가했습니다')}save('tr.favs',favs)};
+
+renderTr();renderChat();
+})();
+</script>
+</body>
+</html>
