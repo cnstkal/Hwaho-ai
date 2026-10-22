@@ -947,7 +947,11 @@ const PhoneApp = (() => {
 
   let isOpen = false;
   function open() {
-    if (isOpen) return; isOpen = true; render(); renderOv(); originFrom(el, "phone");
+    if (isOpen) return;
+    // 독립적으로 전화 앱을 열 때는 스토리/잠금화면을 거치지 않고 기본 전화 탭으로 진입한다.
+    isOpen = true;
+    tab = "rec"; filt = "all"; keyNum = ""; ovs = []; call = null;
+    render(); renderOv(); closeSheet(); originFrom(el, "phone");
     el.classList.add("show"); void el.offsetWidth; el.classList.add("open"); el.setAttribute("aria-hidden", "false");
     setTimeout(() => { if (isOpen) screen.classList.add("app-light"); }, 140);
   }
