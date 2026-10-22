@@ -60,14 +60,21 @@ svg{width:100%;height:100%;display:block}
 .homebar{position:absolute;z-index:7;left:50%;transform:translateX(-50%);bottom:8px;width:136px;height:5px;border-radius:9px;background:#fff;cursor:pointer;touch-action:manipulation;mix-blend-mode:difference}
 
 iframe{display:none;position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;border:0;background:#fff;z-index:5;opacity:1;transform:translateY(0) scale(1);transform-origin:center;will-change:opacity,transform}
-iframe.app-entering{display:block;animation:appEnter .42s cubic-bezier(.22,1,.36,1) both}
-iframe.app-leaving{display:block;animation:appLeave .24s cubic-bezier(.4,0,1,1) both}
-@keyframes appEnter{from{opacity:0;transform:translateY(22px) scale(.94);clip-path:inset(5% 4% 0 round 28px)}to{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0 0 0 round 0)}}
-@keyframes appLeave{from{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0 0 0 round 0)}to{opacity:0;transform:translateY(14px) scale(.96);clip-path:inset(3% 3% 0 round 24px)}}
-#phone.app-opening main,#phone.app-opening .dock{animation:homeDim .22s ease-out both}
-#phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .28s cubic-bezier(.22,1,.36,1) both}
-@keyframes homeDim{to{opacity:.72;transform:scale(.985)}}
-@keyframes homeReturn{from{opacity:.72;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+iframe.app-entering{display:block;animation:appEnter .48s cubic-bezier(.2,.85,.25,1) both}
+iframe.app-leaving{display:block;animation:appLeave .34s cubic-bezier(.4,0,.8,.2) both}
+@keyframes appEnter{
+  0%{opacity:.7;transform:translateY(38px) scale(.84);clip-path:inset(8% 8% 2% round 34px);filter:brightness(.88)}
+  68%{opacity:1;transform:translateY(-3px) scale(1.012);clip-path:inset(0 round 3px);filter:brightness(1.03)}
+  100%{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0 round 0);filter:brightness(1)}
+}
+@keyframes appLeave{
+  0%{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0 round 0);filter:brightness(1)}
+  100%{opacity:.72;transform:translateY(34px) scale(.86);clip-path:inset(7% 7% 1% round 32px);filter:brightness(.9)}
+}
+#phone.app-opening main,#phone.app-opening .dock{animation:homeDim .32s cubic-bezier(.2,.8,.2,1) both}
+#phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .38s cubic-bezier(.16,1,.3,1) both}
+@keyframes homeDim{to{opacity:.42;transform:scale(.94) translateY(8px);filter:blur(1.5px)}}
+@keyframes homeReturn{from{opacity:.42;transform:scale(.94) translateY(8px);filter:blur(1.5px)}to{opacity:1;transform:scale(1) translateY(0);filter:blur(0)}}
 /* 하단 홈 인디케이터가 앱 종료/홈 복귀 역할을 대신합니다. */
 
 /* 데스크톱에서만 폰 프레임, 모바일은 꽉 찬 화면 */
