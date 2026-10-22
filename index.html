@@ -59,7 +59,7 @@ svg{width:100%;height:100%;display:block}
 
 .homebar{position:absolute;z-index:7;left:50%;transform:translateX(-50%);bottom:8px;width:136px;height:5px;border-radius:9px;background:#fff;cursor:pointer;touch-action:manipulation;mix-blend-mode:difference}
 
-iframe{display:none;position:absolute;top:0;left:0;right:0;bottom:24px;width:100%;height:calc(100% - 24px);border:0;background:#fff;z-index:5;opacity:1;transform:translateY(0) scale(1);transform-origin:center;will-change:opacity,transform}
+iframe{display:none;position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;border:0;background:#fff;z-index:5;opacity:1;transform:translateY(0) scale(1);transform-origin:center;will-change:opacity,transform}
 iframe.app-entering{display:block;animation:appEnter .42s cubic-bezier(.22,1,.36,1) both}
 iframe.app-leaving{display:block;animation:appLeave .24s cubic-bezier(.4,0,1,1) both}
 @keyframes appEnter{from{opacity:0;transform:translateY(22px) scale(.94);clip-path:inset(5% 4% 0 round 28px)}to{opacity:1;transform:translateY(0) scale(1);clip-path:inset(0 0 0 round 0)}}
@@ -100,7 +100,7 @@ iframe.app-leaving{display:block;animation:appLeave .24s cubic-bezier(.4,0,1,1) 
 <div class="homebar" role="button" tabindex="0" aria-label="홈으로 이동"></div><iframe id="app" title="앱"></iframe>
 <script>
 const frame=document.getElementById('app'),homebar=document.querySelector('.homebar'),phone=document.getElementById('phone');
-function sizeAppFrame(){frame.style.setProperty('position','absolute','important');frame.style.setProperty('top','0','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom','24px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',(phone.clientHeight-24)+'px','important');}
+function sizeAppFrame(){frame.style.setProperty('position','absolute','important');frame.style.setProperty('top','0','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom','0','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',phone.clientHeight+'px','important');}
 sizeAppFrame();window.addEventListener('resize',sizeAppFrame);
 let closeTimer;
 function goHome(){
