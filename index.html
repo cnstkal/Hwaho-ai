@@ -105,7 +105,7 @@ iframe.app-leaving{display:block;animation:appLeave .20s cubic-bezier(.4,0,.8,.2
 <iframe id="app" title="앱"></iframe>
 <script>
 const frame=document.getElementById('app'),homebar=document.querySelector('.homebar'),phone=document.getElementById('phone');
-function sizeAppFrame(){const top=frame.dataset.selfpad?0:document.querySelector('.status').offsetHeight,bot=document.querySelector('.homebar').offsetHeight;frame.style.setProperty('position','absolute','important');frame.style.setProperty('top',top+'px','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom',bot+'px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',Math.max(0,phone.clientHeight-top-bot)+'px','important');}
+function sizeAppFrame(){const top=frame.dataset.selfpad?0:document.querySelector('.status').offsetHeight,bot=homebar.offsetHeight;const height=Math.max(0,phone.clientHeight-top-bot);frame.style.setProperty('position','absolute','important');frame.style.setProperty('top',top+'px','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom',bot+'px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',height+'px','important');}
 sizeAppFrame();window.addEventListener('resize',sizeAppFrame);
 // 앱 열림/닫힘에 따라 공용 홈 인디케이터 높이가 바뀌므로 iframe 영역도 즉시 재계산합니다.
 const shellObserver=new MutationObserver(()=>sizeAppFrame());
@@ -188,7 +188,13 @@ function silenceApp(){
     }
   }catch(e){}
 }
-frame.addEventListener('load',()=>{silenceApp();syncStatusBar();try{const d=frame.contentDocument;if(d&&!d.getElementById('hwaho-shared-system-bars')){const s=d.createElement('style');s.id='hwaho-shared-system-bars';s.textContent='#statusbar, #home-indicator-zone, #home-indicator, .statusbar, .system-statusbar, .system-home-indicator { display:none!important; visibility:hidden!important; pointer-events:none!important; }';(d.head||d.documentElement).appendChild(s);}if(d&&d.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}});
+frame.addEventListener('load',()=>{silenceApp();syncStatusBar();try{const d=frame.contentDocument;if(d&&!d.getElementById('hwaho-shared-system-bars')){const s=d.createElement('style');s.id='hwaho-shared-system-bars';s.textContent=`/* AI 공용 시스템 UI: 앱 iframe 내부의 기기 프레임만 비활성화 */
+#statusbar, .statusbar, .system-statusbar, [data-system-statusbar],
+#home-indicator-zone, #home-indicator, .home-indicator-zone, .home-indicator, .system-home-indicator, [data-system-home-indicator],
+#dynamic-island, .dynamic-island, .dynamicIsland { display:none!important; visibility:hidden!important; pointer-events:none!important; }
+#statusbar .island, .statusbar .island { display:none!important; }
+html, body, #device, #screen { max-width:100%!important; width:100%!important; height:100%!important; min-height:0!important; overflow:hidden!important; }
+`;(d.head||d.documentElement).appendChild(s);}if(d&&d.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}});
 frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
 let hbY=null,hbX=0;
 homebar.addEventListener('pointerdown',e=>{hbY=e.clientY;hbX=e.clientX;try{homebar.setPointerCapture(e.pointerId)}catch(_){}});
