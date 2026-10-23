@@ -37,7 +37,7 @@ body{display:grid;place-items:center;background:#0b0d14;color:#fff}
 .status .signals{color:var(--status-fg,#111)!important}
 .status .signals svg path,.status .signals svg rect{stroke:currentColor}
 .status .signals svg #battery-fill{fill:currentColor}
-.island{overflow:hidden;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:width .24s cubic-bezier(.2,.9,.25,1),height .24s cubic-bezier(.2,.9,.25,1),border-radius .24s cubic-bezier(.2,.9,.25,1);position:absolute;left:50%;top:calc(11px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:120px;height:35px;border-radius:20px;background:#000}
+.island{overflow:hidden;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:none;position:absolute;left:50%;top:calc(11px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:120px;height:35px;border-radius:20px;background:#000}
 .status .signals{display:flex;gap:6px;align-items:center}
 .status svg{height:13px;width:auto}
 
@@ -61,12 +61,12 @@ svg{width:100%;height:100%;display:block}
 #phone.app-open .dock{background:var(--app-bottom-bg,#fff);box-shadow:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}#phone.app-open .dock>a{visibility:hidden}.island.ex{width:300px;height:64px;border-radius:32px}.island .isl-t,.island .isl-s{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25;padding:0 14px}.island .isl-t{font-size:13px;font-weight:600}.island .isl-s{font-size:11px;opacity:.7}#phone.app-open .homebar{left:0;right:0;width:auto;transform:none;bottom:0;height:calc(28px + env(safe-area-inset-bottom,0px));align-items:flex-end;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 6px);background:transparent}.homebar{position:absolute;z-index:12;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 2px);width:150px;height:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.homebar #home-indicator{display:block;width:138px;height:5px;border-radius:999px;background:rgba(235,235,240,.9);box-shadow:0 0 2px rgba(0,0,0,.16);pointer-events:none}#phone.app-light #home-indicator{background:rgba(0,0,0,.8);box-shadow:none}
 
 iframe{display:none;position:absolute;top:54px;left:0;right:0;bottom:0;width:100%;height:calc(100% - 54px);border:0;background:#fff;z-index:5;opacity:1;transform:translateY(0) scale(1);transform-origin:center;will-change:opacity,transform}
-iframe.app-entering{display:block;animation:appEnter .15s cubic-bezier(.2,.8,.2,1) both}
-iframe.app-leaving{display:block;animation:appLeave .11s cubic-bezier(.4,0,.8,.2) both}
+iframe.app-entering{display:block;animation:appEnter .001ms linear both}
+iframe.app-leaving{display:block;animation:appLeave .001ms linear both}
 @keyframes appEnter{0%{opacity:.6;transform:translate3d(0,28px,0) scale(.93)}100%{opacity:1;transform:none}}
 @keyframes appLeave{0%{opacity:1;transform:none}100%{opacity:.6;transform:translate3d(0,28px,0) scale(.93)}}
-#phone.app-opening main,#phone.app-opening .dock{animation:homeDim .16s cubic-bezier(.2,.8,.2,1) both}
-#phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .2s cubic-bezier(.2,.8,.2,1) both}
+#phone.app-opening main,#phone.app-opening .dock{animation:homeDim .001ms linear both}
+#phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .001ms linear both}
 @keyframes homeDim{to{opacity:.5;transform:scale(.96)}}
 @keyframes homeReturn{from{opacity:.5;transform:scale(.96)}to{opacity:1;transform:none}}
 #phone.app-opening .dock,#phone.app-closing .dock,#phone.app-opening main,#phone.app-closing main{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}

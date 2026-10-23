@@ -73,7 +73,7 @@ body{position:fixed;inset:0}
 .sb-battery.low .bat-body i{background:#ff453a}
 .sb-battery.charging .bat-body i{background:#30d158}
 #home{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:calc(env(safe-area-inset-top,0px) + 54px + clamp(14px,3.2vh,30px) - 24px);transition:transform .28s cubic-bezier(.2,.9,.25,1),opacity .22s}
-#home.returning{animation:returnHome .3s cubic-bezier(.2,.9,.25,1)}
+#home.returning{animation:returnHome .001ms linear both}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);row-gap:clamp(15px,2.9vh,24px);padding:0 calc(var(--side) - 6px)}
 .spacer{flex:1}
 .app{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;min-width:0;padding:0 2px}
@@ -346,17 +346,17 @@ html.pvo,html.pvo body,#screen:has(#pv.on),#pv.on{background:#000!important}
 .dock-wrap{margin-bottom:calc(env(safe-area-inset-bottom,0px) + 40px)}
 .page-dots{display:none}
 @keyframes hwahoFrommStyleLaunch{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-#cam-app.hwaho-launching,#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{animation:hwahoFrommStyleLaunch .24s cubic-bezier(.22,.8,.3,1) both !important;transform-origin:center center}
+#cam-app.hwaho-launching,#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{animation:hwahoFrommStyleLaunch .001ms linear both;transform-origin:center center}
 .pl-cell{aspect-ratio:1/1;height:auto}
 .pl-cell img,.pl-cell .g{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes hwahoFrommStyleLaunch{
   from { opacity: 0; transform: scale(.9); }
   to { opacity: 1; transform: scale(1); }
 }
-#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{animation: hwahoFrommStyleLaunch .24s cubic-bezier(.22,.8,.3,1) both !important;
+#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{animation: hwahoFrommStyleLaunch .001ms linear both;
   transform-origin: center center;}
 @media (prefers-reduced-motion: reduce){#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{animation-duration: .01ms !important;}}
-#cam-app.hwaho-launching{animation: hwahoFrommStyleLaunch .24s cubic-bezier(.22,.8,.3,1) both !important; transform-origin: center center;}
+#cam-app.hwaho-launching{animation: hwahoFrommStyleLaunch .001ms linear both; transform-origin: center center;}
 </style>
 </head>
 <body>
