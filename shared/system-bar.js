@@ -56,12 +56,20 @@
     // 앱이 스스로 상단 여백을 잡는 경우(data-selfpad)에는 그 자리에 겹쳐 올리고, 아니면 본문 맨 위에 끼워 넣습니다.
     const bodyDisplay = getComputedStyle(document.body).display;
     // 본문이 flex/grid 레이아웃이면 끼워 넣으면 배치가 깨지므로 겹쳐 올립니다.
-    const overlay = document.documentElement.getAttribute("data-sysbar") === "overlay" || document.documentElement.hasAttribute("data-selfpad") || /flex|grid/.test(bodyDisplay);
+    const mode = document.documentElement.getAttribute("data-sysbar") || "";
+    // data-sysbar="pad": 본문 전체를 바 높이만큼 아래로 밀어냄 (flex 가운데 정렬 앱 등)
+    const padMode = mode === "pad";
+    const overlay = !padMode && (mode === "overlay" || document.documentElement.hasAttribute("data-selfpad") || /flex|grid/.test(bodyDisplay));
     if (overlay) bar.classList.add("sys-overlay");
     document.body.insertBefore(bar, document.body.firstChild);
 
     // 본문 맨 위에 고정(fixed)된 전체 화면 컨테이너는 바 높이만큼 아래로 내려 헤더가 가려지지 않게 합니다.
     const h = bar.offsetHeight;
+    if (padMode) {
+      bar.classList.add("sys-overlay");
+      document.body.style.boxSizing = "border-box";
+      document.body.style.paddingTop = h + "px";
+    }
     [...document.body.children].forEach(el => {
       if (el === bar) return;
       const cs = getComputedStyle(el);
