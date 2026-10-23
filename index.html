@@ -58,7 +58,7 @@ svg{width:100%;height:100%;display:block}
 .dock .icon{width:60px;height:60px;border-radius:15px}
 .dock a{gap:0;text-shadow:none;transform:translateY(0)}
 
-#phone.app-open .dock{background:var(--app-bottom-bg,#fff);box-shadow:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}#phone.app-open .dock>a{visibility:hidden}.island.ex{width:300px;height:64px;border-radius:32px}.island .isl-t,.island .isl-s{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25;padding:0 14px}.island .isl-t{font-size:13px;font-weight:600}.island .isl-s{font-size:11px;opacity:.7}#phone.app-open .homebar{left:0;right:0;width:auto;transform:none;bottom:0;height:calc(28px + env(safe-area-inset-bottom,0px));align-items:flex-end;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 6px);background:var(--app-bottom-bg,#fff)}.homebar{position:absolute;z-index:12;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 2px);width:150px;height:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.homebar #home-indicator{display:block;width:138px;height:5px;border-radius:999px;background:rgba(235,235,240,.9);box-shadow:0 0 2px rgba(0,0,0,.16);pointer-events:none}#phone.app-light #home-indicator{background:rgba(0,0,0,.8);box-shadow:none}
+#phone.app-open .dock{background:transparent;box-shadow:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}#phone.app-open .dock>a{visibility:hidden}.island.ex{width:300px;height:64px;border-radius:32px}.island .isl-t,.island .isl-s{max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25;padding:0 14px}.island .isl-t{font-size:13px;font-weight:600}.island .isl-s{font-size:11px;opacity:.7}#phone.app-open .homebar{left:0;right:0;width:auto;transform:none;bottom:0;height:calc(28px + env(safe-area-inset-bottom,0px));align-items:flex-end;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 6px);background:transparent}.homebar{position:absolute;z-index:12;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 2px);width:150px;height:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.homebar #home-indicator{display:block;width:138px;height:5px;border-radius:999px;background:rgba(235,235,240,.9);box-shadow:0 0 2px rgba(0,0,0,.16);pointer-events:none}#phone.app-light #home-indicator{background:rgba(0,0,0,.8);box-shadow:none}
 
 iframe{display:none;position:absolute;top:54px;left:0;right:0;bottom:0;width:100%;height:calc(100% - 54px);border:0;background:#fff;z-index:5;opacity:1;transform:translateY(0) scale(1);transform-origin:center;will-change:opacity,transform}
 iframe.app-entering{display:block;animation:appEnter .28s cubic-bezier(.2,.85,.25,1) both}
@@ -105,7 +105,7 @@ iframe.app-leaving{display:block;animation:appLeave .20s cubic-bezier(.4,0,.8,.2
 <iframe id="app" title="앱"></iframe>
 <script>
 const frame=document.getElementById('app'),homebar=document.querySelector('.homebar'),phone=document.getElementById('phone');
-function sizeAppFrame(){const top=frame.dataset.selfpad?0:document.querySelector('.status').offsetHeight,bot=homebar.offsetHeight;const height=Math.max(0,phone.clientHeight-top-bot);frame.style.setProperty('position','absolute','important');frame.style.setProperty('top',top+'px','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom',bot+'px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',height+'px','important');}
+function sizeAppFrame(){const top=0,bot=0;const height=phone.clientHeight;frame.style.setProperty('position','absolute','important');frame.style.setProperty('top',top+'px','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom',bot+'px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',height+'px','important');}
 sizeAppFrame();window.addEventListener('resize',sizeAppFrame);
 // 앱 열림/닫힘에 따라 공용 홈 인디케이터 높이가 바뀌므로 iframe 영역도 즉시 재계산합니다.
 const shellObserver=new MutationObserver(()=>sizeAppFrame());
@@ -137,7 +137,7 @@ function syncStatusBar(){
   const status=document.querySelector('.status');
   try{
     const d=frame.contentDocument;
-    if(!d){status.style.setProperty('--app-status-bg','transparent');return;}
+    if(!d){return;}
     const transparent=v=>!v||v==='transparent'||v==='rgba(0, 0, 0, 0)';
     const candidates=[d.querySelector('header'),d.querySelector('nav'),d.querySelector('main'),d.querySelector('[role="main"]'),d.body,d.documentElement].filter(Boolean);
     let color='';
@@ -145,7 +145,7 @@ function syncStatusBar(){
       const bg=frame.contentWindow.getComputedStyle(el).backgroundColor;
       if(!transparent(bg)){color=bg;break;}
     }
-    status.style.setProperty('--app-status-bg',color||'transparent');const bc=(()=>{try{const w=frame.contentWindow,d=frame.contentDocument;let el=d.elementFromPoint(w.innerWidth/2,w.innerHeight-4);while(el){const c=w.getComputedStyle(el).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;el=el.parentElement;}}catch(e){}return color||'#fff';})();phone.style.setProperty('--app-bottom-bg',bc);const bm=(bc.match(/\d+(\.\d+)?/g)||[]).map(Number);if(bm.length>=3)phone.classList.toggle('app-light',(.2126*bm[0]+.7152*bm[1]+.0722*bm[2])/255>0.62);
+    const bc=(()=>{try{const w=frame.contentWindow,d=frame.contentDocument;let el=d.elementFromPoint(w.innerWidth/2,w.innerHeight-4);while(el){const c=w.getComputedStyle(el).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;el=el.parentElement;}}catch(e){}return color||'#fff';})();phone.style.setProperty('--app-bottom-bg',bc);const bm=(bc.match(/\d+(\.\d+)?/g)||[]).map(Number);if(bm.length>=3)phone.classList.toggle('app-light',(.2126*bm[0]+.7152*bm[1]+.0722*bm[2])/255>0.62);
     const fg=(color.match(/rgba?\(([^)]+)\)/)||[])[1];
     if(fg){
       const nums=fg.split(',').slice(0,3).map(v=>parseFloat(v.trim()));
@@ -155,7 +155,7 @@ function syncStatusBar(){
         status.querySelectorAll('svg').forEach(svg=>svg.style.color=status.style.color);
       }
     }
-  }catch(e){status.style.setProperty('--app-status-bg','transparent');}
+  }catch(e){}
 }
 function silenceApp(){
   try{
@@ -193,6 +193,8 @@ frame.addEventListener('load',()=>{silenceApp();syncStatusBar();try{const d=fram
 #home-indicator-zone, #home-indicator, .home-indicator-zone, .home-indicator, .system-home-indicator, [data-system-home-indicator],
 #dynamic-island, .dynamic-island, .dynamicIsland { display:none!important; visibility:hidden!important; pointer-events:none!important; }
 #statusbar .island, .statusbar .island { display:none!important; }
+/* framed 앱 콘텐츠는 상단 시스템 바 아래에서 시작 (배경은 앱 그대로 이어짐) */
+html:not([data-selfpad]){box-sizing:border-box!important;padding-top:calc(env(safe-area-inset-top,0px) + 54px)!important}
 html, body, #device, #screen { max-width:100%!important; width:100%!important; height:100%!important; min-height:0!important; overflow:hidden!important; }
 `;(d.head||d.documentElement).appendChild(s);}if(d&&d.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}});
 frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
