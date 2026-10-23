@@ -27,7 +27,10 @@
     try {
       let el = document.elementFromPoint(window.innerWidth / 2, barH + 4);
       while (el && el !== document.documentElement) {
-        const c = getComputedStyle(el).backgroundColor;
+        const cs = getComputedStyle(el);
+        // 그라데이션·이미지 배경은 색을 뽑을 수 없으므로 투명 바로 둡니다
+        if (cs.backgroundImage && cs.backgroundImage !== "none") return "image";
+        const c = cs.backgroundColor;
         if (c && c !== "transparent" && c !== "rgba(0, 0, 0, 0)") return c;
         el = el.parentElement;
       }
@@ -49,7 +52,7 @@
     // 앱이 스스로 상단 여백을 잡는 경우(data-selfpad)에는 그 자리에 겹쳐 올리고, 아니면 본문 맨 위에 끼워 넣습니다.
     const bodyDisplay = getComputedStyle(document.body).display;
     // 본문이 flex/grid 레이아웃이면 끼워 넣으면 배치가 깨지므로 겹쳐 올립니다.
-    const overlay = document.documentElement.hasAttribute("data-selfpad") || /flex|grid/.test(bodyDisplay);
+    const overlay = document.documentElement.getAttribute("data-sysbar") === "overlay" || document.documentElement.hasAttribute("data-selfpad") || /flex|grid/.test(bodyDisplay);
     if (overlay) bar.classList.add("sys-overlay");
     document.body.insertBefore(bar, document.body.firstChild);
 
@@ -68,6 +71,7 @@
 
     const paint = () => {
       const bg = bgOf(bar.offsetHeight);
+      if (bg === "image") { bar.style.background = "transparent"; bar.classList.add("sys-dark"); return; }
       bar.style.background = overlay ? "transparent" : bg;
       const l = lum(bg);
       bar.classList.toggle("sys-dark", l !== null && l < 0.5);
