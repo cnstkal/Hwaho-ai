@@ -32,7 +32,7 @@ body{display:grid;place-items:center;background:#0b0d14;color:#fff}
   border:1px solid #ffffff59;
   box-shadow:inset 0 1px 1px #ffffffb3,inset 0 -1px 2px #ffffff30,0 10px 30px #0a1d5a40}
 
-.status{position:absolute;top:0;left:0;right:0;z-index:10;height:calc(54px + env(safe-area-inset-top,0px));flex-shrink:0;padding:calc(16px + env(safe-area-inset-top,0px)) 30px 0 34px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;background:var(--app-status-bg,transparent);transition:background-color .18s ease}
+.status{position:absolute;top:0;left:0;right:0;z-index:10;height:calc(54px + env(safe-area-inset-top,0px));flex-shrink:0;padding:env(safe-area-inset-top,0px) 30px 0 34px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;background:var(--app-status-bg,transparent);transition:background-color .18s ease}
 .status #clock{font-size:17px;font-weight:600;letter-spacing:-.3px;color:var(--status-fg,#111)!important;text-shadow:none}
 .status .signals{color:var(--status-fg,#111)!important}
 .status .signals svg path,.status .signals svg rect{stroke:currentColor}
@@ -185,7 +185,7 @@ function silenceApp(){
     }
   }catch(e){}
 }
-frame.addEventListener('load',()=>{silenceApp();syncStatusBar();try{if(frame.contentDocument&&frame.contentDocument.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}});
+frame.addEventListener('load',()=>{silenceApp();syncStatusBar();try{const d=frame.contentDocument;if(d&&!d.getElementById('hwaho-global-header-separator-fix')){const s=d.createElement('style');s.id='hwaho-global-header-separator-fix';s.textContent='header, nav, [role="banner"], .header, .navbar, .top-bar, .topbar { border-bottom: 0 !important; border-bottom-color: transparent !important; }';(d.head||d.documentElement).appendChild(s);}if(d&&d.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}});
 frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
 let hbY=null,hbX=0;
 homebar.addEventListener('pointerdown',e=>{hbY=e.clientY;hbX=e.clientX;try{homebar.setPointerCapture(e.pointerId)}catch(_){}});
