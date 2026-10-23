@@ -31,16 +31,18 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .dt{height:54px;min-width:170px;padding:0 28px;border-radius:27px;background:#fff;border:1px solid #d8d8dc;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .dt b{font-size:17px;font-weight:700;line-height:1.15}
 .dt span{font-size:14px;font-weight:600;line-height:1.15}
-.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#fff;position:relative}
-.stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
-.strip{flex:none;height:76px;border-top:1px solid #ececef;background:#fff;display:flex;align-items:center;overflow-x:auto;gap:3px;padding:0 12px;scrollbar-width:none}
+.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#fff;position:relative;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;pointer-events:none}
+.strip{flex:none;height:60px;border-top:1px solid #ececef;background:#fff;display:flex;align-items:center;overflow-x:auto;gap:3px;padding:0 12px;scrollbar-width:none}
 .strip::-webkit-scrollbar{display:none}
-.strip button{flex:none;width:30px;height:44px;border-radius:3px;overflow:hidden;transition:width .15s,opacity .15s;opacity:.95}
-.strip button.cur{width:46px;opacity:1}
+.strip button{flex:none;width:24px;height:34px;border-radius:3px;overflow:hidden;transition:width .15s,opacity .15s;opacity:.95}
+.strip button.cur{width:38px;opacity:1}
 .strip img{width:100%;height:100%;object-fit:cover;display:block}
-.act{flex:none;display:flex;justify-content:space-between;align-items:center;padding:14px 20px 30px 20px;border-top:1px solid #ececef;background:#fff}
-.act{gap:12px}.act .mid{flex:1;max-width:240px;height:64px;border-radius:32px;background:#fff;border:1px solid #d8d8dc;display:flex;align-items:center;justify-content:space-around;padding:0 8px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.act .circ{width:64px;height:64px}
+.act{flex:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 18px 22px;border-top:1px solid #ececef;background:#fff}
+.act .circ{width:50px;height:50px}
+.act .mid{flex:1;max-width:200px;height:50px;border-radius:25px;background:#fff;border:1px solid #d8d8dc;display:flex;align-items:center;justify-content:space-around;padding:0 8px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.act svg{width:24px;height:24px}
+.act .circ svg{width:22px;height:26px}
 @media (max-width:360px){.lh h1{font-size:34px}}
 </style>
 <script>if(window.top!==window.self)document.documentElement.setAttribute("data-selfpad","");</script>
@@ -67,46 +69,71 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
  <section class="view" id="det" hidden>
   <div class="dh">
    <button class="circ" id="back" aria-label="뒤로"><svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 12l9 10"/></svg></button>
-   <div class="dt"><b>오늘</b><span id="dtime">오후 12:43</span></div>
+   <div class="dt"><b>오늘</b><span id="dtime"></span></div>
    <button class="circ" aria-label="더 보기"><svg width="26" height="6" viewBox="0 0 26 6" fill="#000"><circle cx="3" cy="3" r="3"/><circle cx="13" cy="3" r="3"/><circle cx="23" cy="3" r="3"/></svg></button>
   </div>
-  <div class="stage"><img id="big" alt=""></div>
+  <div class="stage" id="stage"><img id="big" alt=""></div>
   <div class="strip" id="strip"></div>
   <div class="act">
-   <button class="circ" aria-label="공유"><svg width="28" height="34" viewBox="0 0 28 34" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h18a3 3 0 0 0 3-3V15a3 3 0 0 0-3-3h-4M14 2v20M8 8l6-6 6 6"/></svg></button>
+   <button class="circ" aria-label="공유"><svg viewBox="0 0 28 34" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12H5a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h18a3 3 0 0 0 3-3V15a3 3 0 0 0-3-3h-4M14 2v20M8 8l6-6 6 6"/></svg></button>
    <div class="mid">
-    <button aria-label="좋아요"><svg width="36" height="32" viewBox="0 0 36 32" fill="none" stroke="#000" stroke-width="2.6" stroke-linejoin="round"><path d="M18 29S3 20 3 10.5A7.5 7.5 0 0 1 18 7a7.5 7.5 0 0 1 15 3.5C33 20 18 29 18 29z"/></svg></button>
-    <button aria-label="정보"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round"><circle cx="17" cy="17" r="14.5"/><path d="M17 15v9" /><circle cx="17" cy="9.8" r="1.2" fill="#000" stroke="none"/></svg></button>
-    <button aria-label="조정"><svg width="36" height="32" viewBox="0 0 36 32" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round"><path d="M3 7h30M3 16h30M3 25h30"/><circle cx="23" cy="7" r="3.6" fill="#fff"/><circle cx="13" cy="16" r="3.6" fill="#fff"/><circle cx="21" cy="25" r="3.6" fill="#fff"/></svg></button>
+    <button aria-label="좋아요"><svg viewBox="0 0 36 32" fill="none" stroke="#000" stroke-width="2.6" stroke-linejoin="round"><path d="M18 29S3 20 3 10.5A7.5 7.5 0 0 1 18 7a7.5 7.5 0 0 1 15 3.5C33 20 18 29 18 29z"/></svg></button>
+    <button aria-label="정보"><svg viewBox="0 0 34 34" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round"><circle cx="17" cy="17" r="14.5"/><path d="M17 15v9"/><circle cx="17" cy="9.8" r="1.2" fill="#000" stroke="none"/></svg></button>
+    <button aria-label="조정"><svg viewBox="0 0 36 32" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round"><path d="M3 7h30M3 16h30M3 25h30"/><circle cx="23" cy="7" r="3.6" fill="#fff"/><circle cx="13" cy="16" r="3.6" fill="#fff"/><circle cx="21" cy="25" r="3.6" fill="#fff"/></svg></button>
    </div>
-   <button class="circ" aria-label="삭제"><svg width="30" height="34" viewBox="0 0 30 34" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h26M11 7V3.5h8V7M5 7l1.5 22a3 3 0 0 0 3 2.8h11a3 3 0 0 0 3-2.8L25 7M12 13v13M18 13v13"/></svg></button>
+   <button class="circ" aria-label="삭제"><svg viewBox="0 0 30 34" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h26M11 7V3.5h8V7M5 7l1.5 22a3 3 0 0 0 3 2.8h11a3 3 0 0 0 3-2.8L25 7M12 13v13M18 13v13"/></svg></button>
   </div>
  </section>
 </div>
 <script>
 (function(){
-  var BASE="https://raw.githubusercontent.com/cnstkal/Hwaho2/main/images/Photos/";
-  // Hwaho2/images/Photos 에 실제 존재하는 파일 번호 (30번은 없음)
-  var IDS=[24,5,25,8,12,26,13,31,9,3,32,17,2,28,27,11,1,21,15,22,18,29,6,19,23,4,16,20,7,10,14];
-  var VIDEO={12:"0:01"};
-  var photos=IDS.map(function(n,i){var h=12+(i*7)%12,m=(i*13+43)%60;return{id:n,src:BASE+n+".jpg",video:VIDEO[n]||"",time:"오후 "+(h>12?h-12:h)+":"+(m<10?"0":"")+m};});
+  // 임시 샘플 사진 20장: 외부 링크 없이 캔버스로 생성한 그라데이션 이미지
+  function make(i){
+    var portrait=i%3!==1, w=portrait?600:800, h=portrait?800:600;
+    var c=document.createElement("canvas");c.width=w;c.height=h;var g=c.getContext("2d");
+    var hue=(i*47)%360, g1=g.createLinearGradient(0,0,w,h);
+    g1.addColorStop(0,"hsl("+hue+",65%,72%)");g1.addColorStop(1,"hsl("+((hue+60)%360)+",55%,38%)");
+    g.fillStyle=g1;g.fillRect(0,0,w,h);
+    g.fillStyle="rgba(255,255,255,.55)";g.beginPath();g.arc(w*(.25+(i%5)*.12),h*.35,Math.min(w,h)*.14,0,Math.PI*2);g.fill();
+    g.fillStyle="rgba(0,0,0,.25)";g.fillRect(0,h*.72,w,h*.28);
+    return c.toDataURL("image/jpeg",.82);
+  }
+  var photos=[];
+  for(var i=0;i<20;i++){
+    var m=(i*13+43)%60, h=12+(i*5)%12;
+    photos.push({src:make(i),video:i===4?"0:01":"",time:"오후 "+(h>12?h-12:h)+":"+(m<10?"0":"")+m});
+  }
   photos[0].time="오후 12:43";
   var grid=document.getElementById("grid"),strip=document.getElementById("strip"),big=document.getElementById("big"),
-      lib=document.getElementById("lib"),det=document.getElementById("det"),dtime=document.getElementById("dtime"),cur=0;
+      stage=document.getElementById("stage"),lib=document.getElementById("lib"),det=document.getElementById("det"),
+      dtime=document.getElementById("dtime"),cur=0;
   photos.forEach(function(p,i){
     var b=document.createElement("button");b.className="cell";b.setAttribute("aria-label","사진 "+(i+1));
-    b.innerHTML='<img loading="lazy" decoding="async" alt="" src="'+p.src+'">'+(p.video?'<span class="dur">'+p.video+'</span>':"");
+    b.innerHTML='<img alt="" src="'+p.src+'">'+(p.video?'<span class="dur">'+p.video+'</span>':"");
     b.onclick=function(){open(i)};grid.appendChild(b);
     var t=document.createElement("button");t.setAttribute("aria-label","사진 "+(i+1));
-    t.innerHTML='<img decoding="async" alt="" src="'+p.src+'">';t.onclick=function(){show(i,true)};strip.appendChild(t);
+    t.innerHTML='<img alt="" src="'+p.src+'">';t.onclick=function(){show(i,true)};strip.appendChild(t);
   });
   function show(i,smooth){
+    if(i<0||i>=photos.length)return;
     cur=i;big.src=photos[i].src;dtime.textContent=photos[i].time;
     var bs=strip.children;
     for(var k=0;k<bs.length;k++)bs[k].classList.toggle("cur",k===i);
     var el=bs[i];strip.scrollTo({left:el.offsetLeft-(strip.clientWidth-el.offsetWidth)/2,behavior:smooth?"smooth":"auto"});
   }
-  function open(i){lib.hidden=true;det.hidden=false;show(i,false);requestAnimationFrame(function(){show(i,false)});}
+  function open(i){lib.hidden=true;det.hidden=false;show(i,false);}
   document.getElementById("back").onclick=function(){det.hidden=true;lib.hidden=false;};
+  // 좌우 스와이프 및 키보드 화살표로 이전/다음 사진
+  var sx=null;
+  stage.addEventListener("touchstart",function(e){sx=e.touches[0].clientX;},{passive:true});
+  stage.addEventListener("touchend",function(e){
+    if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;sx=null;
+    if(Math.abs(dx)>40)show(cur+(dx<0?1:-1),true);
+  });
+  document.addEventListener("keydown",function(e){
+    if(det.hidden)return;
+    if(e.key==="ArrowRight")show(cur+1,true);
+    if(e.key==="ArrowLeft")show(cur-1,true);
+  });
 })();
 </script></body></html>
