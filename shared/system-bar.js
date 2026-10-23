@@ -22,9 +22,17 @@
     const m = (c || "").match(/\d+(\.\d+)?/g); if (!m || m.length < 3) return null;
     return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255;
   }
-  function bgOf() {
-    for (const el of [document.querySelector("header"), document.body, document.documentElement]) {
-      if (!el) continue;
+  function bgOf(barH) {
+    // 바 바로 아래에 실제로 보이는 요소의 배경색을 따릅니다 (body가 어두워도 화면이 밝은 앱 대응)
+    try {
+      let el = document.elementFromPoint(window.innerWidth / 2, barH + 4);
+      while (el && el !== document.documentElement) {
+        const c = getComputedStyle(el).backgroundColor;
+        if (c && c !== "transparent" && c !== "rgba(0, 0, 0, 0)") return c;
+        el = el.parentElement;
+      }
+    } catch (e) {}
+    for (const el of [document.body, document.documentElement]) {
       const c = getComputedStyle(el).backgroundColor;
       if (c && c !== "transparent" && c !== "rgba(0, 0, 0, 0)") return c;
     }
@@ -59,7 +67,7 @@
     tick(); setInterval(tick, 10000);
 
     const paint = () => {
-      const bg = bgOf();
+      const bg = bgOf(bar.offsetHeight);
       bar.style.background = overlay ? "transparent" : bg;
       const l = lum(bg);
       bar.classList.toggle("sys-dark", l !== null && l < 0.5);
