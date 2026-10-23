@@ -69,6 +69,7 @@ iframe.app-leaving{display:block;animation:appLeave .11s cubic-bezier(.4,0,.8,.2
 #phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .2s cubic-bezier(.2,.8,.2,1) both}
 @keyframes homeDim{to{opacity:.5;transform:scale(.96)}}
 @keyframes homeReturn{from{opacity:.5;transform:scale(.96)}to{opacity:1;transform:none}}
+#phone.app-opening .dock,#phone.app-closing .dock,#phone.app-opening main,#phone.app-closing main{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 /* 하단 홈 인디케이터가 앱 종료/홈 복귀 역할을 대신합니다. */
 
 /* 데스크톱에서만 폰 프레임, 모바일은 꽉 찬 화면 */

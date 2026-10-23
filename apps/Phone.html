@@ -8,7 +8,7 @@
 html,body{height:100%;background:#fff}
 body{font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;color:#000;display:flex;justify-content:center}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}svg{display:block}
-#app{--top:59px;--tb:#fff;--fg:#000;--b:#2f7bf5;--l:#e3e3e8;--s:#8e8e93;position:relative;width:100%;max-width:430px;height:100%;overflow:hidden;background:#fff}
+#app{--top:59px;--tb:#fff;--fg:#000;--b:#2f7bf5;--l:#e3e3e8;--s:#8e8e93;position:relative;width:100%;max-width:none;height:100%;overflow:hidden;background:#fff}
 #app.dk{--tb:#15131d;--fg:#fff}
 .tab{position:absolute;inset:0;display:none;overflow-y:auto;padding-bottom:110px}.tab.on{display:block}
 #t-kp.on{padding-bottom:123px;display:flex;flex-direction:column;align-items:center;overflow:hidden}
@@ -181,7 +181,7 @@ if(!k.in||miss||k.s=='on')L.unshift({id:++nid,cid:k.cid,num:k.num,type:k.in?(mis
 call.s='end';call.kp=0;showCall();all();setTimeout(()=>{call=null;document.querySelectorAll('.ov.call').forEach(e=>e.remove())},1100)}
 /* ---- actions ---- */
 const rf=()=>{if($('.ov.dark')&&cur)openInfo(cur[0],cur[1]);all()};
-const act={tab:v=>{tab=v;all()},close:(v,e)=>e.closest('.ov').remove(),closev:(v,e)=>{clearInterval(vt);vt=null;e.closest('.ov').remove()},
+const act={tab:v=>{document.querySelectorAll('.ov:not(.call)').forEach(e=>e.remove());tab=v;all()},close:(v,e)=>e.closest('.ov').remove(),closev:(v,e)=>{clearInterval(vt);vt=null;e.closest('.ov').remove()},
 info:v=>{const r=L.find(x=>x.id==v);openInfo(r.cid,r.num)},cinfo:v=>{const c=cn(v);document.querySelectorAll('.ov.light').forEach(x=>x.remove());openInfo(c.id,c.phone)},
 vm:v=>showVm(v),dialn:(v,e)=>{startCall(+e.dataset.c,e.dataset.n)},dialk:()=>{if(dial)startCall(0,fm(dial))},bs:()=>{dial=dial.slice(0,-1);rKp()},
 edit:()=>{edit=!edit;rCalls()},del:v=>{L=L.filter(r=>r.id!=v);all()},clr:()=>sheet('모든 통화 기록을 삭제할까요?',[['모두 삭제',()=>{L=[];edit=0;all()},1]]),
