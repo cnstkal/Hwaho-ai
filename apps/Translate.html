@@ -259,7 +259,7 @@ function renderChat(){
   d.querySelector('.s').textContent=m.st;d.querySelector('.t').textContent=m.tt;
   d.querySelector('.play').onclick=()=>speak(m.tt,m.tgt);
   c.appendChild(d)});
- c.scrollTop=c.scrollHeight;
+ $('#chat').scrollTop=$('#chat').scrollHeight;
 }
 function addChat(text,from,to){
  const r=translate(text,from,to);
