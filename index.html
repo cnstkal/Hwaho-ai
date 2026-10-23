@@ -105,7 +105,7 @@ iframe.app-leaving{display:block;animation:appLeave .20s cubic-bezier(.4,0,.8,.2
 <iframe id="app" title="앱"></iframe>
 <script>
 const frame=document.getElementById('app'),homebar=document.querySelector('.homebar'),phone=document.getElementById('phone');
-function sizeAppFrame(){const top=0,bot=0;const height=phone.clientHeight;frame.style.setProperty('position','absolute','important');frame.style.setProperty('top',top+'px','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom',bot+'px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',height+'px','important');}
+function sizeAppFrame(){const top=frame.dataset.selfpad?0:document.querySelector('.status').offsetHeight,bot=0;const height=Math.max(0,phone.clientHeight-top);frame.style.setProperty('position','absolute','important');frame.style.setProperty('top',top+'px','important');frame.style.setProperty('left','0','important');frame.style.setProperty('right','0','important');frame.style.setProperty('bottom',bot+'px','important');frame.style.setProperty('width','100%','important');frame.style.setProperty('height',height+'px','important');}
 sizeAppFrame();window.addEventListener('resize',sizeAppFrame);
 // 앱 열림/닫힘에 따라 공용 홈 인디케이터 높이가 바뀌므로 iframe 영역도 즉시 재계산합니다.
 const shellObserver=new MutationObserver(()=>sizeAppFrame());
@@ -145,7 +145,7 @@ function syncStatusBar(){
       const bg=frame.contentWindow.getComputedStyle(el).backgroundColor;
       if(!transparent(bg)){color=bg;break;}
     }
-    const bc=(()=>{try{const w=frame.contentWindow,d=frame.contentDocument;let el=d.elementFromPoint(w.innerWidth/2,w.innerHeight-4);while(el){const c=w.getComputedStyle(el).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;el=el.parentElement;}}catch(e){}return color||'#fff';})();phone.style.setProperty('--app-bottom-bg',bc);const bm=(bc.match(/\d+(\.\d+)?/g)||[]).map(Number);if(bm.length>=3)phone.classList.toggle('app-light',(.2126*bm[0]+.7152*bm[1]+.0722*bm[2])/255>0.62);
+    status.style.setProperty('--app-status-bg',color||'transparent');const bc=(()=>{try{const w=frame.contentWindow,d=frame.contentDocument;let el=d.elementFromPoint(w.innerWidth/2,w.innerHeight-4);while(el){const c=w.getComputedStyle(el).backgroundColor;if(c&&c!=='rgba(0, 0, 0, 0)'&&c!=='transparent')return c;el=el.parentElement;}}catch(e){}return color||'#fff';})();phone.style.setProperty('--app-bottom-bg',bc);const bm=(bc.match(/\d+(\.\d+)?/g)||[]).map(Number);if(bm.length>=3)phone.classList.toggle('app-light',(.2126*bm[0]+.7152*bm[1]+.0722*bm[2])/255>0.62);
     const fg=(color.match(/rgba?\(([^)]+)\)/)||[])[1];
     if(fg){
       const nums=fg.split(',').slice(0,3).map(v=>parseFloat(v.trim()));
@@ -155,7 +155,7 @@ function syncStatusBar(){
         status.querySelectorAll('svg').forEach(svg=>svg.style.color=status.style.color);
       }
     }
-  }catch(e){}
+  }catch(e){status.style.setProperty('--app-status-bg','transparent');}
 }
 function silenceApp(){
   try{
@@ -193,8 +193,6 @@ frame.addEventListener('load',()=>{silenceApp();syncStatusBar();try{const d=fram
 #home-indicator-zone, #home-indicator, .home-indicator-zone, .home-indicator, .system-home-indicator, [data-system-home-indicator],
 #dynamic-island, .dynamic-island, .dynamicIsland { display:none!important; visibility:hidden!important; pointer-events:none!important; }
 #statusbar .island, .statusbar .island { display:none!important; }
-/* framed 앱 콘텐츠는 상단 시스템 바 아래에서 시작 (배경은 앱 그대로 이어짐) */
-html:not([data-selfpad]){box-sizing:border-box!important;padding-top:calc(env(safe-area-inset-top,0px) + 54px)!important}
 html, body, #device, #screen { max-width:100%!important; width:100%!important; height:100%!important; min-height:0!important; overflow:hidden!important; }
 `;(d.head||d.documentElement).appendChild(s);}if(d&&d.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}});
 frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
