@@ -23,23 +23,27 @@
     return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255;
   }
   function bgOf(barH) {
-    // 바 바로 아래에 실제로 보이는 요소의 배경색을 따릅니다 (body가 어두워도 화면이 밝은 앱 대응)
-    try {
-      let el = document.elementFromPoint(window.innerWidth / 2, barH + 4);
-      while (el && el !== document.documentElement) {
-        const cs = getComputedStyle(el);
-        // 그라데이션·이미지 배경은 색을 뽑을 수 없으므로 투명 바로 둡니다
-        if (cs.backgroundImage && cs.backgroundImage !== "none") return "image";
-        const c = cs.backgroundColor;
-        if (c && c !== "transparent" && c !== "rgba(0, 0, 0, 0)") return c;
-        el = el.parentElement;
-      }
-    } catch (e) {}
-    for (const el of [document.body, document.documentElement]) {
-      const c = getComputedStyle(el).backgroundColor;
-      if (c && c !== "transparent" && c !== "rgba(0, 0, 0, 0)") return c;
+    // 바 아래 여러 지점을 샘플링해서 가장 많이 나온 배경색을 씁니다.
+    // body/html 배경(어두운 기본값일 수 있음)은 제외하고, 그라데이션은 "image"로 표시합니다.
+    const counts = {};
+    const W = window.innerWidth, y = barH + 4;
+    for (const fx of [0.1, 0.5, 0.9]) {
+      try {
+        let el = document.elementFromPoint(W * fx, y);
+        while (el && el !== document.body && el !== document.documentElement) {
+          const cs = getComputedStyle(el);
+          let key = null;
+          if (cs.backgroundImage && cs.backgroundImage !== "none") key = "image";
+          else if (cs.backgroundColor && cs.backgroundColor !== "transparent" && cs.backgroundColor !== "rgba(0, 0, 0, 0)") key = cs.backgroundColor;
+          if (key) { counts[key] = (counts[key] || 0) + 1; break; }
+          el = el.parentElement;
+        }
+      } catch (e) {}
     }
-    return "#fff";
+    const best = Object.keys(counts).sort((x, z) => counts[z] - counts[x])[0];
+    if (best) return best;
+    const c = getComputedStyle(document.body).backgroundColor;
+    return (c && c !== "transparent" && c !== "rgba(0, 0, 0, 0)") ? c : "#fff";
   }
 
   function build() {
