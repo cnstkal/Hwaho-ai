@@ -11,7 +11,7 @@ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 3l2 2.5 3-.5 1 3 2.5 1.8-1 3 1
 list:'<path d="M9 6h11M9 12h11M9 18h11M4 6h.1M4 12h.1M4 18h.1"/>',chev:'<path d="M6 9l6 6 6-6"/>',x:'<circle cx="12" cy="12" r="10" fill="#8a8a8e" stroke="none"/><path d="M8 8l8 8M16 8l-8 8" stroke="#fff"/>',right:'<path d="M9 5l7 7-7 7"/>'};
 const ic=(n,s=24,f)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const AU={a:{n:'달빛서점',c:'#7c8cf0',subs:1204},b:{n:'답개',c:'#9aa0a6',subs:579},c:{n:'미류',c:'#e08a6b',subs:332},d:{n:'새벽편지',c:'#4aa38f',subs:88},e:{n:'모래시계',c:'#b36bd6',subs:2150}};
+const AU={a:{n:'달빛서점',c:'#7c8cf0',subs:1204},b:{n:'답개',c:'#9aa0a6',subs:579},c:{n:'미류',c:'#e08a6b',subs:332},d:{n:'새벽편지',c:'#4aa38f',subs:88},e:{n:'모래시계',c:'#b36bd6',subs:2150},u:{n:'유유',c:'#b8a0d9',subs:3}};
 const P=[
 {id:1,au:'b',t:'인어와 강아지 1',type:'장편',time:'3일 전',ch:'돌톤',ad:0,tags:['돌톤','인어','창작'],g:['#4facfe','#00c6a7'],cv:'인어와 강아지',views:363,pt:0,likes:53,rep:2,cm:4,kind:'post',
 body:['아침 공기부터 확연히 다릅니다. 오늘은 그토록 고대하던 여행을 떠나는 날이니까요. 어쩌면 생을 통틀어 가장 특별한 순간 중 하나가 될지 모릅니다.','스무 살이 되는 해에 6일 간의 여행을 떠나는 건 우리의 오랜 전통입니다. 그래야만 진정한 어른이 된다느니 하는, 허세 가득한 어른들의 무용담을 줄곧 들어왔습니다.','우리은하 내에서 여행이 가능한 수 많은 행성 중 제가 고른 곳은 단연 지구별입니다. 인어별과 상당히 유사한 환경이라 처음 보는 풍경도 낯설지 않았습니다.','도착한 첫날, 해변에서 작은 강아지 한 마리가 제 지느러미를 물끄러미 바라보았습니다. 그게 모든 이야기의 시작이었습니다.']},
@@ -27,6 +27,9 @@ body:['물 조절이 전부라고 해도 과언이 아니에요. 붓에 물을 �
 body:['단편집 표지 일러스트를 맡아주실 분을 찾습니다. 분위기는 차분한 푸른 톤, 인물 없이 사물 위주를 원해요.']},
 {id:7,au:'c',t:'달토끼 그림 모음',type:'채널',time:'2주 전',ad:0,tags:['채널','그림','달토끼'],g:['#ffecd2','#fcb69f'],cv:'달토끼 채널',views:410,pt:0,likes:45,rep:4,cm:2,kind:'channel',
 body:['매일 한 장씩 올리는 달토끼 낙서 채널입니다. 구독하시면 새 그림 알림을 받을 수 있어요.']}];
+// 유유 작가의 채널: 총 포스트 수는 127개지만 실제 화면에는 최신 10개만 표시
+const UY=['#d8c5e7','#f2d8df','#b7c8e2','#e5d7c4','#c4d9d0','#d4c8ed','#e8d2bd','#b9ceda','#edd4df','#c7c9e8'];
+for(let i=1;i<=10;i++){P.push({id:1000+i,au:'u',t:'나를 안아주세요 성화님 '+i+'화',type:'포스트',time:i===1?'오늘':i<4?'어제':`${i}일 전`,ch:'유유',ad:0,tags:[],g:[UY[i-1],'#f8f5fa'],cv:'나를 안아주세요 성화님',views:[21,18,24,19,22,17,26,20,23,16][i-1],pt:0,likes:[0,1,0,2,0,0,1,0,3,0][i-1],rep:0,cm:[0,0,1,0,0,2,0,0,1,0][i-1],kind:'post',body:['나를 안아주세요 성화님. '+i+'화','오늘의 기록을 남겨요. 다음 이야기도 천천히 이어갈게요.']});}
 const C0={1:[['오피디','5일 전','아직 읽기 전이지만 전 이미 이걸 좋아해요',3,1],['.','4일 전','글 분위기가 너무 좋아요ㅠㅠ',1,1],['꽁치','5일 전','앙 좋아요',1,0],['꾸엉','5일 전','이런것도 재밌게 쓰시네..... 츄베릅',1,0]]};
 let S={sub:{},like:{},book:{},rep:{},cm:{},clk:{}};
 try{Object.assign(S,JSON.parse(localStorage.getItem('pt1')||'{}'))}catch(e){}
@@ -56,7 +59,7 @@ if(st!=='all')r=r.filter(p=>p.kind===st);
 $('#sres').innerHTML=`<div class="cnt">검색 결과 ${r.length}개</div>`+(r.length?r.map(p=>card(p,'search')).join(''):'<div class="empty">검색 결과가 없어요.</div>')}
 function renderDetail(){const p=byId(cur),i=P.indexOf(p),pv=P[i-1],nx=P[i+1],cs=comments(p.id),sub=S.sub[p.au];
 $('#dtt').textContent=p.t;
-const pop=P.filter(x=>x.au===p.au&&x.id!==p.id).concat(P.filter(x=>x.au!==p.au&&x.kind==='post')).slice(0,4);
+const pop=P.filter(x=>x.au===p.au&&x.id!==p.id).slice(0,4);
 $('#dbody').innerHTML=`<div style="color:var(--sub);font-size:15px;margin-top:22px">${p.ch||p.type}</div><div class="dtitle">${esc(p.t)}</div>
 <div class="ph">${avatar(p.au,44)}<div class="who"><b>${AU[p.au].n}</b><span>${p.time} · 조회 ${p.views}</span></div></div><div class="line"></div>
 <div class="body">${p.body.map(x=>`<p>${esc(x)}</p>`).join('')}</div>
@@ -134,7 +137,7 @@ r=chT==='s'?l.filter(p=>p.kind==='series'):chT==='c'?[]:chF==='all'?l:l.filter(p
 T=[['a','활동'],['s','시리즈'],['c','커뮤니티']],F=[['all','전체'],['post','포스트'],['request','리퀘스트'],['cm','커뮤니티']];
 $('#v-ch').innerHTML=`<div style="height:100%;overflow-y:auto;padding-bottom:90px">
 <div style="display:flex;justify-content:space-between;padding:14px 16px"><button data-chb>${ic('back',28)}</button><span style="display:flex;gap:18px">${ic('add',28)}${ic('gift',28)}${ic('bell',28)}</span></div>
-<div style="display:flex;gap:16px;padding:8px 16px;align-items:center">${avatar(chAu,104).replace('style="','style="border-radius:22px;')}<div><b style="font-size:26px">${AU[chAu].n}</b><div style="color:var(--sub);margin-top:6px">구독자 ${(AU[chAu].subs+(sub?1:0)).toLocaleString()}명 · 포스트 ${l.length}개</div><div style="color:var(--sub);margin-top:6px">채널 정보 ${ic('right',14)}</div></div></div>
+<div style="display:flex;gap:16px;padding:8px 16px;align-items:center">${avatar(chAu,104).replace('style="','style="border-radius:22px;')}<div><b style="font-size:26px">${AU[chAu].n}</b><div style="color:var(--sub);margin-top:6px">구독자 ${(AU[chAu].subs+(sub?1:0)).toLocaleString()}명 · 포스트 ${chAu==='u'?127:l.length}개</div><div style="color:var(--sub);margin-top:6px">채널 정보 ${ic('right',14)}</div></div></div>
 <div style="display:flex;gap:10px;padding:14px 16px"><button data-act="sub" data-au="${chAu}" style="flex:1;height:48px;border-radius:12px;background:${sub?'#e5e5ea':'#2a2a30'};color:${sub?'#222':'#fff'};font-size:17px">${sub?'구독중':'구독'}</button><button data-act="share" style="width:48px;border-radius:12px;background:#f2f2f5">${ic('share',24)}</button></div>
 <div style="display:flex;border-bottom:1px solid var(--ln)">${T.map(([k,n])=>`<button data-cht="${k}" style="flex:1;padding:14px;font-size:18px;color:${chT===k?'#000':'var(--sub)'};font-weight:${chT===k?700:400};border-bottom:3px solid ${chT===k?'#000':'transparent'}">${n}</button>`).join('')}</div>
 ${chT==='a'?`<div style="display:flex;gap:8px;padding:14px 16px;overflow-x:auto">${F.map(([k,n])=>`<button data-chf="${k}" style="flex:none;padding:10px 18px;border-radius:22px;border:1px solid ${chF===k?'#cfe0ff':'var(--ln)'};background:${chF===k?'#e8f0ff':'none'};color:${chF===k?'#2f6fed':'inherit'}">${n}</button>`).join('')}</div>`:''}
