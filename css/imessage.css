@@ -31,8 +31,8 @@ h1{margin:6px 0 4px 17px;font-size:34px;line-height:41px;font-weight:700;flex:no
 .srch input{flex:1;border:0;outline:0;background:none;min-width:0}
 .tb{display:flex;gap:8px;justify-content:space-around;padding:8px 12px 4px;flex:none}
 .tb .pill{font-size:15px;padding:0 12px}
-.hi{height:30px;flex:none;display:flex;justify-content:center;align-items:flex-end;padding-bottom:8px;background:#fff}
-.hi i{width:140px;height:5px;border-radius:3px;background:#000}
+.hi{height:22px;flex:none;display:flex;justify-content:center;align-items:flex-end;padding-bottom:8px;background:#fff}
+.hi i{width:134px;height:3px;border-radius:2px;background:#000}
 .menu{position:absolute;right:12px;top:100px;width:250px;background:#fff;border-radius:34px;box-shadow:0 8px 40px rgba(0,0,0,.25);padding:12px 0;z-index:20}
 .menu button{display:flex;align-items:center;gap:12px;width:100%;height:47px;padding:0 20px 0 18px;font-size:17px;text-align:left}
 .menu .ck{width:18px;flex:none}.menu hr{border:0;border-top:.5px solid #e0e0e3;margin:8px 20px}
