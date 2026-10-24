@@ -208,7 +208,8 @@ function onAppLoad(){silenceApp();syncStatusBar();try{const d=frame.contentDocum
 #dynamic-island, .dynamic-island, .dynamicIsland { display:none!important; visibility:hidden!important; pointer-events:none!important; }
 #statusbar .island, .statusbar .island { display:none!important; }
 #phone.no-island #island{display:none!important}
-html, body, #device, #screen { max-width:100%!important; width:100%!important; height:100%!important; min-height:0!important; overflow:hidden!important; }
+html, body, #device, #screen { max-width:100%!important; width:100%!important; height:100%!important; min-height:0!important; }
+#device, #screen { overflow:hidden!important; }
 `;(d.head||d.documentElement).appendChild(s);}if(d&&d.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}}
 appFrame.addEventListener('load',()=>{if(frame===appFrame)onAppLoad();});
 appFrame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
