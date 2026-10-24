@@ -28,9 +28,9 @@ html,body{background:#f2f2f4}#app{position:fixed;top:0;bottom:0;left:0;right:0;o
 .dots i{width:6px;height:6px;border-radius:50%;background:#c7c7cc}.dots i.on{background:#5b51f0}
 .act{display:flex;align-items:center;gap:14px;padding:8px 12px 0;font-size:15px;font-weight:600;white-space:nowrap}
 .act button{display:flex;align-items:center;gap:6px}.act .sp{flex:1}
-.lk,.cap,.dt{padding:0 12px;font-size:14px;line-height:1.4;white-space:normal}.lk{margin-top:6px}.vc{margin-top:2px}.cap{margin-top:6px}.cap b{font-weight:600}.dt{color:#737373;font-size:13px;padding-bottom:14px;margin-top:4px}
+.lk,.cap,.dt{padding:0 12px;font-size:14px;line-height:1.4;white-space:normal}.lk{margin-top:6px}.vc{margin-top:2px}.cap{margin-top:6px}.dt{color:#737373;font-size:13px;padding-bottom:14px;margin-top:4px}
 .prof{padding:4px 16px 0}.prow{display:flex;align-items:center;gap:22px}
-.stat{display:flex;flex:1;justify-content:space-between;text-align:center}.stat b{display:block;font-size:17px;font-weight:600}.stat span{font-size:14px}
+.stat{display:flex;flex:1;justify-content:flex-start;gap:20px;text-align:center}.stat b{display:block;font-size:17px;font-weight:600}.stat span{font-size:14px}
 .btns{display:flex;gap:6px;padding:14px 16px}.btns button{flex:1;height:36px;border-radius:10px;background:#f0f0f3;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:4px}
 .btns button.s{flex:none;width:40px}
 .tabs{display:flex;border-bottom:1px solid #eee}.tabs div{flex:1;display:grid;place-items:center;height:44px;color:#737373;border-bottom:2px solid transparent}.tabs div.on{color:#000;border-color:#000}
