@@ -176,3 +176,4 @@ svg{display:block}
 #toast.on{transform:none}
 #toast:not(.on){visibility:hidden}
 #toast b{display:block;font-size:16px}
+#statusbar,.island{display:none!important}
