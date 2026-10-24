@@ -14,7 +14,8 @@ svg{display:block}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:4px 12px 10px;scrollbar-width:none;flex:none}.chips::-webkit-scrollbar{display:none}
 .chip{flex:none;height:32px;padding:0 12px;border-radius:8px;background:#f2f2f2;font-size:14px;font-weight:500;display:flex;align-items:center}
 .chip.on{background:#0f0f0f;color:#fff}
-#feed{flex:1;min-height:0;overflow-y:auto;padding-bottom:104px}
+#feed{flex:1;min-height:0;overflow-y:auto;padding-bottom:104px;scrollbar-width:none}
+#feed::-webkit-scrollbar{display:none}
 .vid{margin-bottom:18px}
 .th{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;cursor:pointer}
 .th .tt{position:absolute;left:0;right:0;bottom:0;padding:0 14px 14px;font-weight:900;font-size:34px;line-height:1.05;letter-spacing:-1.5px;color:#d8ffa8;text-shadow:0 2px 6px rgba(0,0,0,.35)}
@@ -108,3 +109,5 @@ nav button.mk{width:52px;height:52px;border-radius:50%;background:rgba(120,120,1
 .menu.on{display:flex}
 .menu .mb{width:100%;background:#fff;border-radius:14px 14px 0 0;padding:8px 0 calc(16px + env(safe-area-inset-bottom))}
 .menu .mb button{display:block;width:100%;text-align:left;padding:14px 18px;font-size:16px}
+
+*{scrollbar-width:none}*::-webkit-scrollbar{display:none}

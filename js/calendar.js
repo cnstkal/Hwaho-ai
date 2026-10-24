@@ -51,8 +51,7 @@ const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 
 function seed() {
   S.cals = [{ id: 'c1', name: '캘린더', color: '#55aaef' }, { id: 'c2', name: '집', color: '#ff9f0a' }, { id: 'c3', name: '업무', color: '#34c759' }];
   S.events = [
-    { id: uid(), title: 'ㅇㅇ', loc: '', notes: '', allDay: true, sd: '2026-10-15', st: '09:00', ed: '2026-10-15', et: '10:00', cal: 'c1', alert: 'none' },
-    { id: uid(), title: 'ㅇㅇㅇ', loc: '', notes: '', allDay: true, sd: '2026-10-20', st: '09:00', ed: '2026-10-20', et: '10:00', cal: 'c1', alert: 'none' }
+    { id: uid(), title: '8주년', loc: '', notes: '', allDay: true, sd: '2026-10-24', st: '09:00', ed: '2026-10-24', et: '10:00', cal: 'c1', alert: 'none' }
   ];
   S.hidden = [];
 }
