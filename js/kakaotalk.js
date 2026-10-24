@@ -42,7 +42,7 @@ const raw=[
 const BG=['#7b8794','#8a7f9a','#6f8f8b','#9a8575','#6f84a3','#8b7d86'];
 const DD=[[['D+412','함께한 날']],[],[['D+88','새 프로필']],[],[['D-12','생일'],['D+731','친구가 된 날']]];
 const friends=raw.map((r,i)=>({id:i+1,n:r[0],s:r[1],a:r[2],fav:!!r[3],ord:r[4],c:P[i%5],bg:BG[i%6],dd:DD[i%5]}));
-const groups={101:{id:101,n:'친구 단톡',grp:[1,2,3,4,5,6],c:P[0],bg:BG[0],dd:[]},102:{id:102,n:'매니저·지인 단톡',grp:[7,8,9,10,11,12,13],c:P[1],bg:BG[1],dd:[]},103:{id:103,n:'가족 단톡',grp:[14,15,16],c:P[2],bg:BG[2],dd:[]}};
+const groups={101:{id:101,n:'친구 단톡',grp:[1,2,3,4,5,6],c:P[0],bg:BG[0],dd:[]},102:{id:102,n:'친구 단톡 (매니저)',grp:[1,2,3,4,5,6,7,8],c:P[1],bg:BG[1],dd:[]},103:{id:103,n:'가족 단톡',grp:[14,15,16],c:P[2],bg:BG[2],dd:[]}};
 const byId=id=>friends.find(f=>f.id==id)||groups[id];
 
 function dOff(o){const d=new Date();d.setDate(d.getDate()+o);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -54,6 +54,7 @@ let clf='all';
 let sort='ko',open={fav:true,fr:true},cur=null,nav=['list'];
 
 /* list */
+function gav(g,s){const m=g.grp.slice(0,4).map(i=>byId(i));const h=s/2;return `<div class="av" style="width:${s}px;height:${s}px;display:grid;grid-template-columns:1fr 1fr;gap:0">${m.map(x=>`<div style="width:${h}px;height:${h}px;overflow:hidden">${av(x,h).replace(/style="width:[^"]*;height:[^"]*"/,'style="width:100%;height:100%;border-radius:0"')}</div>`).join('')}</div>`}
 function row(f){return `<div class="fr" data-id="${f.id}">${av(f,48)}<div class="tx"><div class="n">${esc(f.n)}</div>${f.s?`<div class="s">${esc(f.s)}</div>`:''}</div></div>`}
 function renderList(){
   const fav=friends.filter(f=>f.fav),rest=friends.filter(f=>!f.fav);
@@ -84,7 +85,8 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-tab]');if(
   if(t.dataset.tab==='0'){nav=['list'];show('list');renderList()}
   else{nav=['list','chatlist'];show('chatlist');renderCL()}});
 /* nav */
-function show(n){document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id==n))}
+function barTone(c){const b=document.querySelector('.sys-bar');if(!b)return;if(b._o===undefined)b._o=b.style.background;b.style.background=c?'#b2c4d4':b._o}
+function show(n){document.querySelectorAll('.scr').forEach(s=>s.classList.toggle('on',s.id==n));barTone(n=='chat')}
 function go(n,id){if(id){cur=id;delete unread[id];drawTabs()}nav.push(n);show(n);if(n=='profile')renderProfile();if(n=='chat')renderChat();if(n=='chatlist')renderCL()}
 function back(){if(nav.length>1)nav.pop();const n=nav[nav.length-1];show(n);if(n=='list')renderList();if(n=='profile')renderProfile();if(n=='chatlist')renderCL()}
 $('#pclose').onclick=back;$('#cback').onclick=back;
@@ -163,7 +165,7 @@ function renderCL(){
   let ids=Object.keys(chats).filter(i=>chats[i].length&&byId(i)).sort((a,b)=>{const x=chats[a].slice(-1)[0],y=chats[b].slice(-1)[0];return (y.d+y.tm).localeCompare(x.d+x.tm)});
   if(clf=='un')ids=ids.filter(i=>unread[i]);
   $('#clsc').innerHTML=ids.map(i=>{const f=byId(i),m=chats[i].slice(-1)[0];
-    return `<div class="fr cr" data-c="${i}">${av(f.grp?byId(f.grp[0]):f,52)}<div class="tx" style="flex:1"><div class="n">${esc(f.n)}</div><div class="s">${esc(pv(m))}</div></div><div class="rt"><span>${ct(m)}</span>${unread[i]?`<b>${unread[i]}</b>`:''}</div></div>`}).join('')||'<div style="padding:60px 20px;text-align:center;color:#aaa">대화가 없습니다</div>';
+    return `<div class="fr cr" data-c="${i}">${f.grp?gav(f,52):av(f,52)}<div class="tx" style="flex:1"><div class="n">${esc(f.n)}</div><div class="s">${esc(pv(m))}</div></div><div class="rt"><span>${ct(m)}</span>${unread[i]?`<b>${unread[i]}</b>`:''}</div></div>`}).join('')||'<div style="padding:60px 20px;text-align:center;color:#aaa">대화가 없습니다</div>';
   drawTabs();
 }
 $('#clp').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(b){clf=b.dataset.f;renderCL()}});
@@ -174,8 +176,8 @@ seed(101,[
 [0,'t','우리 집 근처 어때','20:31',0,0,4]]);
 seed(102,[
 [0,'t','내일 일정 확인하셨죠?','09:02',-1,0,7],[1,'t','네 확인했습니다','09:05',-1],[0,'t','9시까지 집합입니다','09:06',-1,0,8],
-[0,'t','ㅇㅋ 늦지 않을게요','09:10',-1,0,9],[0,'t','혹시 차 가져오시는 분?','09:14',-1,0,10],[1,'t','저 가져갈게요','09:16',-1],
-[0,'t','감사합니다 ㅎㅎ','09:17',-1,0,11],[0,'t','이따 봬요~','09:40',0,0,12]]);
+[0,'t','ㅇㅋ 늦지 않을게요','09:10',-1,0,1],[0,'t','차 가져오시는 분?','09:14',-1,0,2],[1,'t','저 가져갈게요','09:16',-1],
+[0,'t','감사합니다 ㅎㅎ','09:17',-1,0,3],[0,'t','이따 봬요~','09:40',0,0,5]]);
 seed(103,[
 [0,'t','밥 먹었니?','12:30',-1,0,14],[1,'t','응 먹었어','12:31',-1],[0,'t','너 주말에 집 올 거야?','12:33',-1,0,15],
 [0,'t','나 토요일 갈게','12:40',-1,0,16],[1,'t','ㅇㅇ 간다','12:42',0]]);
