@@ -71,3 +71,5 @@ h4{font-size:19px;margin:26px 0 12px}
 .cin button{font-weight:700;color:#111}
 .opt{display:block;width:100%;text-align:left;padding:16px 20px;font-size:17px}
 *{scrollbar-width:none}*::-webkit-scrollbar{display:none}
+
+.ph-img{width:220px;height:220px;border-radius:12px;background:#e5e5ea;margin:8px 0 12px}
