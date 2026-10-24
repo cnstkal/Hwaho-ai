@@ -80,3 +80,5 @@ button:active,[data-act]:active{opacity:.6}.nav button:active{transform:scale(.9
 .cin{display:flex;align-items:center;gap:10px;padding:4px 12px calc(env(safe-area-inset-bottom,0px) + 30px)}.cin div{flex:1;height:44px;border:1px solid #dbdbdb;border-radius:22px;display:flex;align-items:center;padding:0 6px 0 16px}.cin input{flex:1;border:0;outline:0;font-size:16px;min-width:0;user-select:text}.cin button{color:#5b51f0;font-weight:600;padding:0 10px;opacity:.4}.cin.ty button{opacity:1}
 @media (min-width:600px){#app{left:50%;right:auto;width:min(100vw,56.25vh);transform:translateX(-50%)}}
 
+
+#app>.sc{padding-top:54px!important}

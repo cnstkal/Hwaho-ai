@@ -130,7 +130,8 @@ function nextS(){const n=S[sv.order[sv.ui]].length;if(sv.si+1<n){sv.si++;drawS()
 function prevS(){if(sv.si>0)sv.si--;else if(sv.ui>0){sv.ui--;sv.si=0}else sv.si=0;drawS()}
 function nextU(){if(sv.ui+1>=sv.order.length)return closeS();sv.ui++;sv.si=0;drawS()}
 function prevU(){if(sv.ui>0)sv.ui--;sv.si=0;drawS()}
-function storyBar(on){const b=document.querySelector('.sys-bar'),a=document.getElementById('app');if(!b||!a)return;if(on){b.classList.add('sys-overlay','sys-dark');b.style.background='transparent';a.style.top='0px';}else{b.classList.remove('sys-overlay','sys-dark');b.style.background='';a.style.top=b.offsetHeight+'px';}}
+function storyBar(on){const b=document.querySelector('.sys-bar'),a=document.getElementById('app');if(!b||!a)return;if(on){b.classList.add('sys-overlay','sys-dark');b.style.background='transparent';a.style.top='0px';}else{b.classList.add('sys-overlay');b.classList.remove('sys-dark');b.style.background='#fff';a.style.top='0px';}}
+window.addEventListener('load',()=>storyBar(false));
 function closeS(){if(!sv)return;cancelAnimationFrame(sv.raf);sv.el.remove();sv=null;storyBar(false);renderHome();if(cur=='dm')renderDM();stack.forEach(s=>{});}
 /* ---------- comments ---------- */
 const CM={},CN=['너무 예뻐요','분위기 미쳤다','여기 어디예요?','오늘도 잘 봤어요','색감 최고','저장하고 갑니다','이런 사진 좋아요'];
