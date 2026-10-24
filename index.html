@@ -125,28 +125,30 @@ function goHome(){
 function tick(){const d=new Date(),h=d.getHours()%12||12,m=String(d.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m}tick();setInterval(tick,10000);
 // 브라우저가 배터리 상태 접근을 지원하는 경우 실제 잔량을 표시합니다.
 if(navigator.getBattery){navigator.getBattery().then(battery=>{const fill=document.getElementById('battery-fill');const draw=()=>{fill.setAttribute('width',Math.max(1,15*battery.level));fill.setAttribute('fill',battery.level<=0.2?'#ff453a':'white')};draw();battery.addEventListener('levelchange',draw);}).catch(()=>{});}
-document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
+document.querySelectorAll('a[href^="apps/"]').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   clearTimeout(closeTimer);
   const href=a.getAttribute('href');
   phone.classList.remove('app-closing','app-opening');phone.classList.add('app-opening','app-open');phone.classList.toggle('no-island',/Kakaotalk\.html$/.test(href));
-  const pre=POOL[href];
-  if(pre){
-    frame=pre;frame.style.visibility='';frame.style.pointerEvents='';frame.style.zIndex='5';
-    delete frame.dataset.selfpad;sizeAppFrame();onAppLoad();return;
+  let target=POOL[href];
+  if(!target){
+    target=document.createElement('iframe');
+    target.title='앱';
+    target.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;z-index:5;visibility:hidden;pointer-events:none';
+    target.addEventListener('load',()=>{if(frame===target){target.style.visibility='';target.style.pointerEvents='';onAppLoad();}});
+    phone.appendChild(target);
+    POOL[href]=target;
+    target.src=href;
   }
-  frame=appFrame;
+  frame=target;
   frame.classList.remove('app-leaving','app-entering');
-  delete frame.dataset.selfpad;frame.style.display='block';
-  sizeAppFrame();
-  frame.style.visibility='hidden';
-  frame.src=href;
+  frame.style.display='block';frame.style.visibility=frame.contentDocument&&frame.contentDocument.readyState==='complete'?'':'hidden';frame.style.pointerEvents=frame.style.visibility===''?'':'none';frame.style.zIndex='5';
+  delete frame.dataset.selfpad;sizeAppFrame();
+  if(frame.style.visibility===''){onAppLoad();}
   void frame.offsetWidth;
   frame.classList.add('app-entering');
 }));
 appFrame.addEventListener('load',()=>{if(appFrame.getAttribute('src')&&appFrame.getAttribute('src')!=='about:blank')appFrame.style.visibility='';});
-window.addEventListener('load',()=>{['apps/Memo.html','apps/날씨.html','apps/Kakaotalk.html','apps/Photo.html','apps/Calendar.html','apps/Settings.html','apps/Phone.html','apps/YouTube.html','apps/X.html','apps/instagram.html','apps/Dcinside.html','apps/IMessage.html','apps/music.html','apps/yuyu.html','apps/Translate.html','apps/Postype.html'].forEach(h=>{const f=document.createElement('iframe');f.title='앱';f.src=h;f.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;z-index:4;visibility:hidden;pointer-events:none';phone.appendChild(f);POOL[h]=f;});})
-window.addEventListener('load',()=>{document.querySelectorAll('a[href^="apps/"]').forEach(a=>{const l=document.createElement('link');l.rel='prefetch';l.href=a.getAttribute('href');document.head.appendChild(l);});});
 function syncStatusBar(){
   const status=document.querySelector('.status');
   try{
