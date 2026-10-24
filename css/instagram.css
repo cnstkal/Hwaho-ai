@@ -83,3 +83,5 @@ button:active,[data-act]:active{opacity:.6}.nav button:active{transform:scale(.9
 
 
 .sys-bar:not(.sys-overlay){background:#fff!important}
+
+#acct .ac{margin:14px 16px 16px;border:1px solid #e3e3e6;border-radius:22px}#acct .r{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid #eee;font-size:17px;cursor:pointer}#acct .r:last-child{border:0}#acct .chk{margin-left:auto;width:30px;height:30px;border-radius:50%;background:#0064e0;display:grid;place-items:center}#acct .pl{width:48px;height:48px;border-radius:50%;background:#f1f1f3;display:grid;place-items:center;font-style:normal}#acct .mt{margin:0 16px;height:52px;border:1px solid #d0d0d4;border-radius:26px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px}#acct .meta{text-align:center;color:#0064e0;font-weight:700;font-size:20px;margin:18px 0 4px}
