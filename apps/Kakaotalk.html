@@ -6,11 +6,13 @@
 <title>카카오톡</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:#1c1c1e;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;color:#111}
+html,body{height:100%;overflow:hidden;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;color:#111}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 svg{display:block}
 #app{position:absolute;transform-origin:0 0;overflow:hidden;background:#fff}
-.scr{position:absolute;inset:0;display:none;flex-direction:column;padding-top:54px}
+.scr{position:absolute;inset:0;display:none;flex-direction:column;padding-top:54px;overflow-y:auto;scrollbar-width:none;padding-bottom:84px}
+.scr::-webkit-scrollbar{display:none}
+.scr>.tabs{position:absolute;left:0;right:0;bottom:0}
 .scr.on{display:flex}
 /* status */
 #sb{display:none}
@@ -25,7 +27,7 @@ svg{display:block}
 .pills{display:flex;gap:8px;padding:12px 20px 6px}
 .pill{height:36px;padding:0 18px;border-radius:18px;background:#f2f2f3;color:#777;font-size:15px;font-weight:600}
 .pill.k{background:#111;color:#fff}
-.sc{flex:1;overflow-y:auto;padding-bottom:20px;scrollbar-width:none}
+.sc{flex:none;padding-bottom:20px}
 .sc::-webkit-scrollbar{display:none}
 .sh{display:flex;align-items:center;height:50px;padding:0 20px;margin-top:6px;font-size:15px;font-weight:700}
 .sh .sp{flex:1}
