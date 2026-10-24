@@ -11,6 +11,8 @@
 .sys-bar.sys-dark{color:#fff}
 .sys-bar .sb-t{font-size:17px;font-weight:600;letter-spacing:-.3px;font-feature-settings:"tnum"}
 .sys-bar .sb-r{display:flex;gap:6px;align-items:center;color:inherit}
+.sys-bar .signals{display:flex;gap:6px;align-items:center;color:inherit}
+.sys-bar .signals svg{height:13px;width:auto}
 .sys-bar .sb-wifi{width:18px;height:13px;fill:currentColor}
 .sys-bar .sb-bat{width:25px;height:12px;border:1.5px solid currentColor;border-radius:3.5px;padding:1.5px;position:relative;opacity:.9}
 .sys-bar .sb-bat i{display:block;height:100%;border-radius:1.5px;background:currentColor;width:70%}
@@ -52,7 +54,7 @@
     const bar = document.createElement("div");
     bar.className = "sys-bar";
     bar.setAttribute("aria-hidden", "true");
-    bar.innerHTML = '<span class="sb-t"></span><span class="sb-r">' + WIFI + '<span class="sb-bat"><i></i></span></span>';
+    bar.innerHTML = '<span class="sb-t"></span><span class="signals"><svg viewBox="0 0 20 14" fill="none"><path d="M1 4.6C6 -.2 14 -.2 19 4.6M4 8c3.5-3.2 8.5-3.2 12 0M7.5 11.3c1.5-1.3 3.5-1.3 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg viewBox="0 0 28 14" fill="none"><rect x="1" y="1" width="23" height="12" rx="3.5" stroke="currentColor" stroke-opacity=".4" stroke-width="1"/><rect id="battery-fill" x="2.5" y="2.5" width="15" height="9" rx="2.2" fill="currentColor"/><path d="M26 5v4" stroke="currentColor" stroke-opacity=".4" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
     // 앱이 스스로 상단 여백을 잡는 경우(data-selfpad)에는 그 자리에 겹쳐 올리고, 아니면 본문 맨 위에 끼워 넣습니다.
     const bodyDisplay = getComputedStyle(document.body).display;
     // 본문이 flex/grid 레이아웃이면 끼워 넣으면 배치가 깨지므로 겹쳐 올립니다.
@@ -91,8 +93,8 @@
     paint(); window.addEventListener("load", paint);
 
     if (navigator.getBattery) navigator.getBattery().then(b => {
-      const fill = bar.querySelector(".sb-bat i");
-      const draw = () => { fill.style.width = Math.max(8, Math.round(b.level * 100)) + "%"; };
+      const fill = bar.querySelector("#battery-fill");
+      const draw = () => { fill.setAttribute("width", Math.max(1, 15 * b.level)); };
       draw(); b.addEventListener("levelchange", draw);
     });
   }
