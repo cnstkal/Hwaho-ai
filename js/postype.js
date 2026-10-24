@@ -14,19 +14,19 @@ const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&'
 const AU={a:{n:'달빛서점',c:'#7c8cf0',subs:1204},b:{n:'답개',c:'#9aa0a6',subs:579},c:{n:'미류',c:'#e08a6b',subs:332},d:{n:'새벽편지',c:'#4aa38f',subs:88},e:{n:'모래시계',c:'#b36bd6',subs:2150}};
 const P=[
 {id:1,au:'b',t:'인어와 강아지 1',type:'장편',time:'3일 전',ch:'돌톤',ad:0,tags:['돌톤','인어','창작'],g:['#4facfe','#00c6a7'],cv:'인어와 강아지',views:363,pt:0,likes:53,rep:2,cm:4,kind:'post',
- body:['아침 공기부터 확연히 다릅니다. 오늘은 그토록 고대하던 여행을 떠나는 날이니까요. 어쩌면 생을 통틀어 가장 특별한 순간 중 하나가 될지 모릅니다.','스무 살이 되는 해에 6일 간의 여행을 떠나는 건 우리의 오랜 전통입니다. 그래야만 진정한 어른이 된다느니 하는, 허세 가득한 어른들의 무용담을 줄곧 들어왔습니다.','우리은하 내에서 여행이 가능한 수 많은 행성 중 제가 고른 곳은 단연 지구별입니다. 인어별과 상당히 유사한 환경이라 처음 보는 풍경도 낯설지 않았습니다.','도착한 첫날, 해변에서 작은 강아지 한 마리가 제 지느러미를 물끄러미 바라보았습니다. 그게 모든 이야기의 시작이었습니다.']},
+body:['아침 공기부터 확연히 다릅니다. 오늘은 그토록 고대하던 여행을 떠나는 날이니까요. 어쩌면 생을 통틀어 가장 특별한 순간 중 하나가 될지 모릅니다.','스무 살이 되는 해에 6일 간의 여행을 떠나는 건 우리의 오랜 전통입니다. 그래야만 진정한 어른이 된다느니 하는, 허세 가득한 어른들의 무용담을 줄곧 들어왔습니다.','우리은하 내에서 여행이 가능한 수 많은 행성 중 제가 고른 곳은 단연 지구별입니다. 인어별과 상당히 유사한 환경이라 처음 보는 풍경도 낯설지 않았습니다.','도착한 첫날, 해변에서 작은 강아지 한 마리가 제 지느러미를 물끄러미 바라보았습니다. 그게 모든 이야기의 시작이었습니다.']},
 {id:2,au:'a',t:'비 오는 날의 서점',type:'단편',time:'2시간 전',ad:0,tags:['일상','서점','비'],g:['#355c7d','#c06c84'],cv:'비 오는 날의 서점',views:128,pt:500,likes:21,rep:1,cm:2,kind:'post',
- body:['창밖으로 빗줄기가 굵어지자 손님 대신 우산 냄새가 먼저 들어왔다.','주인은 계산대 뒤에서 낡은 책등을 닦으며, 오늘도 아무도 사 가지 않을 책 한 권을 골라 맨 앞줄에 세웠다.','그 책이 팔리는 날이 오면 가게 문을 닫을 거라고, 오래전부터 혼잣말처럼 말해 왔다.']},
+body:['창밖으로 빗줄기가 굵어지자 손님 대신 우산 냄새가 먼저 들어왔다.','주인은 계산대 뒤에서 낡은 책등을 닦으며, 오늘도 아무도 사 가지 않을 책 한 권을 골라 맨 앞줄에 세웠다.','그 책이 팔리는 날이 오면 가게 문을 닫을 거라고, 오래전부터 혼잣말처럼 말해 왔다.']},
 {id:3,au:'c',t:'여름밤 산책 일기',type:'에세이',time:'어제',ad:0,tags:['에세이','산책','여름'],g:['#f6d365','#fda085'],cv:'여름밤 산책',views:240,pt:0,likes:34,rep:3,cm:3,kind:'post',
- body:['저녁 아홉 시, 신발끈을 묶고 동네를 한 바퀴 돈다. 아무 목적이 없는 걸음이 하루 중 가장 정직하다.','편의점 앞 평상에 앉은 사람들, 개를 데리고 나온 아이, 가로등 아래 모여든 날벌레들. 같은 길이어도 매일 다른 얼굴이다.']},
+body:['저녁 아홉 시, 신발끈을 묶고 동네를 한 바퀴 돈다. 아무 목적이 없는 걸음이 하루 중 가장 정직하다.','편의점 앞 평상에 앉은 사람들, 개를 데리고 나온 아이, 가로등 아래 모여든 날벌레들. 같은 길이어도 매일 다른 얼굴이다.']},
 {id:4,au:'d',t:'다음에',type:'장편',time:'5일 전',ad:1,tags:['창작','여름','장마'],g:['#232526','#414345'],cv:'다음에',views:812,pt:800,likes:77,rep:5,cm:6,kind:'post',
- body:['그런 날씨를 상상해 보라. 고온다습한 장마철. 해가 없어도 뚝뚝 흐르는 땀. 더운 숨이 뻗지 못하게 가로막는 묵직한 압력.','바깥을 거닐기만 해도 인성은 바닥을 치며 타인의 끈적한 팔꿈치에라도 스치면 짜증이 솟는다. 그런 계절에, 우리는 처음 마주 앉았다.']},
+body:['그런 날씨를 상상해 보라. 고온다습한 장마철. 해가 없어도 뚝뚝 흐르는 땀. 더운 숨이 뻗지 못하게 가로막는 묵직한 압력.','바깥을 거닐기만 해도 인성은 바닥을 치며 타인의 끈적한 팔꿈치에라도 스치면 짜증이 솟는다. 그런 계절에, 우리는 처음 마주 앉았다.']},
 {id:5,au:'e',t:'수채화 입문 노트 #3',type:'시리즈',time:'6일 전',ad:0,tags:['그림','수채화','튜토리얼'],g:['#a8edea','#fed6e3'],cv:'수채화 입문 노트',views:1500,pt:1000,likes:120,rep:12,cm:8,kind:'series',
- body:['물 조절이 전부라고 해도 과언이 아니에요. 붓에 물을 얼마나 머금게 하느냐에 따라 같은 색도 전혀 다른 표정이 됩니다.','오늘은 번짐을 활용한 하늘 그라데이션을 연습해 봅니다. 준비물은 300g 종이, 둥근 붓 8호, 그리고 인내심입니다.']},
+body:['물 조절이 전부라고 해도 과언이 아니에요. 붓에 물을 얼마나 머금게 하느냐에 따라 같은 색도 전혀 다른 표정이 됩니다.','오늘은 번짐을 활용한 하늘 그라데이션을 연습해 봅니다. 준비물은 300g 종이, 둥근 붓 8호, 그리고 인내심입니다.']},
 {id:6,au:'a',t:'[리퀘스트] 표지 일러스트 구해요',type:'리퀘스트',time:'1주 전',ad:0,tags:['리퀘스트','일러스트','표지'],g:['#667eea','#764ba2'],cv:'표지 일러스트 의뢰',views:96,pt:0,likes:8,rep:0,cm:1,kind:'request',
- body:['단편집 표지 일러스트를 맡아주실 분을 찾습니다. 분위기는 차분한 푸른 톤, 인물 없이 사물 위주를 원해요.']},
+body:['단편집 표지 일러스트를 맡아주실 분을 찾습니다. 분위기는 차분한 푸른 톤, 인물 없이 사물 위주를 원해요.']},
 {id:7,au:'c',t:'달토끼 그림 모음',type:'채널',time:'2주 전',ad:0,tags:['채널','그림','달토끼'],g:['#ffecd2','#fcb69f'],cv:'달토끼 채널',views:410,pt:0,likes:45,rep:4,cm:2,kind:'channel',
- body:['매일 한 장씩 올리는 달토끼 낙서 채널입니다. 구독하시면 새 그림 알림을 받을 수 있어요.']}];
+body:['매일 한 장씩 올리는 달토끼 낙서 채널입니다. 구독하시면 새 그림 알림을 받을 수 있어요.']}];
 const C0={1:[['오피디','5일 전','아직 읽기 전이지만 전 이미 이걸 좋아해요',3,1],['.','4일 전','글 분위기가 너무 좋아요ㅠㅠ',1,1],['꽁치','5일 전','앙 좋아요',1,0],['꾸엉','5일 전','이런것도 재밌게 쓰시네..... 츄베릅',1,0]]};
 let S={sub:{},like:{},book:{},rep:{},cm:{},clk:{}};
 try{Object.assign(S,JSON.parse(localStorage.getItem('pt1')||'{}'))}catch(e){}
@@ -73,7 +73,7 @@ $('#pill').innerHTML=`<button data-act="open" data-id="${pv?pv.id:''}" style="op
 function renderNav(){const it=[['home','홈','home',1],['req','리퀘스트','req',0],['search','검색','search',1],['box','보관함','box',0],['me','마이메뉴','me',0]];
 $('#nav').innerHTML=it.map(([k,l,i,en])=>`<button class="${en?(view===k||(k==='home'&&view==='detail'&&prev==='home')||(k==='search'&&view==='detail'&&prev==='search')?'on':''):'dis'}" ${en?`data-nav="${k}"`:'tabindex="-1" aria-disabled="true"'}>${ic(i,26)}${l}</button>`).join('')}
 function show(v){view=v;document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));$('#v-'+v).classList.add('on');$('#nav').style.display=v==='detail'?'none':'flex';renderNav()}
-function refresh(){if(view==='home')renderFeed();else if(view==='search')renderSearch();else if(view==='detail')renderDetail();if(sheetCm)renderCm()}
+function refresh(){if(view==='home')renderFeed();else if(view==='search')renderSearch();else if(view==='detail')renderDetail();else if(view==='ch')renderCh();if(sheetCm)renderCm()}
 function go(v){if(v==='detail'){prev=view==='detail'?prev:view}show(v);if(v==='search')setTimeout(()=>$('#q').focus(),50);refresh()}
 let sheetCm=null,sort='인기순',replyTo=null;
 function openSheet(html,tall){$('#sheet').className='sheet on'+(tall?' tall':'');$('#sheet').innerHTML=html;$('#dim').classList.add('on')}
@@ -88,36 +88,36 @@ if($('#cl'))$('#cl').scrollTop=keep}
 function menu(items){openSheet(`<div class="grab"></div>`+items.map(([l,a,d])=>`<button class="opt" data-act="${a}" ${d?`data-id="${d}"`:''}>${l}</button>`).join('')+'<div style="height:calc(12px + env(safe-area-inset-bottom,0px))"></div>')}
 let toastT;function toast(m){let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:50;display:none';document.body.appendChild(t)}t.textContent=m;t.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>t.style.display='none',1400)}
 document.addEventListener('click',e=>{
- const nv=e.target.closest('[data-nav]');if(nv){const k=nv.dataset.nav;go(k==='home'?'home':'search');return}
- const tb=e.target.closest('[data-tab]');if(tb){tab=tb.dataset.tab;document.querySelectorAll('#hometabs button').forEach(b=>b.classList.toggle('on',b===tb));renderFeed();return}
- const sb=e.target.closest('[data-st]');if(sb){st=sb.dataset.st;document.querySelectorAll('#stabs button').forEach(b=>b.classList.toggle('on',b===sb));renderSearch();return}
- if(e.target.id==='dim'){closeSheet();return}
- const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act,id=a.dataset.id,cid=a.dataset.cid;
- if(act==='back'){if(view==='detail')show(prev);else show('home');refresh();return}
- if(act==='open'){if(!id)return;cur=+id;if(view!=='detail')prev=view;show('detail');renderDetail();$('#dbody').scrollTop=0;return}
- if(act==='sub'){const k=a.dataset.au;S.sub[k]=!S.sub[k];save();refresh();return}
- if(act==='like'){S.like[id]=!S.like[id];save();refresh();return}
- if(act==='book'){S.book[id]=!S.book[id];save();refresh();toast(S.book[id]?'북마크에 저장했어요':'북마크를 해제했어요');return}
- if(act==='rep'){S.rep[id]=!S.rep[id];save();refresh();return}
- if(act==='share'){toast('링크를 복사했어요');return}
- if(act==='cm'){sheetCm=+id;window._cv='';replyTo=null;renderCm();return}
- if(act==='more'){menu([['이 작가 구독 '+(S.sub[byId(id).au]?'취소':'하기'),'msub',id],['북마크 '+(S.book[id]?'해제':'저장'),'mbook',id],['링크 복사','mshare'],['신고하기','mreport'],['취소','close']]);return}
- if(act==='dmore'){menu([['링크 복사','mshare'],['신고하기','mreport'],['취소','close']]);return}
- if(act==='msub'){const k=byId(id).au;S.sub[k]=!S.sub[k];save();closeSheet();refresh();return}
- if(act==='mbook'){S.book[id]=!S.book[id];save();closeSheet();refresh();return}
- if(act==='mshare'){closeSheet();toast('링크를 복사했어요');return}
- if(act==='mreport'){closeSheet();toast('신고가 접수되었어요');return}
- if(act==='close'){closeSheet();return}
- if(act==='clear'){$('#q').value='';renderSearch();$('#q').focus();return}
- if(act==='sort'){const keepId=sheetCm;sort=sort==='인기순'?'최신순':'인기순';sheetCm=keepId;renderCm();return}
- if(act==='cl'){const k=sheetCm+cid;S.clk[k]=!S.clk[k];save();window._cv=$('#ci').value;renderCm();return}
- if(act==='rp'){replyTo=cid;$('#ci').placeholder='답글 남기기';$('#ci').focus();return}
- if(act==='emo'){$('#ci').value+=a.dataset.e;$('#ci').focus();return}
- if(act==='cmore'){toast('신고/차단 메뉴는 시뮬레이션에서 지원하지 않아요');return}
- if(act==='send'){const v=$('#ci').value.trim();if(!v)return;const id2=sheetCm;S.cm[id2]=S.cm[id2]||[];
-  if(replyTo){const t=comments(id2).find(c=>c.id===replyTo);if(t&&t.id[0]==='u'){t.r.push({n:'나',x:v});}else{S.cm[id2].push({id:'u'+Date.now(),n:'나',t:'방금 전',x:'↳ '+v,l:0,h:0,r:[]})}}
-  else S.cm[id2].push({id:'u'+Date.now(),n:'나',t:'방금 전',x:v,l:0,h:0,r:[]});
-  save();window._cv='';replyTo=null;sort='최신순';renderCm();$('#cl').scrollTop=1e5;refresh();return}
+const nv=e.target.closest('[data-nav]');if(nv){const k=nv.dataset.nav;go(k==='home'?'home':'search');return}
+const tb=e.target.closest('[data-tab]');if(tb){tab=tb.dataset.tab;document.querySelectorAll('#hometabs button').forEach(b=>b.classList.toggle('on',b===tb));renderFeed();return}
+const sb=e.target.closest('[data-st]');if(sb){st=sb.dataset.st;document.querySelectorAll('#stabs button').forEach(b=>b.classList.toggle('on',b===sb));renderSearch();return}
+if(e.target.id==='dim'){closeSheet();return}
+const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act,id=a.dataset.id,cid=a.dataset.cid;
+if(act==='back'){if(view==='detail')show(prev);else show('home');refresh();return}
+if(act==='open'){if(!id)return;cur=+id;if(view!=='detail')prev=view;show('detail');renderDetail();$('#dbody').scrollTop=0;return}
+if(act==='sub'){const k=a.dataset.au;S.sub[k]=!S.sub[k];save();refresh();return}
+if(act==='like'){S.like[id]=!S.like[id];save();refresh();return}
+if(act==='book'){S.book[id]=!S.book[id];save();refresh();toast(S.book[id]?'북마크에 저장했어요':'북마크를 해제했어요');return}
+if(act==='rep'){S.rep[id]=!S.rep[id];save();refresh();return}
+if(act==='share'){toast('링크를 복사했어요');return}
+if(act==='cm'){sheetCm=+id;window._cv='';replyTo=null;renderCm();return}
+if(act==='more'){menu([['이 작가 구독 '+(S.sub[byId(id).au]?'취소':'하기'),'msub',id],['북마크 '+(S.book[id]?'해제':'저장'),'mbook',id],['링크 복사','mshare'],['신고하기','mreport'],['취소','close']]);return}
+if(act==='dmore'){menu([['링크 복사','mshare'],['신고하기','mreport'],['취소','close']]);return}
+if(act==='msub'){const k=byId(id).au;S.sub[k]=!S.sub[k];save();closeSheet();refresh();return}
+if(act==='mbook'){S.book[id]=!S.book[id];save();closeSheet();refresh();return}
+if(act==='mshare'){closeSheet();toast('링크를 복사했어요');return}
+if(act==='mreport'){closeSheet();toast('신고가 접수되었어요');return}
+if(act==='close'){closeSheet();return}
+if(act==='clear'){$('#q').value='';renderSearch();$('#q').focus();return}
+if(act==='sort'){const keepId=sheetCm;sort=sort==='인기순'?'최신순':'인기순';sheetCm=keepId;renderCm();return}
+if(act==='cl'){const k=sheetCm+cid;S.clk[k]=!S.clk[k];save();window._cv=$('#ci').value;renderCm();return}
+if(act==='rp'){replyTo=cid;$('#ci').placeholder='답글 남기기';$('#ci').focus();return}
+if(act==='emo'){$('#ci').value+=a.dataset.e;$('#ci').focus();return}
+if(act==='cmore'){toast('신고/차단 메뉴는 시뮬레이션에서 지원하지 않아요');return}
+if(act==='send'){const v=$('#ci').value.trim();if(!v)return;const id2=sheetCm;S.cm[id2]=S.cm[id2]||[];
+if(replyTo){const t=comments(id2).find(c=>c.id===replyTo);if(t&&t.id[0]==='u'){t.r.push({n:'나',x:v});}else{S.cm[id2].push({id:'u'+Date.now(),n:'나',t:'방금 전',x:'↳ '+v,l:0,h:0,r:[]})}}
+else S.cm[id2].push({id:'u'+Date.now(),n:'나',t:'방금 전',x:v,l:0,h:0,r:[]});
+save();window._cv='';replyTo=null;sort='최신순';renderCm();$('#cl').scrollTop=1e5;refresh();return}
 });
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='ci')document.querySelector('[data-act=send]').click()});
 $('#q').addEventListener('input',renderSearch);
@@ -125,4 +125,26 @@ $('#dbody').addEventListener('scroll',e=>{$('#dtt').style.opacity=e.target.scrol
 $('#ic-menu').innerHTML=ic('menu',28);$('#ic-add').innerHTML=ic('add',28);$('#ic-gift').innerHTML=ic('gift',28);$('#ic-bell').innerHTML=ic('bell',28);
 $('#ic-sback').innerHTML=ic('back',28);$('#ic-dback').innerHTML=ic('back',28);$('#ic-s').innerHTML=ic('search',22);$('#qx').innerHTML=ic('x',22);
 $('#ic-set').innerHTML=ic('gear',26);$('#ic-share').innerHTML=ic('share',26);$('#ic-dm').innerHTML=ic('more',26);
+/* ===== 작가 프로필(채널) ===== */
+let chAu='b',chF='all',chT='a',chB='home';
+{const d=document.createElement('div');d.className='view';d.id='v-ch';$('#v-home').after(d);
+const s=document.createElement('style');s.textContent='#v-ch .subbtn{display:none}';document.head.appendChild(s)}
+function renderCh(){const sub=S.sub[chAu],l=P.filter(p=>p.au===chAu),
+r=chT==='s'?l.filter(p=>p.kind==='series'):chT==='c'?[]:chF==='all'?l:l.filter(p=>p.kind===chF),
+T=[['a','활동'],['s','시리즈'],['c','커뮤니티']],F=[['all','전체'],['post','포스트'],['request','리퀘스트'],['cm','커뮤니티']];
+$('#v-ch').innerHTML=`<div style="height:100%;overflow-y:auto;padding-bottom:90px">
+<div style="display:flex;justify-content:space-between;padding:14px 16px"><button data-chb>${ic('back',28)}</button><span style="display:flex;gap:18px">${ic('add',28)}${ic('gift',28)}${ic('bell',28)}</span></div>
+<div style="display:flex;gap:16px;padding:8px 16px;align-items:center">${avatar(chAu,104).replace('style="','style="border-radius:22px;')}<div><b style="font-size:26px">${AU[chAu].n}</b><div style="color:var(--sub);margin-top:6px">구독자 ${(AU[chAu].subs+(sub?1:0)).toLocaleString()}명 · 포스트 ${l.length}개</div><div style="color:var(--sub);margin-top:6px">채널 정보 ${ic('right',14)}</div></div></div>
+<div style="display:flex;gap:10px;padding:14px 16px"><button data-act="sub" data-au="${chAu}" style="flex:1;height:48px;border-radius:12px;background:${sub?'#e5e5ea':'#2a2a30'};color:${sub?'#222':'#fff'};font-size:17px">${sub?'구독중':'구독'}</button><button data-act="share" style="width:48px;border-radius:12px;background:#f2f2f5">${ic('share',24)}</button></div>
+<div style="display:flex;border-bottom:1px solid var(--ln)">${T.map(([k,n])=>`<button data-cht="${k}" style="flex:1;padding:14px;font-size:18px;color:${chT===k?'#000':'var(--sub)'};font-weight:${chT===k?700:400};border-bottom:3px solid ${chT===k?'#000':'transparent'}">${n}</button>`).join('')}</div>
+${chT==='a'?`<div style="display:flex;gap:8px;padding:14px 16px;overflow-x:auto">${F.map(([k,n])=>`<button data-chf="${k}" style="flex:none;padding:10px 18px;border-radius:22px;border:1px solid ${chF===k?'#cfe0ff':'var(--ln)'};background:${chF===k?'#e8f0ff':'none'};color:${chF===k?'#2f6fed':'inherit'}">${n}</button>`).join('')}</div>`:''}
+<div style="padding:10px 16px;color:var(--sub);font-weight:700">총 ${r.length}개</div>${r.length?r.map(p=>card(p,'ch')).join(''):'<div class="empty">아직 없어요.</div>'}</div>`}
+document.addEventListener('click',e=>{
+if(e.target.closest('[data-chb]')){show(chB);refresh();return}
+const t=e.target.closest('[data-cht]'),f=e.target.closest('[data-chf]');
+if(t){chT=t.dataset.cht;renderCh();return}if(f){chF=f.dataset.chf;renderCh();return}
+if(view==='ch')return;
+const h=e.target.closest('.ph .av,.ph .who,.ach .av,.ach .who');if(!h)return;
+const a=h.closest('.ph,.ach').querySelector('[data-au]');
+chAu=a?a.dataset.au:byId(cur).au;chF='all';chT='a';chB=view;show('ch');renderCh()});
 show('home');renderFeed();
