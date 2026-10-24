@@ -124,9 +124,9 @@ svg{display:block}
 .empty-msg{text-align:center;color:var(--gray);padding:60px 20px;font-size:17px}
 
 /* sheet */
-#backdrop{position:absolute;inset:0;background:rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:opacity .3s;z-index:40}
+#backdrop{position:absolute;inset:0;background:rgba(0,0,0,.22);opacity:0;pointer-events:none;z-index:40}
 #backdrop.on{opacity:1;pointer-events:auto}
-#sheet{position:absolute;left:0;right:0;top:calc(var(--st) + 5px);bottom:0;background:#f1f1f6;border-radius:40px 40px 0 0;z-index:50;transform:translateY(105%);transition:transform .34s cubic-bezier(.32,.72,0,1);display:flex;flex-direction:column;overflow:hidden;touch-action:pan-y}
+#sheet{position:absolute;left:0;right:0;top:calc(var(--st) + 5px);bottom:0;background:#f1f1f6;border-radius:40px 40px 0 0;z-index:50;transform:translateY(105%);display:flex;flex-direction:column;overflow:hidden;touch-action:pan-y}
 #sheet.on{transform:none}
 .shead{display:flex;justify-content:space-between;align-items:center;padding:16px 16px 0;flex:none;gap:10px}
 .shead .pill{box-shadow:0 3px 10px rgba(0,0,0,.05)}
@@ -161,8 +161,8 @@ svg{display:block}
 .allday-on .pair input[type=date]{width:150px}
 .sw{position:relative;width:51px;height:31px;flex:none}
 .sw input{position:absolute;inset:0;opacity:0;width:100%;height:100%;z-index:2;margin:0}
-.sw i{position:absolute;inset:0;border-radius:16px;background:#e4e4e8;transition:background .2s}
-.sw i:after{content:"";position:absolute;left:2px;top:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s}
+.sw i{position:absolute;inset:0;border-radius:16px;background:#e4e4e8;}
+.sw i:after{content:"";position:absolute;left:2px;top:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25);}
 .sw input:checked+i{background:#34c759}
 .sw input:checked+i:after{transform:translateX(20px)}
 .sbox{flex:1;height:44px;border-radius:22px;background:#fff;border:1px solid #e4e4e8;display:flex;align-items:center;padding:0 14px;gap:8px}
@@ -182,7 +182,7 @@ svg{display:block}
 .crow .rm{color:var(--red);font-size:15px;padding:6px}
 .addc{display:block;width:100%;text-align:left;color:#0a84ff;font-size:17px;font-weight:500;padding:16px 20px;background:#fff;border-radius:22px;margin-top:12px}
 
-#toast{position:absolute;left:12px;right:12px;top:calc(var(--st) + 4px);background:rgba(250,250,252,.97);border:1px solid #e1e1e4;border-radius:20px;padding:12px 16px;z-index:80;font-size:15px;transform:translateY(-140%);transition:transform .35s cubic-bezier(.32,.72,0,1);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+#toast{position:absolute;left:12px;right:12px;top:calc(var(--st) + 4px);background:rgba(250,250,252,.97);border:1px solid #e1e1e4;border-radius:20px;padding:12px 16px;z-index:80;font-size:15px;transform:translateY(-140%);box-shadow:0 8px 24px rgba(0,0,0,.12)}
 #toast.on{transform:none}
 #toast:not(.on){visibility:hidden}
 #toast b{display:block;font-size:16px}

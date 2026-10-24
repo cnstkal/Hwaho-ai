@@ -6,7 +6,7 @@
   const css = `
 .sys-bar{position:relative;z-index:50;flex:none;box-sizing:border-box;height:calc(env(safe-area-inset-top,0px) + 54px);
   padding:env(safe-area-inset-top,0px) 30px 0 34px;display:flex;align-items:center;justify-content:space-between;
-  pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard",sans-serif;color:#000;transition:color .18s}
+  pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard",sans-serif;color:#000;}
 .sys-bar.sys-overlay{position:absolute;top:0;left:0;right:0}
 .sys-bar.sys-dark{color:#fff}
 .sys-bar .sb-t{font-size:17px;font-weight:600;letter-spacing:-.3px;font-feature-settings:"tnum"}
