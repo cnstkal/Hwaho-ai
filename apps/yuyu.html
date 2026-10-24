@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" data-sysbar="pad">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>yuyu</title>
+<link rel="stylesheet" href="../css/yuyu.css">
+<script src="../shared/system-bar.js"></script></head>
+<body>
+<div class="phone" id="ph">
+  <header>
+    <button class="ib" id="bMenu" aria-label="대화 목록"></button>
+    <div class="t">yuyu</div>
+    <button class="ib" id="bNew" aria-label="새 대화"></button>
+    <button class="ib" id="bSet" aria-label="설정"></button>
+  </header>
+  <main id="main"></main>
+  <div class="sug" id="sug"></div>
+  <div class="comp">
+    <div class="pop" id="pop"></div>
+    <div class="box">
+      <button class="ib" id="bPlus" aria-label="추가"></button>
+      <textarea id="inp" rows="1" placeholder="yuyu에게 물어봐"></textarea>
+      <button class="send" id="bSend" aria-label="전송"></button>
+    </div>
+  </div>
+
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer">
+    <div class="hd"><b>대화</b><button class="ib" id="dNew" aria-label="새 대화"></button><button class="ib" id="dClose" aria-label="닫기"></button></div>
+    <div class="list" id="list"></div>
+    <div class="dfoot"><button id="dSet"><span class="av">유</span>설정</button></div>
+  </aside>
+
+  <section class="page" id="settings">
+    <div class="hd"><button class="ib" id="sBack" aria-label="뒤로"></button><b>설정</b></div>
+    <div class="pb">
+      <div class="gh">화면</div>
+      <div class="grp"><div class="row">테마<div class="seg" id="seg"><button data-t="light">라이트</button><button data-t="dark">다크</button></div></div></div>
+      <div class="gh">대화</div>
+      <div class="grp">
+        <button class="row" data-sw="short">짧게 답하기<span class="sw" id="sw-short"></span></button>
+        <button class="row" data-sw="save">대화 기록 저장<span class="sw on" id="sw-save"></span></button>
+        <button class="row" id="clearAll">모든 대화 삭제<span class="r">삭제</span></button>
+      </div>
+      <div class="gh">정보</div>
+      <div class="grp">
+        <div class="row">버전<span class="r">1.0.0</span></div>
+        <div class="row">이 앱은 실제 AI와 연결되지 않은 시뮬레이션이에요.</div>
+      </div>
+    </div>
+  </section>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script src="../js/yuyu.js"></script>
+</body>
+</html>
