@@ -110,11 +110,13 @@ shellObserver.observe(phone,{attributes:true,attributeFilter:['class']});
 let closeTimer;
 function goHome(){
   if(frame.style.display==='none') return;
-  frame.classList.remove('app-entering');
-  frame.classList.add('app-leaving');
-  phone.classList.remove('app-opening');phone.classList.add('app-closing');
   clearTimeout(closeTimer);
-  closeTimer=setTimeout(()=>{frame.src='about:blank';frame.style.display='none';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');document.querySelector('.status').style.color='';frame.classList.remove('app-leaving','app-entering');phone.classList.remove('app-closing','app-open','app-light');},150);
+  frame.classList.remove('app-entering','app-leaving');
+  frame.style.display='none';frame.style.visibility='';
+  phone.classList.remove('app-opening','app-closing','app-open','app-light');
+  const st=document.querySelector('.status');st.style.setProperty('--app-status-bg','transparent');st.style.color='';
+  sizeAppFrame();
+  frame.src='about:blank';
 }
 function tick(){const d=new Date(),h=d.getHours()%12||12,m=String(d.getMinutes()).padStart(2,'0');document.getElementById('clock').textContent=h+':'+m}tick();setInterval(tick,10000);
 // 브라우저가 배터리 상태 접근을 지원하는 경우 실제 잔량을 표시합니다.
