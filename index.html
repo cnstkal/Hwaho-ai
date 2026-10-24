@@ -118,9 +118,14 @@ function goHome(){
   if(frame.style.display==='none') return;
   clearTimeout(closeTimer);
   const was=frame;
-  was.classList.remove('app-entering','app-leaving');
-  was.style.visibility='hidden';was.style.pointerEvents='none';
-  if(was===appFrame){was.style.display='none';was.style.visibility='';was.src='about:blank';}
+  was.classList.remove('app-entering');
+  if(was===appFrame){
+    was.classList.remove('app-leaving');
+    was.style.display='none';was.style.visibility='';was.src='about:blank';
+  }else{
+    was.classList.remove('app-leaving');void was.offsetWidth;was.classList.add('app-leaving');
+    setTimeout(()=>{was.classList.remove('app-leaving');was.style.visibility='hidden';was.style.pointerEvents='none';},240);
+  }
   frame=appFrame;
   phone.classList.remove('app-opening','app-closing','app-open','app-light');
   const st=document.querySelector('.status');st.style.setProperty('--app-status-bg','transparent');st.style.color='';
