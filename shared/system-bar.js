@@ -2,7 +2,7 @@
    각 앱 HTML의 <head>에 <script src="../shared/system-bar.js"></script> 로 불러옵니다.
    다이나믹 아일랜드는 셸(index.html)에서 따로 그려집니다. */
 (function () {
-  if (window.top !== window.self) document.documentElement.setAttribute("data-selfpad", "");
+  if (window.top !== window.self && document.documentElement.hasAttribute("data-selfpad-ok")) document.documentElement.setAttribute("data-selfpad", "");
   if (window.__sysBar) return; window.__sysBar = true;
   const css = `
 .sys-bar{position:relative;z-index:50;flex:none;box-sizing:border-box;height:calc(env(safe-area-inset-top,0px) + 54px);

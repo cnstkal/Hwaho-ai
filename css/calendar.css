@@ -2,7 +2,7 @@
   --red:#e8494a;
   --gray:#939398;
   --line:#e1e1e4;
-  --st:max(env(safe-area-inset-top,0px),54px);
+  --st:max(env(safe-area-inset-top,0px),46px);
   --sb:max(env(safe-area-inset-bottom,0px),20px);
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
 }
