@@ -43,15 +43,15 @@ return AC[k]=uri(s+`<rect width="${w}" height="${h}" fill="url(#v)"/><rect width
 const AV={};function av(seed){return AV[seed]||(AV[seed]=(()=>{const p=PAL[seed%8];return uri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="${p[0]}"/><circle cx="50" cy="40" r="18" fill="${p[2]}"/><ellipse cx="50" cy="96" rx="34" ry="28" fill="${p[2]}"/><circle cx="85" cy="12" r="22" fill="${p[1]}" opacity=".6"/></svg>`)})())}
 /* ---------- data ---------- */
 const H=36e5,NOW=Date.now();
-const U={me:{id:'_starhwa_',name:'SEONGHWA',bio:'星化 from ATEEZ',a:3,fo:7,fi:7},
-u1:{id:'no1likeme8_8',name:'홍중 (HONGJOONG)',a:11,bio:'Captain of ATEEZ',fo:1,fi:1},u2:{id:'ateez_offcial',name:'ATEEZ(에이티즈)',a:22,bio:'ATEEZ(에이티즈) Official Instagram',fo:1,fi:1},
-u3:{id:'choi3an',name:'산 (SAN)',a:35,bio:'SAN from ATEEZ',fo:1,fi:1},u4:{id:'wooyounggg__',name:'우영 (WOOYOUNG)',a:46,bio:"(ATEEZ)\nThat's a W",fo:1,fi:1},
-u5:{id:'fixon_n_on',name:'민기 (MINGI)',a:57,bio:'@ateez_official_',fo:1,fi:1},u6:{id:'imfinalho_',name:'JONGHO',a:68,bio:'ATEEZ',fo:1,fi:1},
-u7:{id:'im_ovation',name:'여상 (YEOSANG)',a:79,bio:'YEOSANG from ATEEZ',fo:1,fi:1},u8:{id:'yunou._.u',name:'윤호',v:1,a:90,bio:'',fo:1060000,fi:1}};
+const U={me:{id:'_starhwa_',name:'SEONGHWA',bio:'星化 from ATEEZ',a:3,posts:190,fo:7168000,fi:7},
+u1:{id:'no1likeme8_8',name:'홍중 (HONGJOONG)',a:11,bio:'Captain of ATEEZ',posts:112,fo:9612000,fi:1},u2:{id:'ateez_offcial',name:'ATEEZ(에이티즈)',a:22,bio:'ATEEZ(에이티즈) Official Instagram',posts:4244,fo:11960000,fi:1},
+u3:{id:'choi3an',name:'산 (SAN)',a:35,bio:'SAN from ATEEZ',posts:152,fo:12220000,fi:1},u4:{id:'wooyounggg__',name:'우영 (WOOYOUNG)',a:46,bio:"(ATEEZ)\nThat's a W",posts:107,fo:8861000,fi:1},
+u5:{id:'fixon_n_on',name:'민기 (MINGI)',a:57,bio:'@ateez_official_',posts:139,fo:7190000,fi:1},u6:{id:'imfinalho_',name:'JONGHO',a:68,bio:'ATEEZ',posts:139,fo:6391000,fi:1},
+u7:{id:'im_ovation',name:'여상 (YEOSANG)',a:79,bio:'YEOSANG from ATEEZ',posts:96,fo:6618000,fi:1},u8:{id:'yunou._.u',name:'윤호',v:1,a:90,bio:'',fo:1060000,fi:1}};
 const CAP=['오늘 하늘이 너무 예뻐서 한참 올려다봤다','주말엔 역시 느긋하게','새 메뉴 먹어보고 왔어요','이번 달 기록, 천천히 넘겨보세요','퇴근길 노을 맛집 발견','아무 계획 없는 하루가 제일 좋다','작업실 한 켠','산책하다 만난 풍경'];
 const MUS=['잔잔한 오후 · 새벽라디오','Blue Hour · Nova','여름밤 · 도담'];
 const PO=[],PM={};
-Object.keys(U).forEach((u,ui)=>{const n=u=='me'?9:3;for(let i=0;i<n;i++){const c=i%3==2?[4,8,12][i%3]:(i%3==1?1:(u=='u1'?12:3)),r=R(ui*100+i);
+Object.keys(U).forEach((u,ui)=>{const n=9;for(let i=0;i<n;i++){const c=i%3==2?[4,8,12][i%3]:(i%3==1?1:(u=='u1'?12:3)),r=R(ui*100+i);
 const p={id:'p'+ui+'_'+i,u,n:i==0&&u=='u1'?12:(i%3==0?1:i%3==1?3:5),ratio:i%2?1:.8,seed:ui*17+i*5+2,likes:Math.floor(200+r()*90000),cm:Math.floor(3+r()*900),sh:Math.floor(r()*3000),h:ui*7+i*30+(u=='me'?20:3)+Math.floor(r()*20),cap:CAP[(ui+i)%8],mus:i%4==0?MUS[(ui+i)%3]:'',lk:0,sv:0};
 PO.push(p);PM[p.id]=p}});
 const S={};[['u1',3],['u2',2],['u3',3],['u4',2],['u5',2],['u6',3]].forEach(([u,n],i)=>S[u]=Array.from({length:n},(_,j)=>({seed:200+i*9+j,h:j+i+1,t:j==0&&i%2==0?CAP[i]:''})));
@@ -87,7 +87,7 @@ if(y)el.querySelector('.sc').scrollTop=y}
 /* ---------- profile ---------- */
 function profHTML(u,self){const o=U[u==='me'?'me':u],uid=u==='me'?'me':u,ps=PO.filter(p=>p.u==uid).sort((a,b)=>a.h-b.h);
 return`<div class="hd">${self?`<div class="logo" style="font-size:22px;font-weight:700">${o.id}${ic('dn',18)}</div><div class="hh"><button>${ic('plus',27)}</button><button>${ic('menu',27)}</button></div>`:`<button class="pill" data-act="back">${ic('lt',24)}</button><b style="flex:1;font-size:22px;display:flex;gap:5px;align-items:center">${o.id}${o.v?VB:''}</b><button class="pill" style="background:none">${ic('bell',24)}</button><button class="pill">${ic('dots',24)}</button>`}</div>
-<div class="sc"><div class="prof"><div class="prow">${uid==='me'?`<img class="pa" style="--s:86px" src="${av(o.a)}">`:`<button data-act="${hasSt(uid)?'story':'x'}" data-u="${uid}">${A(uid,92)}</button>`}<div style="flex:1"><div style="font-size:17px;margin-bottom:10px">${o.name}</div><div class="stat"><div><b>${ps.length}</b><span>게시물</span></div><div><b>${fmtN(o.fo)}</b><span>팔로워</span></div><div><b>${fmtN(o.fi)}</b><span>팔로잉</span></div></div></div></div>
+<div class="sc"><div class="prof"><div class="prow">${uid==='me'?`<img class="pa" style="--s:86px" src="${av(o.a)}">`:`<button data-act="${hasSt(uid)?'story':'x'}" data-u="${uid}">${A(uid,92)}</button>`}<div style="flex:1"><div style="font-size:17px;margin-bottom:10px">${o.name}</div><div class="stat"><div><b>${o.posts??ps.length}</b><span>게시물</span></div><div><b>${fmtN(o.fo)}</b><span>팔로워</span></div><div><b>${fmtN(o.fi)}</b><span>팔로잉</span></div></div></div></div>
 <div style="margin-top:10px;font-size:14px;line-height:1.4;white-space:pre-line">${o.bio}</div></div>
 <div class="btns">${self?'<button>프로필 편집</button><button>프로필 공유</button>':`<button>팔로잉 ${ic('dn',16)}</button><button data-act="chat" data-u="${uid}">메시지</button>`}<button class="s">${ic('plus',18)}</button></div>
 <div class="tabs"><div class="on">${ic('grid',26,'currentColor')}</div><div>${ic('reel',25)}</div><div>${ic('tag',25)}</div></div>
