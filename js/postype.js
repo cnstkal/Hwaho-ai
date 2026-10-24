@@ -131,13 +131,13 @@ $('#nav').innerHTML=it.map(([k,l,i,en])=>`<button class="${en?(view===k||(k==='h
 function show(v){view=v;document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));$('#v-'+v).classList.add('on');$('#nav').style.display=v==='detail'?'none':'flex';renderNav()}
 function refresh(){if(view==='home')renderFeed();else if(view==='search')renderSearch();else if(view==='detail')renderDetail();else if(view==='ch')renderCh();if(sheetCm)renderCm()}
 function go(v){if(v==='detail'){prev=view==='detail'?prev:view}show(v);if(v==='search')setTimeout(()=>$('#q').focus(),50);refresh()}
-let sheetCm=null,sort='인기순',replyTo=null;
+let openR={},sheetCm=null,sort='인기순',replyTo=null;
 function openSheet(html,tall){$('#sheet').className='sheet on'+(tall?' tall':'');$('#sheet').innerHTML=html;$('#dim').classList.add('on')}
 function closeSheet(){sheetCm=null;replyTo=null;$('#sheet').className='sheet';$('#dim').classList.remove('on')}
 function renderCm(){const id=sheetCm;let cs=comments(id).slice();if(sort==='최신순')cs.reverse();else cs.sort((a,b)=>(b.l+(S.clk[id+b.id]?1:0))-(a.l+(S.clk[id+a.id]?1:0)));
 const keep=$('#cl')?$('#cl').scrollTop:0;
 openSheet(`<div class="grab"></div><div class="sh">댓글 ${cs.length}</div><div style="padding:12px 16px 0;font-size:15px"><button data-act="sort">${sort} ${ic('chev',14)}</button></div>
-<div id="cl" style="flex:1;overflow-y:auto;min-height:0">${cs.map(c=>`<div class="cm"><div class="av" style="background:#c9ccd1;width:44px;height:44px"></div><div class="in"><b>${esc(c.n)}</b><time>${c.t}</time><p>${esc(c.x)}</p><div class="row"><button data-act="cl" data-cid="${c.id}" style="display:flex;gap:6px;align-items:center;${S.clk[id+c.id]?'color:#f33':''}">${ic('heart',24,S.clk[id+c.id])}${c.l+(S.clk[id+c.id]?1:0)}</button>${c.h?'<span style="color:#f33">♥ 작가</span>':''}<button data-act="rp" data-cid="${c.id}" style="font-size:16px">답글 쓰기</button><span style="flex:1"></span><button data-act="share">${ic('share',22)}</button><button data-act="cmore" data-cid="${c.id}">${ic('more',22)}</button></div>${(c.r||[]).map(r=>`<div class="reply"><b>${esc(r.n)}</b> ${esc(r.x)}</div>`).join('')}</div></div>`).join('')}</div>
+<div id="cl" style="flex:1;overflow-y:auto;min-height:0">${cs.map(c=>`<div class="cm"><div class="av" style="background:#c9ccd1;width:44px;height:44px"></div><div class="in"><div class="hd"><b>${esc(c.n)}</b><time>${c.t}</time></div><p>${esc(c.x)}</p><div class="row"><button data-act="cl" data-cid="${c.id}" style="display:flex;gap:6px;align-items:center;${S.clk[id+c.id]?'color:#f33':''}">${ic('heart',24,S.clk[id+c.id])}${c.l+(S.clk[id+c.id]?1:0)}</button>${c.h?'<span style="color:#f33">♥ 작가</span>':''}<button data-act="rp" data-cid="${c.id}" style="font-size:16px">답글 쓰기</button><span style="flex:1"></span><button data-act="share">${ic('share',22)}</button><button data-act="cmore" data-cid="${c.id}">${ic('more',22)}</button></div>${(c.r||[]).length?`<button class="mr" data-act="tr" data-cid="${c.id}">답글 ${c.r.length}개 ${openR[id+c.id]?'닫기':'더 보기'} <i style="display:inline-block;transform:rotate(${openR[id+c.id]?180:0}deg)">${ic('chev',14)}</i></button>${openR[id+c.id]?c.r.map(r=>`<div class="cm rp"><div class="av" style="background:#c9ccd1;width:36px;height:36px"></div><div class="in"><div class="hd"><b>${esc(r.n)}</b><time>${r.t||'방금 전'}</time></div><p>${esc(r.x)}</p><div class="row"><span style="display:flex;gap:6px;align-items:center">${ic('heart',24)}${r.l||0}</span><button data-act="rp" data-cid="${c.id}" style="font-size:16px">답글 쓰기</button><span style="flex:1"></span><button data-act="cmore">${ic('more',22)}</button></div></div></div>`).join(''):''}`:''}</div></div>`).join('')}</div>
 <div class="cin"><input id="ci" placeholder="${replyTo?'답글 남기기':'힘이 되는 한마디 남기기'}" value="${esc(window._cv||'')}"><button data-act="send">등록</button></div>`,1);
 if($('#cl'))$('#cl').scrollTop=keep}
 function menu(items){openSheet(`<div class="grab"></div>`+items.map(([l,a,d])=>`<button class="opt" data-act="${a}" ${d?`data-id="${d}"`:''}>${l}</button>`).join('')+'<div style="height:calc(12px + env(safe-area-inset-bottom,0px))"></div>')}
@@ -166,6 +166,7 @@ if(act==='mshare'){closeSheet();toast('링크를 복사했어요');return}
 if(act==='mreport'){closeSheet();toast('신고가 접수되었어요');return}
 if(act==='close'){closeSheet();return}
 if(act==='clear'){$('#q').value='';renderSearch();$('#q').focus();return}
+if(act==='tr'){const k=sheetCm+cid;openR[k]=!openR[k];renderCm();return}
 if(act==='sort'){const keepId=sheetCm;sort=sort==='인기순'?'최신순':'인기순';sheetCm=keepId;renderCm();return}
 if(act==='cl'){const k=sheetCm+cid;S.clk[k]=!S.clk[k];save();window._cv=$('#ci').value;renderCm();return}
 if(act==='rp'){replyTo=cid;$('#ci').placeholder='답글 남기기';$('#ci').focus();return}
@@ -173,7 +174,7 @@ if(act==='cmore'){toast('신고/차단 메뉴는 시뮬레이션에서 지원하
 if(act==='send'){const v=$('#ci').value.trim();if(!v)return;const id2=sheetCm;S.cm[id2]=S.cm[id2]||[];
 if(replyTo){const t=comments(id2).find(c=>c.id===replyTo);if(t&&t.id[0]==='u'){t.r.push({n:'나',x:v});}else{S.cm[id2].push({id:'u'+Date.now(),n:'나',t:'방금 전',x:'↳ '+v,l:0,h:0,r:[]})}}
 else S.cm[id2].push({id:'u'+Date.now(),n:'나',t:'방금 전',x:v,l:0,h:0,r:[]});
-save();window._cv='';replyTo=null;sort='최신순';renderCm();$('#cl').scrollTop=1e5;refresh();return}
+if(replyTo)openR[id2+replyTo]=1;save();window._cv='';replyTo=null;sort='최신순';renderCm();$('#cl').scrollTop=1e5;refresh();return}
 });
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='ci')document.querySelector('[data-act=send]').click()});
 $('#q').addEventListener('input',renderSearch);
