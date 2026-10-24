@@ -43,7 +43,7 @@ return AC[k]=uri(s+`<rect width="${w}" height="${h}" fill="url(#v)"/><rect width
 const AV={};const PROFILE_PHOTOS={3:'_starhwa_/525371840_17901725802246076_2113787671713570957_n.jpg',11:'no1likeme8_8/797725354_17957071353235195_4119823374164324745_n.jpg',22:'ateez_offcial/858500478_18345915571251678_3237752621723113976_n.jpg',35:'choi3an/527274612_17902204932252833_7716678234074701806_n.jpg',46:'wooyounggg__/787367244_17957049936235076_4349860231797659349_n.jpg',57:'fixon_n_on/448837112_1192751585248086_3821067984880258943_n.jpg',68:'imfinalho_/485239783_669628208865007_2966738640616676985_n.jpg',79:'im_ovation/496486481_17892206976239742_8685218474748054259_n.jpg'};function av(seed){return AV[seed]||(AV[seed]=(()=>{const file=PROFILE_PHOTOS[seed];if(file)return '../이미지/인스타그램/'+file;const p=PAL[seed%8];return uri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="${p[0]}"/><circle cx="50" cy="40" r="18" fill="${p[2]}"/><ellipse cx="50" cy="96" rx="34" ry="28" fill="${p[2]}"/><circle cx="85" cy="12" r="22" fill="${p[1]}" opacity=".6"/></svg>`)})())}
 /* ---------- data ---------- */
 const H=36e5,NOW=Date.now();
-const U={me:{id:'_starhwa_',name:'SEONGHWA',bio:'星化 from ATEEZ',a:3,posts:190,fo:7168000,fi:7},me2:{id:'sincnqsi_',name:'',bio:'',a:90,posts:0,fo:0,fi:0,priv:1},
+const U={me:{id:'_starhwa_',name:'SEONGHWA',bio:'星化 from ATEEZ',a:3,posts:190,fo:7168000,fi:7},
 u1:{id:'no1likeme8_8',name:'홍중 (HONGJOONG)',a:11,bio:'Captain of ATEEZ',posts:112,fo:9612000,fi:1},u2:{id:'ateez_offcial',name:'ATEEZ(에이티즈)',a:22,bio:'ATEEZ(에이티즈) Official Instagram',posts:4244,fo:11960000,fi:1},
 u3:{id:'choi3an',name:'산 (SAN)',a:35,bio:'SAN from ATEEZ',posts:152,fo:12220000,fi:1},u4:{id:'wooyounggg__',name:'우영 (WOOYOUNG)',a:46,bio:"(ATEEZ)\nThat's a W",posts:107,fo:8861000,fi:1},
 u5:{id:'fixon_n_on',name:'민기 (MINGI)',a:57,bio:'@ateez_official_',posts:139,fo:7190000,fi:1},u6:{id:'imfinalho_',name:'JONGHO',a:68,bio:'ATEEZ',posts:139,fo:6391000,fi:1},
@@ -62,6 +62,7 @@ const TH=[T('u5',1,[I('t',301,D(5)),V('t',302,D(2),1),X('t','이거 봐봐 ㅋ�
 T('u1',0,[X('t','이번 주말에 시간 돼?',D(8)),X('m','응 괜찮아! 어디 갈까',D(8)+H),X('t','새로 생긴 전시 가보자',D(7))],'읽음'),
 T('u2',1,[X('t','주문하신 원두 준비됐어요',D(0.02))]),T('u3',0,[X('m','사진 보내줘서 고마워요',D(14)),X('t','천만에요!',D(13.9))],'읽음'),
 T('u6',0,[V('t',310,D(16)),X('m','맛있겠다',D(15.5))],'읽음'),T('u7',0,[X('t','내일 아침 러닝 같이 할래?',D(30))],'')];
+U.me2={id:'sincnqsi_',name:'',bio:'',a:90,posts:0,fo:0,fi:0,priv:1};
 const NT=[{u:'me',t:'오늘은 산책 갈래…',l:'내 메모'},{map:1,l:'지도'},{u:'u1',t:'새벽 감성 충전',l:'luna.moon'},{u:'u8',l:'pixel_dawn'}];
 let cur='home',stack=[];
 /* ---------- helpers ---------- */
