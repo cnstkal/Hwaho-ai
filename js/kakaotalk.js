@@ -38,16 +38,17 @@ function av(f,s){
 /* data */
 const P=[['#c9c8fa','#a9a7f2'],['#a9e8de','#7fd3c6'],['#b7dcff','#86bbf7'],['#ffd9b0','#ffb878'],['#ffc9d6','#f59ab4']];
 const raw=[
-['김홍중','',0,0,0],['강여상','',0,0,1],['최산','',0,0,2],['정우영','',0,0,3],['송민기','',0,0,4],['최종호','',0,0,5]];
+['김홍중','',0,0,0],['강여상','',0,0,1],['최산','',0,0,2],['정우영','',0,0,3],['송민기','',0,0,4],['최종호','',0,0,5],['매니저1','',0,0,6],['매니저2','',0,0,7],['지인1','',0,0,8],['지인2','',0,0,9],['지인3','',0,0,10],['지인4','',0,0,11],['지인5','',0,0,12],['엄마','',0,0,13],['아빠','',0,0,14],['형','',0,0,15]];
 const BG=['#7b8794','#8a7f9a','#6f8f8b','#9a8575','#6f84a3','#8b7d86'];
 const DD=[[['D+412','함께한 날']],[],[['D+88','새 프로필']],[],[['D-12','생일'],['D+731','친구가 된 날']]];
 const friends=raw.map((r,i)=>({id:i+1,n:r[0],s:r[1],a:r[2],fav:!!r[3],ord:r[4],c:P[i%5],bg:BG[i%6],dd:DD[i%5]}));
-const byId=id=>friends.find(f=>f.id==id);
+const groups={101:{id:101,n:'친구 단톡',grp:[1,2,3,4,5,6],c:P[0],bg:BG[0],dd:[]},102:{id:102,n:'매니저·지인 단톡',grp:[7,8,9,10,11,12,13],c:P[1],bg:BG[1],dd:[]},103:{id:103,n:'가족 단톡',grp:[14,15,16],c:P[2],bg:BG[2],dd:[]}};
+const byId=id=>friends.find(f=>f.id==id)||groups[id];
 
 function dOff(o){const d=new Date();d.setDate(d.getDate()+o);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 const chats={};
 function seed(id,rows){chats[id]=rows.map(r=>({me:r[0]==1,t:r[1],x:r[2],tm:r[3],d:dOff(r[4]||0),u:!!r[5]}))}
-const unread={4:2,11:2,7:1};
+const unread={};
 const tot=()=>Object.values(unread).reduce((a,b)=>a+b,0);
 let clf='all';
 let sort='ko',open={fav:true,fr:true},cur=null,nav=['list'];
@@ -122,15 +123,15 @@ function renderChat(){
   $('#ctitle').textContent=f.n;$('#bkn').textContent=tot()||'';
   let h='';
   L.forEach((m,i)=>{
-    const p=L[i-1],n=L[i+1];
+    const p=L[i-1],n=L[i+1],s=m.w?byId(m.w):f;
     if(!p||p.d!=m.d)h+=`<div class="dv"><span>${dl(m.d)}</span></div>`;
-    const first=!p||p.me!=m.me||p.d!=m.d,last=!n||n.me!=m.me||n.d!=m.d||n.tm!=m.tm;
+    const first=!p||p.me!=m.me||p.d!=m.d||p.w!=m.w,last=!n||n.me!=m.me||n.d!=m.d||n.tm!=m.tm;
     let c=m.t=='t'?`<div class="bl f">${esc(m.x)}</div>`:m.t=='i'?`<div class="imgm">${imgm()}</div>`:`<div class="stk">${stk(m.k||0)}</div>`;
     if(m.t=='k')c=`<div class="stk">${stk(+m.x||0)}</div>`;
     if(m.t=='t'&&!first)c=c.replace(' f"','"');
     const meta=`<div class="meta">${m.u?'<i>1</i>':''}${last?tm(m.tm):''}</div>`;
     if(m.me)h+=`<div class="rw me ${first?'first':''}">${meta}${c}</div>`;
-    else h+=`<div class="rw you ${first?'first':''}">${first?av(f,40).replace('class="av"','class="av" style="margin-right:8px;align-self:flex-start;width:40px;height:40px"').replace(/style="width:40px;height:40px"/,''):'<div class="sp40"></div>'}<div>${first?`<div class="who">${esc(f.n)}</div>`:''}<div style="display:flex;align-items:flex-end">${c}${meta}</div></div></div>`;
+    else h+=`<div class="rw you ${first?'first':''}">${first?av(s,40).replace('class="av"','class="av" style="margin-right:8px;align-self:flex-start;width:40px;height:40px"').replace(/style="width:40px;height:40px"/,''):'<div class="sp40"></div>'}<div>${first?`<div class="who">${esc(s.n)}</div>`:''}<div style="display:flex;align-items:flex-end">${c}${meta}</div></div></div>`;
   });
   $('#msgs').innerHTML=h;
   $('#msgs').scrollTop=1e9;
@@ -162,11 +163,22 @@ function renderCL(){
   let ids=Object.keys(chats).filter(i=>chats[i].length&&byId(i)).sort((a,b)=>{const x=chats[a].slice(-1)[0],y=chats[b].slice(-1)[0];return (y.d+y.tm).localeCompare(x.d+x.tm)});
   if(clf=='un')ids=ids.filter(i=>unread[i]);
   $('#clsc').innerHTML=ids.map(i=>{const f=byId(i),m=chats[i].slice(-1)[0];
-    return `<div class="fr cr" data-c="${i}">${av(f,52)}<div class="tx" style="flex:1"><div class="n">${esc(f.n)}</div><div class="s">${esc(pv(m))}</div></div><div class="rt"><span>${ct(m)}</span>${unread[i]?`<b>${unread[i]}</b>`:''}</div></div>`}).join('')||'<div style="padding:60px 20px;text-align:center;color:#aaa">대화가 없습니다</div>';
+    return `<div class="fr cr" data-c="${i}">${av(f.grp?byId(f.grp[0]):f,52)}<div class="tx" style="flex:1"><div class="n">${esc(f.n)}</div><div class="s">${esc(pv(m))}</div></div><div class="rt"><span>${ct(m)}</span>${unread[i]?`<b>${unread[i]}</b>`:''}</div></div>`}).join('')||'<div style="padding:60px 20px;text-align:center;color:#aaa">대화가 없습니다</div>';
   drawTabs();
 }
 $('#clp').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(b){clf=b.dataset.f;renderCL()}});
 $('#clsc').addEventListener('click',e=>{const r=e.target.closest('[data-c]');if(r)go('chat',+r.dataset.c)});
+seed(101,[
+[0,'t','얘들아 주말에 뭐함?','20:10',-1,0,1],[0,'t','나 그냥 집ㅋㅋ','20:12',-1,0,2],[1,'t','나도 집이야','20:15',-1],
+[0,'t','다음주에 한번 모이자','20:20',-1,0,3],[0,'t','좋아 ㄱㄱ','20:21',-1,0,5],[1,'t','장소 정하자','20:25',-1],
+[0,'t','우리 집 근처 어때','20:31',0,0,4]]);
+seed(102,[
+[0,'t','내일 일정 확인하셨죠?','09:02',-1,0,7],[1,'t','네 확인했습니다','09:05',-1],[0,'t','9시까지 집합입니다','09:06',-1,0,8],
+[0,'t','ㅇㅋ 늦지 않을게요','09:10',-1,0,9],[0,'t','혹시 차 가져오시는 분?','09:14',-1,0,10],[1,'t','저 가져갈게요','09:16',-1],
+[0,'t','감사합니다 ㅎㅎ','09:17',-1,0,11],[0,'t','이따 봬요~','09:40',0,0,12]]);
+seed(103,[
+[0,'t','밥 먹었니?','12:30',-1,0,14],[1,'t','응 먹었어','12:31',-1],[0,'t','너 주말에 집 올 거야?','12:33',-1,0,15],
+[0,'t','나 토요일 갈게','12:40',-1,0,16],[1,'t','ㅇㅇ 간다','12:42',0]]);
 /* init */
 $('#me').innerHTML=av({id:0,a:0,c:P[0]},44);
 renderList();drawTabs();fillIcons();

@@ -65,12 +65,12 @@ iframe{display:none;position:absolute;top:54px;left:0;right:0;bottom:0;width:100
 @keyframes appLeave{0%{opacity:1;transform:none}100%{opacity:.6;transform:translate3d(0,28px,0) scale(.93)}}
 @keyframes homeDim{to{opacity:.5;transform:scale(.96)}}
 @keyframes homeReturn{from{opacity:.5;transform:scale(.96)}to{opacity:1;transform:none}}
-iframe.app-entering{display:block;animation:appEnter .3s cubic-bezier(.2,.8,.2,1) both}
-iframe.app-leaving{display:block;animation:appLeave .24s ease-in both}
+iframe.app-entering{display:block;animation:appEnter .16s cubic-bezier(.2,.8,.2,1) both}
+iframe.app-leaving{display:block;animation:appLeave .12s ease-in both}
 
 
-#phone.app-opening main,#phone.app-opening .dock{animation:homeDim .3s ease-out both}
-#phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .3s ease-out both}
+#phone.app-opening main,#phone.app-opening .dock{animation:homeDim .16s ease-out both}
+#phone.app-closing main,#phone.app-closing .dock{animation:homeReturn .16s ease-out both}
 
 
 #phone.app-opening .dock,#phone.app-closing .dock,#phone.app-opening main,#phone.app-closing main{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
@@ -124,7 +124,7 @@ function goHome(){
     was.style.display='none';was.style.visibility='';was.src='about:blank';
   }else{
     was.classList.remove('app-leaving');void was.offsetWidth;was.classList.add('app-leaving');
-    setTimeout(()=>{was.classList.remove('app-leaving');was.style.visibility='hidden';was.style.pointerEvents='none';},240);
+    setTimeout(()=>{was.classList.remove('app-leaving');was.style.visibility='hidden';was.style.pointerEvents='none';},120);
   }
   frame=appFrame;
   phone.classList.remove('app-opening','app-closing','app-open','app-light');

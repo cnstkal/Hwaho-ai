@@ -26,8 +26,8 @@ cal:P('<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M
 job:P('<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5h6v2"/>'),
 post:P('<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 9h8M8 14h5"/>'),
 media:P('<rect x="4" y="7" width="16" height="13" rx="3"/><path d="M10 11l5 3-5 3z"/>')};
-const seed=()=>({me:'u1',nid:100,notifs:[],unread:1,users:[
-{id:'u1',name:'sa',handle:'jukee_3',av:AV('s','#c98a4b'),banner:'',verified:false,locked:true,job:'기업가',bday:'1994년 1월 16일',joined:'2020년 2월',bio:'',link:'',fing:53,fers:0,f:0},
+const seed=()=>({me:'u1',nid:100,notifs:[],unread:0,users:[
+{id:'u1',name:'.',handle:'gmaulsnduq43',av:AV('.','#c98a4b'),banner:'',verified:false,locked:true,job:'',bday:'',joined:'2019년 2월',bio:'',link:'',fing:53,fers:0,f:0},
 {id:'u2',name:'우쥬',handle:'yuyu_univ',av:AV('우','#e9a7b8'),banner:'',verified:true,locked:false,job:'',bday:'',joined:'2021년 3월',bio:'',link:'',fing:10,fers:1200,f:1},
 {id:'u3',name:'람다',handle:'_lambda30',av:AV('람','#e59a2a'),banner:'',verified:false,locked:true,job:'',bday:'',joined:'2022년 5월',bio:'',link:'',fing:80,fers:40,f:1},
 {id:'u4',name:'퉁',handle:'dlwoguswo09130',av:AV('퉁','#5b4a42'),banner:'',verified:false,locked:true,job:'',bday:'',joined:'2019년 7월',bio:'',link:'',fing:99,fers:60,f:1},
@@ -37,9 +37,6 @@ posts:[
 {id:'p2',uid:'u3',t:'4분',text:'아니 나 최유리한테 쓸 편지지 사야해',img:'',likes:0,rt:0,views:4},
 {id:'p3',uid:'u4',t:'6분',text:'아시발개추워',img:'',likes:0,rt:0,views:5},
 {id:'p4',uid:'u5',t:'7분',text:'Closing sleepy eyes as gentle fingers stroke fluffy cheeks on a cozy afternoon ✨',img:IMG('#d9a066','#f5e3cc','🐕'),likes:0,rt:0,views:0},
-{id:'p5',uid:'u1',t:'2026. 1. 31.',text:'nadeu_u',img:'',likes:0,rt:0,views:43},
-{id:'p6',uid:'u1',t:'2026. 1. 23.',text:'saju-kid.com/share/4c25949d...',img:'',likes:0,rt:0,views:75},
-{id:'p7',uid:'u1',t:'2026. 4. 6.',text:'saju-kid.com/share/1af600a6...',img:'',likes:0,rt:0,views:42},
 {id:'p8',uid:'u3',t:'1분',text:'나도 사야겠다',img:'',likes:0,rt:0,views:2,parent:'p2'}]});
 let S;try{S=JSON.parse(localStorage.getItem('xsim'))}catch(e){}
 if(!S||!S.users)S=seed();
