@@ -1,6 +1,6 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 html,body{margin:0;height:100%;background:#f2f2f7;font-family:-apple-system,"SF Pro","Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#000}
-#app{position:relative;width:100%;max-width:none;height:100dvh;margin:0;background:#fff;overflow:hidden;display:flex;flex-direction:column}
+#app{position:relative;width:100%;max-width:none;height:calc(100dvh - env(safe-area-inset-top,0px) - 54px);margin:0;background:#fff;overflow:hidden;display:flex;flex-direction:column}
 button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
 input,textarea,select{font:inherit;font-size:16px;color:#000}
 .sb{height:54px;flex:none;position:relative;font-weight:600;font-size:17px;background:#fff;z-index:5}
