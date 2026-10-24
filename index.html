@@ -198,7 +198,7 @@ function silenceApp(){
           w.webkitAudioContext.prototype.resume=function(){return this.suspend();};
         }
       }catch(e){}
-      try{new w.MutationObserver(mute).observe(d.documentElement,{childList:true,subtree:true});}catch(e){}
+      let __mt=0;try{new w.MutationObserver(()=>{if(__mt)return;__mt=w.setTimeout(()=>{__mt=0;mute();},400);}).observe(d.documentElement,{childList:true,subtree:true});}catch(e){}
     }
   }catch(e){}
 }
