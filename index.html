@@ -122,7 +122,7 @@ if(navigator.getBattery){navigator.getBattery().then(battery=>{const fill=docume
 document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   clearTimeout(closeTimer);
-  phone.classList.remove('app-closing','app-opening');phone.classList.add('app-opening','app-open');
+  phone.classList.remove('app-closing','app-opening');phone.classList.add('app-opening','app-open');phone.classList.toggle('no-island',/Kakaotalk\.html$/.test(a.getAttribute('href')));
   frame.classList.remove('app-leaving','app-entering');
   delete frame.dataset.selfpad;frame.style.display='block';
   sizeAppFrame();
@@ -190,6 +190,7 @@ frame.addEventListener('load',()=>{silenceApp();syncStatusBar();try{const d=fram
 #home-indicator-zone, #home-indicator, .home-indicator-zone, .home-indicator, .system-home-indicator, [data-system-home-indicator],
 #dynamic-island, .dynamic-island, .dynamicIsland { display:none!important; visibility:hidden!important; pointer-events:none!important; }
 #statusbar .island, .statusbar .island { display:none!important; }
+#phone.no-island #island{display:none!important}
 html, body, #device, #screen { max-width:100%!important; width:100%!important; height:100%!important; min-height:0!important; overflow:hidden!important; }
 `;(d.head||d.documentElement).appendChild(s);}if(d&&d.documentElement.hasAttribute('data-selfpad')){frame.dataset.selfpad='1';document.querySelector('.status').style.setProperty('--app-status-bg','transparent');sizeAppFrame();}}catch(e){}});
 frame.addEventListener('animationend',e=>{if(e.animationName==='appEnter')frame.classList.remove('app-entering');});
