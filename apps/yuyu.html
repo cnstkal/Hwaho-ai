@@ -165,7 +165,7 @@ function md(t){let h='',ul=false;const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<
 const conv=()=>S.convs.find(c=>c.id===S.cur);
 function render(){const c=conv(),m=$('#main');
  if(!c||!c.msgs.length){m.innerHTML=`<div class="hero">${orb(112,'h')}<h1>무엇이든 편하게 물어보세요</h1><p>유유가 옆에서 같이 생각해 드릴게요</p></div>`;
-  $('#sug').classList.remove('hide');$('#sug').innerHTML=[['chat','오늘 있었던 일 이야기하기'],['q','궁금한 것 물어보기'],['list','고민 같이 정리하기'],['bulb','새로운 아이디어 떠올리기']].map(([i,t])=>`<button data-s="${t}">${ic(i)}${t}</button>`).join('')}
+  $('#sug').classList.add('hide');$('#sug').innerHTML=''}
  else{$('#sug').classList.add('hide');m.innerHTML=c.msgs.map((x,i)=>x.r==='u'?`<div class="m u"><span>${esc(x.t)}</span></div>`:`<div class="m a">${md(x.t)}<div class="acts"><button data-a="copy" data-i="${i}" aria-label="복사">${ic('copy')}</button><button data-a="redo" data-i="${i}" aria-label="다시 생성">${ic('redo')}</button><button data-a="like" data-i="${i}" class="${S.like[c.id+'-'+i]?'on':''}" aria-label="좋아요">${ic('up')}</button></div></div>`).join('')+(busy?'<div class="m a"><div class="typing"><i></i><i></i><i></i></div></div>':'');m.scrollTop=m.scrollHeight}
 }
 function title(t){return t.length>16?t.slice(0,16)+'…':t}
