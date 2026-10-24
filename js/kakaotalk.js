@@ -47,7 +47,7 @@ const byId=id=>friends.find(f=>f.id==id)||groups[id];
 
 function dOff(o){const d=new Date();d.setDate(d.getDate()+o);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 const chats={};
-function seed(id,rows){chats[id]=rows.map(r=>({me:r[0]==1,t:r[1],x:r[2],tm:r[3],d:dOff(r[4]||0),u:!!r[5]}))}
+function seed(id,rows){chats[id]=rows.map(r=>({me:r[0]==1,t:r[1],x:r[2],tm:r[3],d:dOff(r[4]||0),u:!!r[5],w:r[6]}))}
 const unread={};
 const tot=()=>Object.values(unread).reduce((a,b)=>a+b,0);
 let clf='all';
