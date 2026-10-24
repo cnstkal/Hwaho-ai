@@ -40,7 +40,7 @@ function drawer(o){$('#drawer').classList.toggle('on',o);$('#scrim').classList.t
 function newChat(){S.cur=null;busy=false;render();drawer(false);$('#inp').focus()}
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1600)}
 function grow(){const i=$('#inp');i.style.height='40px';i.style.height=Math.min(i.scrollHeight,120)+'px';$('#bSend').classList.toggle('on',!!i.value.trim())}
-function theme(t){S.theme=t;document.documentElement.dataset.theme=t;document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t))}
+function theme(t){t='light';S.theme=t;document.documentElement.dataset.theme=t;document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t))}
 // init
 $('#bMenu').innerHTML=ic('menu');$('#bNew').innerHTML=ic('edit');$('#bSet').innerHTML=ic('gear');$('#bPlus').innerHTML=ic('plus');$('#bSend').innerHTML=ic('send');$('#dNew').innerHTML=ic('edit');$('#dClose').innerHTML=ic('x');$('#sBack').innerHTML=ic('back');
 $('#pop').innerHTML=[['img','사진 보관함'],['cam','카메라'],['file','파일'],['mic','음성으로 말하기']].map(([i,t])=>`<button data-p="${t}">${ic(i)}${t}</button>`).join('');
@@ -67,5 +67,5 @@ document.addEventListener('click',e=>{if(!e.target.closest('#bPlus,#pop'))$('#po
 $('#seg').onclick=e=>{const b=e.target.closest('button');if(b)theme(b.dataset.t)};
 document.querySelectorAll('[data-sw]').forEach(b=>b.onclick=()=>{const k=b.dataset.sw;S[k]=!S[k];$('#sw-'+k).classList.toggle('on',S[k])});
 $('#clearAll').onclick=()=>{S.convs=[];S.cur=null;ST();render();toast('모든 대화를 삭제했어요')};
-theme(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+theme('light');
 render();grow();

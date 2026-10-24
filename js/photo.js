@@ -16,6 +16,7 @@
     photos.push({src:make(i),video:i===4?"0:01":"",time:"오후 "+(h>12?h-12:h)+":"+(m<10?"0":"")+m});
   }
   photos[0].time="오후 12:43";
+  document.getElementById("cnt").textContent=photos.length.toLocaleString("ko-KR")+"개의 항목";
   var grid=document.getElementById("grid"),strip=document.getElementById("strip"),big=document.getElementById("big"),
       stage=document.getElementById("stage"),lib=document.getElementById("lib"),det=document.getElementById("det"),
       dtime=document.getElementById("dtime"),cur=0;
