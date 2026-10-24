@@ -94,7 +94,7 @@ const ccount=id=>comments(id).length;
 let view='home',prev='home',tab='discover',st='all',cur=null;
 const avatar=(a,sz)=>`<div class="av" style="background:${AU[a].c};${sz?`width:${sz}px;height:${sz}px`:''}">${AU[a].n[0]}</div>`;
 function actions(p){const l=S.like[p.id],b=S.book[p.id],r=S.rep[p.id];
-return `<div class="act"><button data-act="like" data-id="${p.id}" class="${l?'red':''}">${ic('heart',26,l)}${cnt(p,'likes')}</button><button data-act="cm" data-id="${p.id}">${ic('cmt',26)}${ccount(p.id)}</button><button data-act="rep" data-id="${p.id}" style="${r?'color:#0a84ff':''}">${ic('rep',26)}${cnt(p,'rep')}</button><span class="sp"></span><button data-act="book" data-id="${p.id}">${ic('book',26,b)}</button><button data-act="share">${ic('share',26)}</button></div>`}
+return `<div class="act"><button data-act="like" data-id="${p.id}" class="${l?'red':''}">${ic('heart',26,l)}${cnt(p,'likes')}</button><button data-act="cm" data-id="${p.id}">${ic('cmt',26)}${ccount(p.id)}</button><span class="sp"></span><button data-act="book" data-id="${p.id}">${ic('book',26,b)}</button><button data-act="share">${ic('share',26)}</button></div>`}
 function card(p,mode){const sub=S.sub[p.au];
 const cs=comments(p.id);
 return `<article class="post"><div class="ph">${avatar(p.au)}<div class="who"><b>${AU[p.au].n}</b><span>${p.time} · ${p.type}</span></div><button class="subbtn ${sub?'on':''}" data-act="sub" data-au="${p.au}">${sub?'구독중':'구독'}</button><button data-act="more" data-id="${p.id}">${ic('more',26)}</button></div>
@@ -125,7 +125,7 @@ $('#dbody').innerHTML=`<div style="color:var(--sub);font-size:15px;margin-top:22
 ${cs.slice(0,1).map(c=>`<div class="cr"><div class="av" style="background:#c9ccd1;width:44px;height:44px"></div><span>${esc(c.x)}</span></div>`).join('')}
 <div class="cr" data-act="cm" data-id="${p.id}"><div class="av" style="background:#c9ccd1;width:44px;height:44px"></div><span style="color:var(--sub)">작가에게 힘이 되는 한마디 남기기...</span></div></div>`;
 const l=S.like[p.id],b=S.book[p.id],r=S.rep[p.id];
-$('#pill').innerHTML=`<button data-act="open" data-id="${pv?pv.id:''}" style="opacity:${pv?1:.3}">${ic('back',22)}</button><button data-act="like" data-id="${p.id}" class="${l?'red':''}" style="${l?'color:#f33':''}">${ic('heart',26,l)}${cnt(p,'likes')}</button><button data-act="cm" data-id="${p.id}">${ic('cmt',26)}${ccount(p.id)}</button><button data-act="rep" data-id="${p.id}" style="${r?'color:#0a84ff':''}">${ic('rep',26)}</button><button data-act="book" data-id="${p.id}">${ic('book',26,b)}</button><button data-act="open" data-id="${p.id}" style="opacity:0;pointer-events:none">${ic('list',26)}</button><button data-act="open" data-id="${nx?nx.id:''}" style="opacity:${nx?1:.3}">${ic('right',22)}</button>`;}
+$('#pill').innerHTML=`<button data-act="open" data-id="${pv?pv.id:''}" style="opacity:${pv?1:.3}">${ic('back',22)}</button><button data-act="like" data-id="${p.id}" class="${l?'red':''}" style="${l?'color:#f33':''}">${ic('heart',26,l)}${cnt(p,'likes')}</button><button data-act="cm" data-id="${p.id}">${ic('cmt',26)}${ccount(p.id)}</button><button data-act="book" data-id="${p.id}">${ic('book',26,b)}</button><button data-act="open" data-id="${p.id}" style="opacity:0;pointer-events:none">${ic('list',26)}</button><button data-act="open" data-id="${nx?nx.id:''}" style="opacity:${nx?1:.3}">${ic('right',22)}</button>`;}
 function renderNav(){const it=[['home','홈','home',1],['req','리퀘스트','req',0],['search','검색','search',1],['box','보관함','box',0],['me','마이메뉴','me',0]];
 $('#nav').innerHTML=it.map(([k,l,i,en])=>`<button class="${en?(view===k||(k==='home'&&view==='detail'&&prev==='home')||(k==='search'&&view==='detail'&&prev==='search')?'on':''):'dis'}" ${en?`data-nav="${k}"`:'tabindex="-1" aria-disabled="true"'}>${ic(i,26)}${l}</button>`).join('')}
 function show(v){view=v;document.querySelectorAll('.view').forEach(e=>e.classList.remove('on'));$('#v-'+v).classList.add('on');$('#nav').style.display=v==='detail'?'none':'flex';renderNav()}
@@ -138,17 +138,18 @@ function renderCm(){const id=sheetCm;let cs=comments(id).slice();if(sort==='최�
 const keep=$('#cl')?$('#cl').scrollTop:0;
 openSheet(`<div class="grab"></div><div class="sh">댓글 ${cs.length}</div><div style="padding:12px 16px 0;font-size:15px"><button data-act="sort">${sort} ${ic('chev',14)}</button></div>
 <div id="cl" style="flex:1;overflow-y:auto;min-height:0">${cs.map(c=>`<div class="cm"><div class="av" style="background:#c9ccd1;width:44px;height:44px"></div><div class="in"><b>${esc(c.n)}</b><time>${c.t}</time><p>${esc(c.x)}</p><div class="row"><button data-act="cl" data-cid="${c.id}" style="display:flex;gap:6px;align-items:center;${S.clk[id+c.id]?'color:#f33':''}">${ic('heart',24,S.clk[id+c.id])}${c.l+(S.clk[id+c.id]?1:0)}</button>${c.h?'<span style="color:#f33">♥ 작가</span>':''}<button data-act="rp" data-cid="${c.id}" style="font-size:16px">답글 쓰기</button><span style="flex:1"></span><button data-act="share">${ic('share',22)}</button><button data-act="cmore" data-cid="${c.id}">${ic('more',22)}</button></div>${(c.r||[]).map(r=>`<div class="reply"><b>${esc(r.n)}</b> ${esc(r.x)}</div>`).join('')}</div></div>`).join('')}</div>
-<div class="react">${['🥹','🥰','😂','🙏','🥲','🙇','🤩'].map(e=>`<button data-act="emo" data-e="${e}">${e}</button>`).join('')}</div>
 <div class="cin"><input id="ci" placeholder="${replyTo?'답글 남기기':'힘이 되는 한마디 남기기'}" value="${esc(window._cv||'')}"><button data-act="send">등록</button></div>`,1);
 if($('#cl'))$('#cl').scrollTop=keep}
 function menu(items){openSheet(`<div class="grab"></div>`+items.map(([l,a,d])=>`<button class="opt" data-act="${a}" ${d?`data-id="${d}"`:''}>${l}</button>`).join('')+'<div style="height:calc(12px + env(safe-area-inset-bottom,0px))"></div>')}
 let toastT;function toast(m){let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;z-index:50;display:none';document.body.appendChild(t)}t.textContent=m;t.style.display='block';clearTimeout(toastT);toastT=setTimeout(()=>t.style.display='none',1400)}
+const isDead=i=>+i>=1118&&+i<=1126;
 document.addEventListener('click',e=>{
 const nv=e.target.closest('[data-nav]');if(nv){const k=nv.dataset.nav;go(k==='home'?'home':'search');return}
 const tb=e.target.closest('[data-tab]');if(tb){tab=tb.dataset.tab;document.querySelectorAll('#hometabs button').forEach(b=>b.classList.toggle('on',b===tb));renderFeed();return}
 const sb=e.target.closest('[data-st]');if(sb){st=sb.dataset.st;document.querySelectorAll('#stabs button').forEach(b=>b.classList.toggle('on',b===sb));renderSearch();return}
 if(e.target.id==='dim'){closeSheet();return}
 const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act,id=a.dataset.id,cid=a.dataset.cid;
+if(id&&isDead(id))return;
 if(act==='back'){if(view==='detail')show(prev);else show('home');refresh();return}
 if(act==='open'){if(!id)return;cur=+id;if(view!=='detail')prev=view;show('detail');renderDetail();$('#dbody').scrollTop=0;return}
 if(act==='sub'){const k=a.dataset.au;S.sub[k]=!S.sub[k];save();refresh();return}
@@ -168,7 +169,6 @@ if(act==='clear'){$('#q').value='';renderSearch();$('#q').focus();return}
 if(act==='sort'){const keepId=sheetCm;sort=sort==='인기순'?'최신순':'인기순';sheetCm=keepId;renderCm();return}
 if(act==='cl'){const k=sheetCm+cid;S.clk[k]=!S.clk[k];save();window._cv=$('#ci').value;renderCm();return}
 if(act==='rp'){replyTo=cid;$('#ci').placeholder='답글 남기기';$('#ci').focus();return}
-if(act==='emo'){$('#ci').value+=a.dataset.e;$('#ci').focus();return}
 if(act==='cmore'){toast('신고/차단 메뉴는 시뮬레이션에서 지원하지 않아요');return}
 if(act==='send'){const v=$('#ci').value.trim();if(!v)return;const id2=sheetCm;S.cm[id2]=S.cm[id2]||[];
 if(replyTo){const t=comments(id2).find(c=>c.id===replyTo);if(t&&t.id[0]==='u'){t.r.push({n:'나',x:v});}else{S.cm[id2].push({id:'u'+Date.now(),n:'나',t:'방금 전',x:'↳ '+v,l:0,h:0,r:[]})}}
