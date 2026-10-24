@@ -126,10 +126,13 @@ document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
   frame.classList.remove('app-leaving','app-entering');
   delete frame.dataset.selfpad;frame.style.display='block';
   sizeAppFrame();
+  frame.style.visibility='hidden';
   frame.src=a.getAttribute('href');
   void frame.offsetWidth;
   frame.classList.add('app-entering');
 }));
+frame.addEventListener('load',()=>{if(frame.getAttribute('src')&&frame.getAttribute('src')!=='about:blank')frame.style.visibility='';});
+window.addEventListener('load',()=>{document.querySelectorAll('a[href^="apps/"]').forEach(a=>{const l=document.createElement('link');l.rel='prefetch';l.href=a.getAttribute('href');document.head.appendChild(l);});});
 function syncStatusBar(){
   const status=document.querySelector('.status');
   try{
