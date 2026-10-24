@@ -119,7 +119,7 @@ const cm=()=>{const c=$('#cm');if(c)c.scrollTop=c.scrollHeight};
 function send(){const el=$('#ci');if(!el)return;const x=el.value.trim(),b=$('#inp'),t=b._t;if(!x)return;t.msgs.push(X('m',x,Date.now()));t.status='전송됨';TH.splice(TH.indexOf(t),1);TH.unshift(t);el.value='';b.classList.remove('ty');$('#cm .msgs').innerHTML=msgsHTML(t);cm();const RE=['ㅋㅋㅋ 진짜?','오 좋다','나중에 얘기하자!','헐 대박','알겠어~'];setTimeout(()=>{t.status='읽음';setTimeout(()=>{t.msgs.push(X('t',RE[Math.floor(Math.random()*5)],Date.now()));const b2=$('#inp');if(b2&&b2._t===t){$('#cm .msgs').innerHTML=msgsHTML(t);cm()}},1300)},700)}
 /* ---------- story viewer ---------- */
 let sv=null;
-function openStory(u){const order=Object.keys(S);sv={order,ui:order.indexOf(u),si:0,p:0,pause:false,last:performance.now()};const el=document.createElement('div');el.id='sv';$('#app').appendChild(el);sv.el=el;
+function openStory(u){const order=Object.keys(S);sv={order,ui:order.indexOf(u),si:0,p:0,pause:false,last:performance.now()};const el=document.createElement('div');el.id='sv';$('#app').appendChild(el);sv.el=el;storyBar(true);
 el.onpointerdown=e=>{sv.pause=true;sv.t0=performance.now();sv.x0=e.clientX};
 el.onpointerup=e=>{sv.pause=false;sv.last=performance.now();const dx=e.clientX-sv.x0,dt=performance.now()-sv.t0;if(Math.abs(dx)>60)dx<0?nextU():prevU();else if(dt<250){e.clientX<el.clientWidth*.35?prevS():nextS()}};
 el.onpointercancel=()=>{sv.pause=false};drawS();sv.raf=requestAnimationFrame(tick)}
@@ -130,7 +130,8 @@ function nextS(){const n=S[sv.order[sv.ui]].length;if(sv.si+1<n){sv.si++;drawS()
 function prevS(){if(sv.si>0)sv.si--;else if(sv.ui>0){sv.ui--;sv.si=0}else sv.si=0;drawS()}
 function nextU(){if(sv.ui+1>=sv.order.length)return closeS();sv.ui++;sv.si=0;drawS()}
 function prevU(){if(sv.ui>0)sv.ui--;sv.si=0;drawS()}
-function closeS(){if(!sv)return;cancelAnimationFrame(sv.raf);sv.el.remove();sv=null;renderHome();if(cur=='dm')renderDM();stack.forEach(s=>{});}
+function storyBar(on){const b=document.querySelector('.sys-bar'),a=document.getElementById('app');if(!b||!a)return;if(on){b.classList.add('sys-overlay','sys-dark');b.style.background='transparent';a.style.top='0px';}else{b.classList.remove('sys-overlay','sys-dark');b.style.background='';a.style.top=b.offsetHeight+'px';}}
+function closeS(){if(!sv)return;cancelAnimationFrame(sv.raf);sv.el.remove();sv=null;storyBar(false);renderHome();if(cur=='dm')renderDM();stack.forEach(s=>{});}
 /* ---------- comments ---------- */
 const CM={},CN=['너무 예뻐요','분위기 미쳤다','여기 어디예요?','오늘도 잘 봤어요','색감 최고','저장하고 갑니다','이런 사진 좋아요'];
 const cmts=p=>CM[p.id]||(CM[p.id]=Array.from({length:6},(_,i)=>({u:Object.keys(U).filter(x=>x!='me')[(p.seed+i)%8],x:CN[(p.seed+i*2)%7],h:i*5+1,l:i*3,k:0})));
