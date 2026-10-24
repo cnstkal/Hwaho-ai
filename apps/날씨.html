@@ -31,7 +31,7 @@ svg{display:block}button,input{letter-spacing:inherit}button{font:inherit;color:
 .ic svg{margin:auto}.ic em{position:absolute;left:-4px;right:-4px;bottom:-5px;text-align:center;font-style:normal;font-size:13px;font-weight:600;color:var(--ac)}
 .rg{display:grid;grid-template-columns:36px 1fr 38px;gap:8px;align-items:center;font-variant-numeric:tabular-nums}.rg .lo{color:var(--sub);text-align:right}.rg .hi{text-align:right;font-weight:500}
 .tr{position:relative;height:5px;border-radius:3px;background:rgba(0,0,0,.28)}.tr u{position:absolute;top:0;bottom:0;border-radius:3px}.tr s{position:absolute;top:-0;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 0 1.5px rgba(30,40,70,.9);margin-left:-2.5px}
-.bar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:12px 18px calc(env(safe-area-inset-bottom,0px) + 14px);background:linear-gradient(transparent,rgba(15,20,40,.75) 35%);}
+.bar{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:12px 18px calc(env(safe-area-inset-bottom,0px) + 14px);background:none;}
 .rb{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:rgba(14,18,34,.82);border:1px solid var(--ln);backdrop-filter:blur(18px)}
 .cap{height:56px;padding:0 24px;border-radius:28px;display:flex;align-items:center;gap:14px;background:rgba(14,18,34,.82);border:1px solid var(--ln);backdrop-filter:blur(18px)}
 .cap i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.28);padding:0;border:0}.cap i.on{background:#fff}
@@ -93,7 +93,7 @@ const tc=t=>t<=8?'#6fd0e4':t<=14?'#8fd8b8':t<=19?'#d6dc7a':t<=23?'#f3c64d':'#f59
 function sky(n,c,h,nm){let s=['<svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">'],r=R(h+7);
 if(n){for(let i=0;i<110;i++){const x=r()*400,y=r()*800,z=.4+r()*1.2,o=.25+r()*.75;s.push(`<circle cx="${x|0}" cy="${y|0}" r="${z.toFixed(1)}" fill="#fff" opacity="${o.toFixed(2)}"/>`);if(z>1.2)s.push(`<circle cx="${x|0}" cy="${y|0}" r="${(z*2.6).toFixed(1)}" fill="#cfe0ff" opacity=".35" filter="url(#gl)"/>`)}
 if(c!='cloud'&&c!='rain'&&!nm)s.push(`<g transform="translate(36 40) scale(1.25)"><circle cx="40" cy="40" r="46" fill="#aab8e8" opacity=".18" filter="url(#gm)"/><circle cx="40" cy="40" r="32" fill="url(#mg)"/><g clip-path="url(#mc)"><g fill="#6c7388" opacity=".42"><circle cx="30" cy="30" r="7"/><circle cx="50" cy="26" r="4.5"/><circle cx="46" cy="48" r="9"/><circle cx="26" cy="52" r="5"/><circle cx="58" cy="40" r="3.5"/></g><circle cx="58" cy="52" r="34" fill="#0d1226" opacity=".35"/></g></g>`)}
-else{s.push('<circle cx="320" cy="90" r="44" fill="#fff" opacity=".4" filter="url(#gm)"/>');if(c=='clear')s.push('<circle cx="320" cy="90" r="22" fill="#fff8d0"/>')}
+
 if(c!='clear'){for(let i=0;i<5;i++)s.push(`<ellipse cx="${r()*400|0}" cy="${60+r()*300|0}" rx="${90+r()*70|0}" ry="${20+r()*14|0}" fill="${n?'#8a93b0':'#fff'}" opacity="${n?.14:.3}" filter="url(#gm)"/>`)}
 return s.join('')+'</svg>'}
 function toggleBtns(){const b=[['c','cloud'],['r','drop'],['w','wind']];return `<div class="sg">${b.map((x,i)=>(i?'<i></i>':'')+`<button data-a="m" data-v="${x[0]}" class="${S.m==x[0]?'on':''}">${U(P[x[1]],22)}</button>`).join('')}</div>`}
