@@ -81,4 +81,5 @@ button:active,[data-act]:active{opacity:.6}.nav button:active{transform:scale(.9
 @media (min-width:600px){#app{left:50%;right:auto;width:min(100vw,56.25vh);transform:translateX(-50%)}}
 
 
-#app>.sc{padding-top:54px!important}
+
+.sys-bar:not(.sys-overlay){background:#fff!important}
