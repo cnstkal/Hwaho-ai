@@ -10,9 +10,9 @@ html,body{height:100%;overflow:hidden;background:#fff;font-family:-apple-system,
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 svg{display:block}
 #app{position:absolute;transform-origin:0 0;overflow:hidden;background:#fff}
-.scr{position:absolute;inset:0;display:none;flex-direction:column;padding-top:54px;overflow-y:auto;scrollbar-width:none;padding-bottom:84px}
-.scr::-webkit-scrollbar{display:none}
-.scr>.tabs{position:absolute;left:0;right:0;bottom:0}
+.scr{position:absolute;inset:0;display:none;flex-direction:column;padding-top:54px}
+.wrap{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none}
+.wrap::-webkit-scrollbar{display:none}
 .scr.on{display:flex}
 /* status */
 #sb{display:none}
@@ -124,19 +124,23 @@ svg{display:block}
   </div>
 
   <section class="scr on" id="list">
+<div class="wrap">
     <div class="lh"><div id="me"></div><span class="nm">소윤</span>
       <button data-i="search"></button><button data-i="addf"></button><button data-i="gear"></button></div>
     <div class="pills"><button class="pill k">친구</button><button class="pill">소식</button></div>
     <div class="sc" id="lsc"></div>
+</div>
     <div class="tabs" data-tabs="0"></div>
   </section>
 
 
   <section class="scr" id="chatlist">
+<div class="wrap">
     <div class="lh"><span class="nm" style="margin:0;font-size:24px">채팅</span>
       <button data-i="search"></button><button data-i="newc"></button><button data-i="gear"></button></div>
     <div class="pills" id="clp"></div>
     <div class="sc" id="clsc"></div>
+</div>
     <div class="tabs" data-tabs="1"></div>
   </section>
 
