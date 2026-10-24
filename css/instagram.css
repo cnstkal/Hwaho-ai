@@ -61,7 +61,7 @@ html,body{background:#f2f2f4}#app{position:fixed;top:0;bottom:0;left:0;right:0;o
 .nav.h{display:none}.nav button{flex:1;border-radius:26px;display:grid;place-items:center}.nav button.on{background:rgba(0,0,0,.09)}
 #sv{position:absolute;inset:0;background:#000;z-index:100;color:#fff;touch-action:none}
 #sv .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#sv .top{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,0px) + 60px) 10px 40px;background:linear-gradient(rgba(0,0,0,.5),transparent)}
+#sv .top{position:absolute;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,0px) + 40px) 10px 40px;background:linear-gradient(rgba(0,0,0,.5),transparent)}
 .bars{display:flex;gap:3px}.bars i{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.4);overflow:hidden}.bars b{display:block;height:100%;background:#fff;width:0}
 .sh{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:14px}.sh .sp{flex:1}.sh em{font-style:normal;opacity:.7}
 .stxt{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);background:rgba(255,255,255,.92);color:#000;padding:10px 18px;border-radius:12px;font-size:20px;font-weight:700;max-width:80%;text-align:center}
@@ -79,3 +79,5 @@ button:active,[data-act]:active{opacity:.6}.nav button:active{transform:scale(.9
 .qe{display:flex;justify-content:space-between;padding:10px 16px;border-top:1px solid #eee;font-size:26px}
 .cin{display:flex;align-items:center;gap:10px;padding:4px 12px calc(env(safe-area-inset-bottom,0px) + 30px)}.cin div{flex:1;height:44px;border:1px solid #dbdbdb;border-radius:22px;display:flex;align-items:center;padding:0 6px 0 16px}.cin input{flex:1;border:0;outline:0;font-size:16px;min-width:0;user-select:text}.cin button{color:#5b51f0;font-weight:600;padding:0 10px;opacity:.4}.cin.ty button{opacity:1}
 @media (min-width:600px){#app{left:50%;right:auto;width:min(100vw,56.25vh);transform:translateX(-50%)}}
+
+#app{top:0!important}
