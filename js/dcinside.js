@@ -26,7 +26,7 @@ const c=[{id:1,pid:1,pr:null,n:'치요치요',fx:1,t:'그초 저는 그래서 �
 {id:4,pid:1,pr:1,n:'에리피요',fx:1,t:'@치요치요\n'+IMG,d:'08.01 21:06'}];
 return{posts:p,cmts:c,visited:[],votes:{},nid:17,cid:5,me:'최갤러'}}
 let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}if(!S)S=seed();
-const randIp=()=>`${10+Math.floor(Math.random()*240)}.${Math.floor(Math.random()*256)}.${Math.floor(Math.random()*256)}.${Math.floor(Math.random()*256)}`;
+const randIp=()=>`${10+Math.floor(Math.random()*90)}.${100+Math.floor(Math.random()*900)}`;
 S.posts.forEach(p=>{p.w='ㅇㅇ';p.ip=p.ip||randIp();p.v=Math.min(100,Math.max(0,Number(p.v)||0));p.img='';p.ty='t';});
 S.cmts.forEach(c=>{c.n='ㅇㅇ';c.ip=c.ip||randIp();c.fx=0;});
 if(!S.dm){S.dm=1;let i=100;const T=[['치요치요','여기는 콜라보 진짜 자주 하네','10.18 20:24'],['에리피요','ㄹㅇ 굿즈도 괜찮음','10.18 20:45'],['치요치요','https://youtu.be/yrgOHMuy0U0?si=TlHzFEFdujQQkAzf\n저도 이거 보고 왔음 ㅇㅅㅇ','10.18 21:05'],['에리피요','@치요치요\n'+IMG,'10.18 21:06']];
@@ -57,7 +57,7 @@ const go=h=>{location.hash=h};
 const cnt=id=>S.cmts.filter(c=>c.pid==id).length;
 function head(){return`<div class="nv"><div class="hd"><div class="logo">dc</div><div class="sb"><span class="mn">${I('menu')}</span><input id="q" placeholder="갤러리 & 통합검색" value="${esc(Q.q)}"><span class="sg" id="sgo">${I('search')}</span><span class="rc">최근 방문</span></div></div>
 <div class="mnu"><a>갤러리</a><a class="on">마이너갤</a><a>미니갤</a><a>인물갤</a><a>갤로그</a><a>이벤트</a></div></div>
-<div class="gt"><h1>${GAL} <small>(${S.posts.length.toLocaleString()})</small></h1><span class="lk">${I('info')} 설정 연관</span><button class="wb" data-go="#/w">글쓰기</button></div>`}
+<div class="gt"><h1 data-go="#/" style="cursor:pointer">${GAL} <small>(${S.posts.length.toLocaleString()})</small></h1><span class="lk">${I('info')} 설정 연관</span><button class="wb" data-go="#/w">글쓰기</button></div>`}
 function bindHead(){const q=$('#q');if(!q)return;q.onkeydown=e=>{if(e.key==='Enter')doS()};$('#sgo').onclick=doS;
 function doS(){Q.q=q.value.trim();Q.tab='all';Q.head='전체';go('#/');render()}
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go))}
