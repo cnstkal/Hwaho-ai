@@ -43,11 +43,11 @@ return AC[k]=uri(s+`<rect width="${w}" height="${h}" fill="url(#v)"/><rect width
 const AV={};function av(seed){return AV[seed]||(AV[seed]=(()=>{const p=PAL[seed%8];return uri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="${p[0]}"/><circle cx="50" cy="40" r="18" fill="${p[2]}"/><ellipse cx="50" cy="96" rx="34" ry="28" fill="${p[2]}"/><circle cx="85" cy="12" r="22" fill="${p[1]}" opacity=".6"/></svg>`)})())}
 /* ---------- data ---------- */
 const H=36e5,NOW=Date.now();
-const U={me:{id:'mellow_day',name:'김하늘',bio:'일상 기록 · 커피 · 산책\nmellow.day/hello',a:3,fo:312,fi:285},
-u1:{id:'luna.moon',name:'루나',v:1,a:11,bio:'밤하늘 수집가',fo:128400,fi:210},u2:{id:'cafe_nuri',name:'카페 누리',a:22,bio:'매일 굽는 작은 카페\n연남동 · 10:00-20:00',fo:5320,fi:48},
-u3:{id:'min.trip',name:'민트립',a:35,bio:'주말 여행 기록',fo:18700,fi:402},u4:{id:'haru_studio',name:'하루 스튜디오',v:1,a:46,bio:'Design & Photo studio',fo:250300,fi:19},
-u5:{id:'sora.kim',name:'소라',a:57,bio:'그림 그리는 사람',fo:2140,fi:530},u6:{id:'bread_hour',name:'빵시간',a:68,bio:'오후 세 시, 갓 구운 빵',fo:9870,fi:77},
-u7:{id:'jiho.run',name:'지호',a:79,bio:'매일 5km',fo:640,fi:312},u8:{id:'pixel_dawn',name:'픽셀새벽',a:90,bio:'도트 아트',fo:3300,fi:150}};
+const U={me:{id:'_starhwa_',name:'SEONGHWA',bio:'星化 from ATEEZ',a:3,fo:7,fi:7},
+u1:{id:'no1likeme8_8',name:'홍중 (HONGJOONG)',a:11,bio:'Captain of ATEEZ',fo:1,fi:1},u2:{id:'ateez_offcial',name:'ATEEZ(에이티즈)',a:22,bio:'ATEEZ(에이티즈) Official Instagram',fo:1,fi:1},
+u3:{id:'choi3an',name:'산 (SAN)',a:35,bio:'SAN from ATEEZ',fo:1,fi:1},u4:{id:'wooyounggg__',name:'우영 (WOOYOUNG)',a:46,bio:"(ATEEZ)\nThat's a W",fo:1,fi:1},
+u5:{id:'fixon_n_on',name:'민기 (MINGI)',a:57,bio:'@ateez_official_',fo:1,fi:1},u6:{id:'imfinalho_',name:'JONGHO',a:68,bio:'ATEEZ',fo:1,fi:1},
+u7:{id:'im_ovation',name:'여상 (YEOSANG)',a:79,bio:'YEOSANG from ATEEZ',fo:1,fi:1},u8:{id:'yunou._.u',name:'윤호',v:1,a:90,bio:'',fo:1060000,fi:1}};
 const CAP=['오늘 하늘이 너무 예뻐서 한참 올려다봤다','주말엔 역시 느긋하게','새 메뉴 먹어보고 왔어요','이번 달 기록, 천천히 넘겨보세요','퇴근길 노을 맛집 발견','아무 계획 없는 하루가 제일 좋다','작업실 한 켠','산책하다 만난 풍경'];
 const MUS=['잔잔한 오후 · 새벽라디오','Blue Hour · Nova','여름밤 · 도담'];
 const PO=[],PM={};
