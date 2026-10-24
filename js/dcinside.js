@@ -26,7 +26,8 @@ const c=[{id:1,pid:1,pr:null,n:'치요치요',fx:1,t:'그초 저는 그래서 �
 {id:4,pid:1,pr:1,n:'에리피요',fx:1,t:'@치요치요\n'+IMG,d:'08.01 21:06'}];
 return{posts:p,cmts:c,visited:[],votes:{},nid:17,cid:5,me:'최갤러'}}
 let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}if(!S)S=seed();
-const randIp=()=>`${10+Math.floor(Math.random()*90)}.${100+Math.floor(Math.random()*900)}`;
+const ipPart=()=>{const l=Math.random()<.5?2:3;return String(l===2?10+Math.floor(Math.random()*90):100+Math.floor(Math.random()*900));};
+const randIp=()=>`${ipPart()}.${ipPart()}`;
 S.posts.forEach(p=>{p.w='ㅇㅇ';p.ip=p.ip||randIp();p.v=Math.min(100,Math.max(0,Number(p.v)||0));p.img='';p.ty='t';});
 S.cmts.forEach(c=>{c.n='ㅇㅇ';c.ip=c.ip||randIp();c.fx=0;});
 if(!S.dm){S.dm=1;let i=100;const T=[['치요치요','여기는 콜라보 진짜 자주 하네','10.18 20:24'],['에리피요','ㄹㅇ 굿즈도 괜찮음','10.18 20:45'],['치요치요','https://youtu.be/yrgOHMuy0U0?si=TlHzFEFdujQQkAzf\n저도 이거 보고 왔음 ㅇㅅㅇ','10.18 21:05'],['에리피요','@치요치요\n'+IMG,'10.18 21:06']];
