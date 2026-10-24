@@ -102,7 +102,7 @@ svg{display:block}
 .who{font-size:13px;color:#33424f;margin:0 0 5px 2px}
 .imgm{border-radius:14px;overflow:hidden;width:200px;height:150px}
 .stk{width:110px;height:110px}
-.inp{flex:none;margin:6px 14px 6px;height:52px;border-radius:26px;background:#fff;display:flex;align-items:center;padding:0 8px}
+.inp{flex:none;margin:6px 14px 24px;height:52px;border-radius:26px;background:#fff;display:flex;align-items:center;padding:0 8px}
 .inp input{flex:1;border:0;outline:0;font:inherit;font-size:16px;padding:0 8px;min-width:0;background:none}
 .inp input::placeholder{color:#aaa}
 .ib{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
@@ -361,7 +361,7 @@ document.querySelector('#chat .inp #rgt').innerHTML=IC.hash;
 function clock(){const d=new Date();$('#clock').textContent=d.getHours()%12||12+':'+String(d.getMinutes()).padStart(2,'0');$('#clock').textContent=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0')}
 clock();setInterval(clock,20000);
 const app=$('#app');
-function fit(){const W=393,iw=innerWidth,ih=innerHeight;let s,H,l=0,t=0;
+function fit(){const W=420,iw=innerWidth,ih=innerHeight;let s,H,l=0,t=0;
   if(iw<=500){s=iw/W;H=ih/s}else{H=W*16/9;s=Math.min(iw/W,ih/H);l=(iw-W*s)/2;t=(ih-H*s)/2}
   app.style.cssText=`width:${W}px;height:${H}px;transform:scale(${s});left:${l}px;top:${t}px`}
 fit();addEventListener('resize',fit);
