@@ -54,7 +54,7 @@
     const bar = document.createElement("div");
     bar.className = "sys-bar";
     bar.setAttribute("aria-hidden", "true");
-    bar.innerHTML = '<span class="sb-t"></span><span class="signals"><svg viewBox="0 0 20 14" fill="none"><path d="M1 4.6C6 -.2 14 -.2 19 4.6M4 8c3.5-3.2 8.5-3.2 12 0M7.5 11.3c1.5-1.3 3.5-1.3 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg viewBox="0 0 28 14" fill="none"><rect x="1" y="1" width="23" height="12" rx="3.5" stroke="currentColor" stroke-opacity=".4" stroke-width="1"/><rect id="battery-fill" x="2.5" y="2.5" width="15" height="9" rx="2.2" fill="currentColor"/><path d="M26 5v4" stroke="currentColor" stroke-opacity=".4" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
+    bar.innerHTML = '<span class="sb-t"></span><span class="signals"><svg viewBox="0 0 20 14" fill="none"><path d="M1 4.6C6 -.2 14 -.2 19 4.6M4 8c3.5-3.2 8.5-3.2 12 0M7.5 11.3c1.5-1.3 3.5-1.3 5 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="12.6" r="1.4" fill="currentColor"/></svg><svg viewBox="0 0 28 14" fill="none"><rect x="1" y="1" width="23" height="12" rx="3.5" stroke="currentColor" stroke-opacity=".4" stroke-width="1"/><rect id="battery-fill" x="2.5" y="2.5" width="15" height="9" rx="2.2" fill="currentColor"/><path d="M26 5v4" stroke="currentColor" stroke-opacity=".4" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
     // 앱이 스스로 상단 여백을 잡는 경우(data-selfpad)에는 그 자리에 겹쳐 올리고, 아니면 본문 맨 위에 끼워 넣습니다.
     const bodyDisplay = getComputedStyle(document.body).display;
     // 본문이 flex/grid 레이아웃이면 끼워 넣으면 배치가 깨지므로 겹쳐 올립니다.
