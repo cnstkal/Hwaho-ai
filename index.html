@@ -145,7 +145,7 @@ document.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
   frame.classList.add('app-entering');
 }));
 appFrame.addEventListener('load',()=>{if(appFrame.getAttribute('src')&&appFrame.getAttribute('src')!=='about:blank')appFrame.style.visibility='';});
-window.addEventListener('load',()=>{['apps/Memo.html','apps/날씨.html','apps/Kakaotalk.html'].forEach(h=>{const f=document.createElement('iframe');f.title='앱';f.src=h;f.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;z-index:4;visibility:hidden;pointer-events:none';phone.appendChild(f);POOL[h]=f;});})
+window.addEventListener('load',()=>{['apps/Memo.html','apps/날씨.html','apps/Kakaotalk.html','apps/Photo.html','apps/Calendar.html','apps/Settings.html'].forEach(h=>{const f=document.createElement('iframe');f.title='앱';f.src=h;f.style.cssText='display:block;position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;z-index:4;visibility:hidden;pointer-events:none';phone.appendChild(f);POOL[h]=f;});})
 window.addEventListener('load',()=>{document.querySelectorAll('a[href^="apps/"]').forEach(a=>{const l=document.createElement('link');l.rel='prefetch';l.href=a.getAttribute('href');document.head.appendChild(l);});});
 function syncStatusBar(){
   const status=document.querySelector('.status');
